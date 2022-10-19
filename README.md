@@ -61,14 +61,6 @@ Enemigos
 1. [Aspectos generales](#aspectosgenerales)
     1.  [Relato breve](#relatobreve)
 2. [Mecánica](#mecanica)
-3. [Controles](#controles)
-4. [Dinámica](#dinamica)
-5. [Estética](#estetica)
-6. [Contenido](#contenido)
-7. [UI](#ui)
-8. [UML](#uml)
-9. [Plataformas de gestión y comunicación](#comunicacion)
-12. [Referencias y contexto cultural](#referencias)
 
 
 ## 1. Aspectos generales <a name="aspectosgenerales"></a>
@@ -151,21 +143,15 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
 
 ### **Personajes y enemigos**
 
-| |      |
+| Enemigos |      |
 |----------------|--------------|
-| <img src="images_gdd/6.PNG">        | **Pájaros:** los pájaros volarán por la parte superior de la pantalla, desplazándose de manera constante hacia la izquierda, y tirarán mierda cada 2 segundos en vertical hacia abajo, haciendo 1 punto de daño si esta colisiona con La Mano. En caso de chocar con esta le restarán 1 punto de vida. Se encuentran parados hasta que el jugador se encuentra a 20 casillas de distancia (?).
- |
+| <img src="images_gdd/6.PNG">        | **Pájaros:** los pájaros volarán por la parte superior de la pantalla, desplazándose de manera constante hacia la izquierda, y tirarán mierda cada 2 segundos en vertical hacia abajo, haciendo 1 punto de daño si esta colisiona con La Mano. En caso de chocar con esta le restarán 1 punto de vida. Se encuentran parados hasta que el jugador se encuentra a 20 casillas de distancia (?).|
 | <img src="images_gdd/7.PNG">         |**Señoras con carrito de bebé:** se mueven de izquierda a derecha en una zona de 3 casillas. En caso de choque con La Mano restan 2 de vida. |
-| <img src="images_gdd/8.PNG">         |**Botes de pintura:** al caer sobre la mano, esta recibe un 1 punto de daño y se vuelve más lenta momentáneamente, al tocar el suelo se vuelve un charco; si solo es un charco de pintura, la velocidad del jugador se reduce un X%.
-|
-| <img src="images_gdd/9.PNG">         |**Lluvia ácida:** caerá en algunas zonas del nivel, desgastando periódicamente a La Mano, a razón de 1 punto de daño por cada segundo que estés bajo ella.
-|
-| <img src="images_gdd/10.PNG">         |**Perros:** se mueven hacia la derecha soltando algún truño ocasional, haciendo 1 punto de daño si La Mano lo pisa
-|
-| <img src="images_gdd/11.PNG">         |**Borrachos:** se mueven lentamente de izquierda a derecha, con el pirulí fuera creando un arco de pis por delante de ellos, haciendo 2 de daño si este colisiona con La Mano.
-|
-| <img src="images_gdd/12.PNG">         |**Grafiteros:** crean una nube de spray de pintura que dura unos segundos. Si La Mano pasa por ella es aturdida momentáneamente (no puede realizar movimientos ni habilidades) y recibe 1 de daño.
-|
+| <img src="images_gdd/8.PNG">         |**Botes de pintura:** al caer sobre la mano, esta recibe un 1 punto de daño y se vuelve más lenta momentáneamente, al tocar el suelo se vuelve un charco; si solo es un charco de pintura, la velocidad del jugador se reduce un X%.|
+| <img src="images_gdd/9.PNG">         |**Lluvia ácida:** caerá en algunas zonas del nivel, desgastando periódicamente a La Mano, a razón de 1 punto de daño por cada segundo que estés bajo ella.|
+| <img src="images_gdd/10.PNG">         |**Perros:** se mueven hacia la derecha soltando algún truño ocasional, haciendo 1 punto de daño si La Mano lo pisa|
+| <img src="images_gdd/11.PNG">         |**Borrachos:** se mueven lentamente de izquierda a derecha, con el pirulí fuera creando un arco de pis por delante de ellos, haciendo 2 de daño si este colisiona con La Mano.|
+| <img src="images_gdd/12.PNG">         |**Grafiteros:** crean una nube de spray de pintura que dura unos segundos. Si La Mano pasa por ella es aturdida momentáneamente (no puede realizar movimientos ni habilidades) y recibe 1 de daño.|
 
 ## Referencias
 * Contra (NES)
