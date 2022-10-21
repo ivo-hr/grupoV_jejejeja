@@ -1,23 +1,23 @@
 h1 {
-    color: ghostwhite;
+    color: rgb(0, 0, 0);
     text-align: center;
     font-size: 64px;
-    font-family: HelpMe, fantasy;
+    font-family: spectral, fantasy;
     font-weight: 200;
   }
 h2 {
-    color:rgb(190, 190, 190);
+    color:rgb(0, 0, 0);
     text-align:center;
     font-size: 25px;
-    font-family: HelpMe, fantasy;
+    font-family: spectral, fantasy;
     font-style:normal;
     font-weight: 200;
   }
 h3{
-  color:aliceblue;
+  color:rgb(0, 0, 0);
   text-align: center;
   font-size: 25px;
-  font-family: HelpMe, fantasy;
+  font-family: spectral, fantasy;
   font-style: normal;
   font-weight: 200;
 }
@@ -37,7 +37,7 @@ h5{
   }
 
 h6 {
-    color: rgb(255, 255, 255);
+    color: rgb(61, 61, 61);
     text-align:center;
     font-size: 30px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -79,7 +79,7 @@ body::-webkit-scrollbar {
   outline: none;
   text-align: center;
   cursor: pointer;
-  font-family: AssassinNinja, fantasy;
+  font-family: gotisch, fantasy;
 }
 
 /* Change background color of buttons on hover */
@@ -120,11 +120,11 @@ canvas {
 
 /* FONT INCLUSIONS */
 @font-face {
-  font-family: HelpMe;
-  src: url("https://fonts.googleapis.com/css2?family=Tangerine");
+  font-family: spectral;
+  src: url("../assets/fonts/SpectralSC-Bold.ttf");
 }
 
 @font-face {
-  font-family: AssassinNinja;
-  src: url("../../assets/fonts/AssassinNinja-7BYyR.ttf");
+  font-family: gotisch;
+  src: url("../assets/fonts/GrenzeGotisch-VariableFont_wght.ttf");
 }
