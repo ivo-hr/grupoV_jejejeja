@@ -8,7 +8,8 @@ import Level1 from './level1.js';
  * la clase Game de Phaser, encargada de crear e iniciar el juego.
  */
 let config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
+    canvas: document.getElementById("mainCanvas"),
     width:  500,
     height: 300,
     scale: {
