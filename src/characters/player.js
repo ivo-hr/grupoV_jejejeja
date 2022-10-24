@@ -1,5 +1,5 @@
-import Star from './star.js';
-import Bullet from './bullet.js';
+import Star from '../star.js';
+import Bullet from '../bullet.js';
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -32,7 +32,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.scene.anims.create({
       key: 'movingplayer',
-      frames: scene.anims.generateFrameNumbers('player', { start: 0, end: 1 }),
+      frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 3 }),
       frameRate: 7,
       repeat: -1
 
@@ -135,6 +135,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //Con las teclas WASD variable keys //Funciona
     if (this.keys.W.isDown && this.body.onFloor()) {
       this.body.setVelocityY(this.jumpSpeed);
+    }
+    else if (this.keys.S.isDown) {
+      this.body.setVelocityY(-this.jumpSpeed*2/3);
     }
     if (this.keys.A.isDown) {
    

@@ -1,5 +1,5 @@
 import Platform from './platform.js';
-import Player from './player.js';
+import Player from './characters/player.js';
 import Obstacle from './obstacle.js';
 import Ball from './ball.js';
 

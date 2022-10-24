@@ -10,7 +10,7 @@ import Level1 from './level1.js';
 let config = {
     type: Phaser.AUTO,
     width:  500,
-    height: 500,
+    height: 300,
     scale: {
         // mode: Phaser.Scale.FIT,  
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
