@@ -30,9 +30,9 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
     }
 
     onDestroy(){
-        this.graphics.clear();
-        this.destroy(this.line);
-        this.destroy(this.graphics);
+       // this.graphics.clear();
+        //this.destroy(this.line);
+       // this.destroy(this.graphics);
         this.destroy(this);
     }
    
@@ -40,8 +40,8 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
     preUpdate(){
         super.preUpdate();
         if(this.body.newVelocity.y <= 0){ 
-            this.line.y2 = this.y;
-            this.graphics.strokeLineShape(this.line);
+            //this.line.y2 = this.y;
+            //this.graphics.strokeLineShape(this.line);
         }
         else{
 

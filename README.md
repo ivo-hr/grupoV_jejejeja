@@ -1,5 +1,7 @@
 # A Handful
 ### Documento de diseño de videojuego
+DISCLAIMER: Videojuego desarrollado para curso universitario
+
 Autores:
 * Elena Robert Núñez, elenrobe@ucm.es
 * Enrique Juan Gamboa (enrijuan@ucm.es)
@@ -9,6 +11,9 @@ Autores:
 
 Twitter:
 @thisisademoteam
+
+Web:
+[https://ivo-hr.github.io/thisIsADemo/](https://ivo-hr.github.io/thisIsADemo/)
 
 
 <table>
