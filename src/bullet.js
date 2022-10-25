@@ -14,11 +14,12 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
         
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
         //this.line = this.scene.add.existing(new Phaser.Geom.Line(this.x, 500, this.x, this.y));
-        this.body.setVelocity(0, -400);
+        this.body.setVelocity(400, 0);
 
-        this.line = new Phaser.Geom.Line(this.x, 486, this.x, this.y);
-        this.graphics = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xff0000 } });
-        this.graphics.strokeLineShape(this.line);
+        //esto es para mostrar una linea de disparo, no tiene colisiones
+        /*this.line = new Phaser.Geom.Line(400, this.y, this.x, this.y);
+        this.graphics = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xfa0307 } });
+        this.graphics.strokeLineShape(this.line);*/
         
         //this.scene.physics.add.existing(this.line);
         //this.scene.physics.add.collider(this.graphics, this.scene.balls);
