@@ -36,18 +36,25 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'movingplayer',
       frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 3 }),
-      frameRate: 7,
+      frameRate: 12,
       repeat: -1
 
     })
 
     this.scene.anims.create({
 			key: 'hyperbeam',
-			frames: scene.anims.generateFrameNumbers('hand', {start:4, end:5}),
-			frameRate: 5,
+			frames: scene.anims.generateFrameNumbers('hand', {start:3, end:5}),
+			frameRate: 9,
 			repeat: 0
 		});
 
+    this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
+			//console.log(this.anims.currentAnim.key)
+			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'
+				this.play('movingplayer'); //ejecutamos la animación 'idle'
+			}
+			
+		})
     this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
 			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'
@@ -121,6 +128,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
       this.bullet = new Bullet(this.scene,this.x,this.y);
       this.available=false;
+      this.play('hyperbeam');
+
       this.able();
     }
     /*if(!this.available){

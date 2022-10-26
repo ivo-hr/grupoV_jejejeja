@@ -26,7 +26,7 @@ export default class Level1 extends Phaser.Scene {
    */
   create() {
     
-    this.cameras.main.setBounds(0, 0, 500 * 2, 250 * 2);
+    this.cameras.main.setBounds(0, 0, 1000 * 2, 250 * 2);
     //delimita limites del mundo
     this.physics.world.setBounds(0, 0, 1000 * 2, 250 * 2);
 
