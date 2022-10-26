@@ -1,5 +1,6 @@
 import Star from '../star.js';
 import Bullet from '../bullet.js';
+import HealthBar from "../healthbar.js";
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -30,6 +31,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.label.setScrollFactor(0);
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE');
+    this.healthBar = new HealthBar(this.scene, posX, posY, 50);
     this.updateScore();
     this.available=true;
 
