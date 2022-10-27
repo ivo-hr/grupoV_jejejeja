@@ -1,5 +1,6 @@
 import Star from '../star.js';
 import Bullet from '../bullet.js';
+import HealthBar from "../healthbar.js";
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
  * También almacena la puntuación o número de estrellas que ha recogido hasta el momento.
@@ -19,32 +20,37 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
-    this.body.setGravity(0,300);
+    this.body.setGravity(0,600);
     this.speed = 300;
-    this.jumpSpeed = -400;
+    this.jumpSpeed = -500;
     // Esta label es la UI en la que pondremos la puntuación del jugador
-    this.label = this.scene.add.text(10, 10, "");
+    let posX = this.scene.cameras.main.centerX*0.1;
+    let posY = this.scene.cameras.main.height*0.1;
+    this.label = this.scene.add.bitmapText(posX , posY, 'press_start_2p_font', "", 16);      //el texto del dialogo
+    this.label.text = "";
     this.label.setScrollFactor(0);
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE');
+    this.healthBar = new HealthBar(this.scene, posX, posY, 50);
     this.updateScore();
     this.available=true;
 
     this.scene.anims.create({
       key: 'movingplayer',
       frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 3 }),
-      frameRate: 7,
+      frameRate: 12,
       repeat: -1
 
     })
 
     this.scene.anims.create({
 			key: 'hyperbeam',
-			frames: scene.anims.generateFrameNumbers('hand', {start:4, end:5}),
-			frameRate: 5,
+			frames: scene.anims.generateFrameNumbers('hand', {start:3, end:5}),
+			frameRate: 9,
 			repeat: 0
 		});
 
+   
     this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
 			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'
@@ -83,7 +89,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   able(){
     
       let timer=this.scene.time.addEvent({
-        delay: 2000, 
+        delay: 500, 
         callback: this.setable,
         callbackScope: this,
      });
@@ -116,8 +122,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
+      this.play('hyperbeam');
+
       this.bullet = new Bullet(this.scene,this.x,this.y);
       this.available=false;
+
       this.able();
     }
     /*if(!this.available){
@@ -152,7 +161,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(this.jumpSpeed);
     }
     else if (this.keys.S.isDown) {
-      this.body.setVelocityY(-this.jumpSpeed*2/3);
+      this.body.setVelocityY(-this.jumpSpeed*3/4);
     }
     if (this.keys.A.isDown) {
    

@@ -7,18 +7,21 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
      * @param {Player} player el jugador
      */
     constructor(scene, x, y){
-        super(scene, x, y, 'star');
+        super(scene, x, y, 'penguin');
+        this.setFlip(true, false)
+
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         
         
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
         //this.line = this.scene.add.existing(new Phaser.Geom.Line(this.x, 500, this.x, this.y));
-        this.body.setVelocity(0, -400);
+        this.body.setVelocity(400, 0);
 
-        this.line = new Phaser.Geom.Line(this.x, 486, this.x, this.y);
-        this.graphics = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xff0000 } });
-        this.graphics.strokeLineShape(this.line);
+        //esto es para mostrar una linea de disparo, no tiene colisiones
+        /*this.line = new Phaser.Geom.Line(400, this.y, this.x, this.y);
+        this.graphics = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xfa0307 } });
+        this.graphics.strokeLineShape(this.line);*/
         
         //this.scene.physics.add.existing(this.line);
         //this.scene.physics.add.collider(this.graphics, this.scene.balls);
@@ -26,21 +29,31 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
         this.body.setCollideWorldBounds();
         
     
+     this.scene.anims.create({
+        key: 'movingBullet',
+        frames: scene.anims.generateFrameNumbers('penguin', { start: 0, end: 3 }),
+        frameRate: 12,
+        repeat: -1
+      
+        })
+    
+          this.play('movingBullet');
+    
     }
-
+    
     onDestroy(){
-        this.graphics.clear();
-        this.destroy(this.line);
-        this.destroy(this.graphics);
+       // this.graphics.clear();
+        //this.destroy(this.line);
+       // this.destroy(this.graphics);
         this.destroy(this);
     }
    
 
-    preUpdate(){
-        super.preUpdate();
+    preUpdate(t, dt){
+        super.preUpdate(t, dt);
         if(this.body.newVelocity.y <= 0){ 
-            this.line.y2 = this.y;
-            this.graphics.strokeLineShape(this.line);
+            //this.line.y2 = this.y;
+            //this.graphics.strokeLineShape(this.line);
         }
         else{
 
@@ -52,11 +65,24 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
             });
             
         }
-        if(this.scene.physics.overlap(this.scene.allballs, this)){
+
+        this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
+            // hacer algo
             this.scene.player.point();
+            o1.onDestroy(); 
             this.onDestroy();
-            //this.scene.allballs.onDestroy();
-        }
-        
+        });
+
+        // if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
+        //     this.scene.player.point();
+        //     this.onDestroy();
+        // }
+
+        // if(this.scene.physics.overlap(this.scene.allEnemies, this)){
+        //     this.scene.player.point();
+        //     this.onDestroy();
+        //     //this.scene.allEnemies.onDestroy();
+        // }
+       // game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
     }
 }
