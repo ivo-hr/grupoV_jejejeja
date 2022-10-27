@@ -64,17 +64,19 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
             });
             
         }
-        // this.scene.physics.add.collider(this.allEnemies, this, (unit, enem) =>{ 
-        //     // this.scene.player.point();
 
-        //     // unit.onDestroy(); 
-        //     this.onDestroy();
-
-		// });
-        if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
+        this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
+            // hacer algo
             this.scene.player.point();
+            o1.onDestroy(); 
             this.onDestroy();
-        }
+        });
+
+        // if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
+        //     this.scene.player.point();
+        //     this.onDestroy();
+        // }
+
         // if(this.scene.physics.overlap(this.scene.allEnemies, this)){
         //     this.scene.player.point();
         //     this.onDestroy();

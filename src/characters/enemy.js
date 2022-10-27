@@ -74,10 +74,13 @@
       this.currentMovement++;
 
       if(this.currentMovement >= this.maxMovement) {
-        this.currentMovement = 0;
+        this.currentMovement = 0;//se resetea la cuenta
+
         if(this.movingRight) this.setFlip(false, false);
         else this.setFlip(true, false);
-        this.movingRight = !this.movingRight;}
+
+        this.movingRight = !this.movingRight;
+      }
 
       if(this.movingRight){
         this.body.setVelocityX(this.speed);
