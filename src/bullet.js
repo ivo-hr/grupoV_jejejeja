@@ -7,7 +7,9 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
      * @param {Player} player el jugador
      */
     constructor(scene, x, y){
-        super(scene, x, y, 'star');
+        super(scene, x, y, 'penguin');
+        this.setFlip(true, false)
+
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         
@@ -53,11 +55,22 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
             });
             
         }
-        if(this.scene.physics.overlap(this.scene.allballs, this)){
+        // this.scene.physics.add.collider(this.allEnemies, this, (unit, enem) =>{ 
+        //     // this.scene.player.point();
+
+        //     // unit.onDestroy(); 
+        //     this.onDestroy();
+
+		// });
+        if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
             this.scene.player.point();
             this.onDestroy();
-            //this.scene.allballs.onDestroy();
         }
-        
+        // if(this.scene.physics.overlap(this.scene.allEnemies, this)){
+        //     this.scene.player.point();
+        //     this.onDestroy();
+        //     //this.scene.allEnemies.onDestroy();
+        // }
+       // game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
     }
 }

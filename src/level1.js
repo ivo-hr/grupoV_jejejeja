@@ -2,6 +2,7 @@ import Platform from './platform.js';
 import Player from './characters/player.js';
 import Obstacle from './obstacle.js';
 import Ball from './ball.js';
+import Enemy from './characters/enemy.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -34,7 +35,7 @@ export default class Level1 extends Phaser.Scene {
     
     this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
-    this.allballs = this.add.group();
+    this.allEnemies = this.add.group();
    
 
     new Platform(this, this.player, this.bases, 150, 350);
@@ -44,8 +45,8 @@ export default class Level1 extends Phaser.Scene {
     new Platform(this, this.player, this.bases, 850, 100);
     new Obstacle(this, 1000, 200);
     
-    for(let i=0;i<this.nball;i++){
-      this.allballs.add(new Ball(this,Phaser.Math.Between(100, 1800),Phaser.Math.Between(100, 400),96));
+    for(let i=0;i<9;i++){
+      this.allEnemies.add(new Enemy(this,100+i*50,500,96));
     }
     this.spawn();
 
