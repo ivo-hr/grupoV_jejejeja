@@ -3,11 +3,11 @@
 DISCLAIMER: Videojuego desarrollado para curso universitario en la UCM
 
 Autores:
-* Elena Robert Núñez, elenrobe@ucm.es
+* Elena Robert Núñez (elenrobe@ucm.es)
 * Enrique Juan Gamboa (enrijuan@ucm.es)
-* Eduardo de Orellana Sánchez
-* Gonzalo Fernández Moreno
-* David Palacios Daza
+* Eduardo de Orellana Sánchez (eorellan@ucm.es)
+* Gonzalo Fernández Moreno (gonzaf05@ucm.es)
+* David Palacios Daza (dapala02@ucm.es)
 
 Twitter:
 @thisisademoteam
@@ -121,9 +121,9 @@ También habrá distintos objetos o **power ups**, los cuales se encontrarán re
 
 ### **2.1 Controles**  <a name="controles"></a>
 
-El movimiento del jugador se podrá realizar con las teclas WASD o las flechas direccionales, siendo W la tecla de salto.
+El movimiento del jugador se podrá realizar con las teclas WASD, siendo W la tecla de salto.
 
-Para utilizar un ataque se podrá usar la tecla P o E.
+Para utilizar un ataque se podrá usar la tecla de espacio.
 
 ### **2.2 Cámara**  <a name="camara"></a>
 
