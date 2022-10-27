@@ -29,17 +29,18 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
         this.body.setCollideWorldBounds();
         
     
-        this.scene.anims.create({
-            key: 'movingBullet',
-            frames: scene.anims.generateFrameNumbers('penguin', { start: 0, end: 2 }),
-            frameRate: 12,
-            repeat: -1
+     this.scene.anims.create({
+        key: 'movingBullet',
+        frames: scene.anims.generateFrameNumbers('penguin', { start: 0, end: 3 }),
+        frameRate: 12,
+        repeat: -1
       
-          })
+        })
+    
           this.play('movingBullet');
-
+    
     }
-
+    
     onDestroy(){
        // this.graphics.clear();
         //this.destroy(this.line);
@@ -48,8 +49,8 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
     }
    
 
-    preUpdate(){
-        super.preUpdate();
+    preUpdate(t, dt){
+        super.preUpdate(t, dt);
         if(this.body.newVelocity.y <= 0){ 
             //this.line.y2 = this.y;
             //this.graphics.strokeLineShape(this.line);

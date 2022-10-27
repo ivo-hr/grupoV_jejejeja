@@ -3,6 +3,7 @@ import Player from './characters/player.js';
 import Obstacle from './obstacle.js';
 import Ball from './ball.js';
 import Enemy from './characters/enemy.js';
+import Bird from './characters/bird.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -48,6 +49,8 @@ export default class Level1 extends Phaser.Scene {
     for(let i=0;i<9;i++){
       this.allEnemies.add(new Enemy(this,100+i*50,500,96));
     }
+    this.allEnemies.add(new Bird(this,1000,250,96));
+
     this.spawn();
 
 

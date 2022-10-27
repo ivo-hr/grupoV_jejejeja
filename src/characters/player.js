@@ -20,9 +20,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
-    this.body.setGravity(0,300);
+    this.body.setGravity(0,600);
     this.speed = 300;
-    this.jumpSpeed = -400;
+    this.jumpSpeed = -500;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
@@ -89,7 +89,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   able(){
     
       let timer=this.scene.time.addEvent({
-        delay: 2000, 
+        delay: 500, 
         callback: this.setable,
         callbackScope: this,
      });
@@ -122,9 +122,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
+      this.play('hyperbeam');
+
       this.bullet = new Bullet(this.scene,this.x,this.y);
       this.available=false;
-      this.play('hyperbeam');
 
       this.able();
     }
@@ -160,7 +161,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(this.jumpSpeed);
     }
     else if (this.keys.S.isDown) {
-      this.body.setVelocityY(-this.jumpSpeed*2/3);
+      this.body.setVelocityY(-this.jumpSpeed*3/4);
     }
     if (this.keys.A.isDown) {
    

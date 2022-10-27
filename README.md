@@ -1,6 +1,6 @@
 # A Handful
 ### Documento de diseño de videojuego
-DISCLAIMER: Videojuego desarrollado para curso universitario
+DISCLAIMER: Videojuego desarrollado para curso universitario en la UCM
 
 Autores:
 * Elena Robert Núñez, elenrobe@ucm.es
@@ -66,7 +66,14 @@ Enemigos
 1. [Aspectos generales](#aspectosgenerales)
     1.  [Relato breve](#relatobreve)
 2. [Mecánica](#mecanica)
-
+    1. [Controles](#controles)
+    2. [Cámara](#camara)
+2. [Dinámica](#dinamica)
+    1. [Estética](#estetica)
+    2. [Menús](#menus)
+4. [Contenido](#contenido)
+5. [Arquitectura y UML](#arquitectura)
+6. [Assets utilizados](#assets)
 
 ## 1. Aspectos generales <a name="aspectosgenerales"></a>
 A Handful pretende crear una experiencia de juego rápida y divertida. Con partidas relativamente cortas y rejugables y distintos niveles a superar en mapas distintos.
@@ -112,17 +119,17 @@ También habrá distintos objetos o **power ups**, los cuales se encontrarán re
 <img src="images_gdd/5.PNG">
 
 
-### **Controles**
+### **2.1 Controles**  <a name="controles"></a>
 
 El movimiento del jugador se podrá realizar con las teclas WASD o las flechas direccionales, siendo W la tecla de salto.
 
 Para utilizar un ataque se podrá usar la tecla P o E.
 
-### **Cámara**
+### **2.2 Cámara**  <a name="camara"></a>
 
 La cámara se va desplazando en scroll lateral, el jugador puede moverse pero si sale completamente de la vista de la cámara termina la partida.
 
-## 3. Dinámica
+## 3. Dinámica  <a name="dinamica"></a>
 Para ganar en un nivel, el jugador tiene que llegar al final del mismo sin que se le agoten los puntos de vida o se salga de los límites de la cámara , independientemente de cuántos enemigos elimine.
 
 Para perder el jugador tiene que quedarse sin puntos de vida, véase por ser atacado por enemigos o elementos del escenario. En caso de morir volverá a comenzar el nivel en el que estaba.
@@ -130,16 +137,16 @@ Para perder el jugador tiene que quedarse sin puntos de vida, véase por ser ata
 **Sistema de puntuación.** La puntuación de un nivel se saca en base a los enemigos eliminados y su tipo, dándose puntos adicionales por las vidas que te queden al final.
 
 
-### **Estética**
+### 3.1 **Estética**  <a name="estetica"></a>
 La estética del juego será llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
 
-## Menús
+## 3.2 Menús  <a name="menus"></a>
 * Menú principal
 * Menú de selección de niveles
 * Pantalla gameOver
 * Pantalla victoria
 
-## 4. Contenido
+## 4. Contenido  <a name="contenido"></a>
 ### **Historia**
 Debido al mal mantenimiento de la estatua, esta genera un resentimiento acumulado hacia los humanos y fauna local, culpables de la erosión y estado actual en el que se encuentra la misma. Este resentimiento la impulsa a volverse consciente y jurar venganza contra los que la maltrataron. Sin embargo, su tiempo de “vida” es limitado, por lo que deberá darse prisa y correr por los distintos niveles, evitando enemigos y destruyéndolos para ganar puntos.
 
@@ -157,6 +164,17 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
 | <img src="images_gdd/10.PNG">         |**Perros:** se mueven hacia la derecha soltando algún truño ocasional, haciendo 1 punto de daño si La Mano lo pisa|
 | <img src="images_gdd/11.PNG">         |**Borrachos:** se mueven lentamente de izquierda a derecha, con el pirulí fuera creando un arco de pis por delante de ellos, haciendo 2 de daño si este colisiona con La Mano.|
 | <img src="images_gdd/12.PNG">         |**Grafiteros:** crean una nube de spray de pintura que dura unos segundos. Si La Mano pasa por ella es aturdida momentáneamente (no puede realizar movimientos ni habilidades) y recibe 1 de daño.|
+
+## 5. Arquitectura y UML  <a name="arquitectura"></a>
+ <img src="images_gdd/13.PNG">
+
+ ## 6. Assets utilizados  <a name="assets"></a>
+(Mencionado también en apartado de estética)
+
+La estética del juego será llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
+
+Por el momento todos los recursos que hemos utilizado en el juego han sido creados por nosotros.
+Estamos utilizando una **licencia MIT**, que se encuentra en la raíz del repositorio.
 
 ## Referencias
 * Contra (NES)
