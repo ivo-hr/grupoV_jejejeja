@@ -153,6 +153,8 @@ Debido al mal mantenimiento de la estatua, esta genera un resentimiento acumulad
 ### **Niveles**
 En principio el juego tendrá cuatro niveles, incrementando la dificultad  de cada uno
 
+<img src="images_gdd/14.png">
+
 ### **Personajes y enemigos**
 
 | Enemigos |      |
@@ -166,7 +168,7 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
 | <img src="images_gdd/12.PNG">         |**Grafiteros:** crean una nube de spray de pintura que dura unos segundos. Si La Mano pasa por ella es aturdida momentáneamente (no puede realizar movimientos ni habilidades) y recibe 1 de daño.|
 
 ## 5. Arquitectura y UML  <a name="arquitectura"></a>
- <img src="images_gdd/13.PNG">
+ <img src="images_gdd/13.png">
 
  ## 6. Assets utilizados  <a name="assets"></a>
 (Mencionado también en apartado de estética)
