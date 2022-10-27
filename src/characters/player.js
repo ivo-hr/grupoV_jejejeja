@@ -48,13 +48,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			repeat: 0
 		});
 
-    this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
-			//console.log(this.anims.currentAnim.key)
-			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'
-				this.play('movingplayer'); //ejecutamos la animación 'idle'
-			}
-			
-		})
+   
     this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
 			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'

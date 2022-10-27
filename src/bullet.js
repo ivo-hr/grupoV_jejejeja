@@ -29,6 +29,15 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
         this.body.setCollideWorldBounds();
         
     
+        this.scene.anims.create({
+            key: 'movingBullet',
+            frames: scene.anims.generateFrameNumbers('penguin', { start: 0, end: 2 }),
+            frameRate: 12,
+            repeat: -1
+      
+          })
+          this.play('movingBullet');
+
     }
 
     onDestroy(){
