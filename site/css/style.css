@@ -62,9 +62,9 @@ body::-webkit-scrollbar {
 .tab {
   float: left;
   border: 1px solid rgb(0, 0, 0);
-  background-color: #000000;
+  background-color: inherit;
   width: 20%;
-  height: 250px;
+  height: 200px;
   
 }
 
@@ -99,7 +99,7 @@ body::-webkit-scrollbar {
   border: 1px solid rgb(0, 0, 0);
   width: 95%;
   border-left: 3px solid rgb(66, 12, 12);
-  height: 600px;
+  height: 200px;
   display: none;
 }
 
