@@ -39,17 +39,18 @@ export default class Level1 extends Phaser.Scene {
     this.allEnemies = this.add.group();
    
 
-    new Platform(this, this.player, this.bases, 150, 350);
-    new Platform(this, this.player, this.bases, 850, 350);
-    new Platform(this, this.player, this.bases, 500, 200);
-    new Platform(this, this.player, this.bases, 150, 100);
-    new Platform(this, this.player, this.bases, 850, 100);
+    new Platform(this, this.player, this.bases, 150, 500);
+    new Platform(this, this.player, this.bases, 850, 450);
+    new Platform(this, this.player, this.bases, 600, 500);
+    new Platform(this, this.player, this.bases, 400, 400);
+    new Platform(this, this.player, this.bases, 1000, 450);
     new Obstacle(this, 1000, 200);
     
-    for(let i=0;i<9;i++){
-      this.allEnemies.add(new Enemy(this,100+i*50,500,96));
+    for(let i=0;i<4;i++){
+      this.allEnemies.add(new Enemy(this,100+i*300,500,96));
     }
     this.allEnemies.add(new Bird(this,1000,250,96));
+    this.allEnemies.add(new Bird(this,1800,250,96));
 
     this.spawn();
 

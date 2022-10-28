@@ -153,7 +153,7 @@ Debido al mal mantenimiento de la estatua, esta genera un resentimiento acumulad
 ### **Niveles**
 En principio el juego tendrá cuatro niveles, incrementando la dificultad  de cada uno
 
-<img src="images_gdd/14.png">
+<img src="images_gdd/14.PNG">
 
 ### **Personajes y enemigos**
 
