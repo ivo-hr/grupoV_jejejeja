@@ -6,8 +6,8 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
      * @param {number} y coordenada y
      * @param {Player} player el jugador
      */
-    constructor(scene, x, y){
-        super(scene, x, y, 'penguin');
+    constructor(scene, x, y,vel){
+        super(scene, x, y,vel,'penguin');
         this.setFlip(true, false)
 
         this.scene.add.existing(this);
@@ -16,7 +16,7 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
         
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
         //this.line = this.scene.add.existing(new Phaser.Geom.Line(this.x, 500, this.x, this.y));
-        this.body.setVelocity(400, 0);
+        this.body.setVelocity(vel, 0);
 
         //esto es para mostrar una linea de disparo, no tiene colisiones
         /*this.line = new Phaser.Geom.Line(400, this.y, this.x, this.y);
