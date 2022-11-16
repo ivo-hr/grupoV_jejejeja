@@ -26,9 +26,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // Esta label es la UI en la que pondremos la puntuación del jugador
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
-    this.label = this.scene.add.bitmapText(posX , posY, 'press_start_2p_font', "", 16);      //el texto del dialogo
-    this.label.text = "";
-    this.label.setScrollFactor(0);
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE');
     this.healthBar = new HealthBar(this.scene, posX, posY, 50);
@@ -66,20 +63,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
   point() {
     this.score++;
-    this.updateScore();
+    console.log(this.score)
+    this.healthBar.update(-10);
   }
 
   lesspoint() {
     this.score--;
-    this.updateScore();
+    console.log(this.score)
+    this.healthBar.update(10);
   }
   
   /**
    * Actualiza la UI con la puntuación actual
    */
-  updateScore() {
-    this.label.text = 'Score: ' + this.score;
-  }
 
   setable(){
     this.available=true;
