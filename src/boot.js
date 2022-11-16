@@ -24,12 +24,15 @@ export default class Boot extends Phaser.Scene {
     this.load.image('star', 'star.png');
     this.load.image('powerHyperbeam', 'powerHyperbeam.png');
     this.load.image('powerPunch', 'powerPunch.png');
-
     this.load.spritesheet('player', 'player.png',{frameWidth: 65, frameHeight: 70});
     this.load.spritesheet('hand', 'hand.png', {frameWidth: 90, frameHeight:84});
     this.load.spritesheet('penguin', 'penguin.png', {frameWidth: 64, frameHeight:64});
     this.load.spritesheet('bird', 'bird.png', {frameWidth: 96, frameHeight:96});
     this.load.spritesheet('baby', 'baby.png', {frameWidth: 96, frameHeight:96});
+
+    this.load.setPath('assets/images/');
+    this.load.image('mainMenu', 'main.png');
+    this.load.image('playButton', 'playButton.gif');
 
     this.load.setPath('assets/fonts/');
     
@@ -43,6 +46,6 @@ export default class Boot extends Phaser.Scene {
    * nivel del juego
    */
   create() {
-    this.scene.start('level1');
+    this.scene.start('Menu');
   }
 }

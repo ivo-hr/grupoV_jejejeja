@@ -21,8 +21,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
     this.body.setGravity(0,600);
-    this.speed = 300;
-    this.jumpSpeed = -500;
+    this.speed = 200;
+    this.jumpSpeed = -400;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
@@ -30,10 +30,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.label.text = "";
     this.label.setScrollFactor(0);
     this.cursors = this.scene.input.keyboard.createCursorKeys();
-    this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE');
+    this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T');
     this.healthBar = new HealthBar(this.scene, posX, posY, 50);
     this.updateScore();
     this.available=true;
+
+    this.flipped=false;
+    this.facingRight=true;
 
     this.scene.anims.create({
       key: 'movingplayer',
@@ -123,11 +126,30 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
       this.play('hyperbeam');
+      if(this.facingRight)
+      this.bullet = new Bullet(this.scene,this.x,this.y,400);
+      else{
+      this.bullet = new Bullet(this.scene,this.x,this.y,-400);
+      this.bullet.setFlip(false,false);
 
-      this.bullet = new Bullet(this.scene,this.x,this.y);
+      }
       this.available=false;
 
       this.able();
+    }
+    else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
+      if(this.facingRight)
+      this.x+=300;
+      else
+      this.x+=-300;
+    
+    }
+
+    else if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
+      for(let i=0;i<10;i++){
+        this.x+=10;
+      }
+    
     }
     /*if(!this.available){
       let timer=this.scene.time.addEvent({
@@ -161,21 +183,31 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(this.jumpSpeed);
     }
     else if (this.keys.S.isDown) {
+
       this.body.setVelocityY(-this.jumpSpeed*3/4);
     }
     if (this.keys.A.isDown) {
+      this.facingRight=false;
    
       this.body.setVelocityX(-this.speed);
     }
     else if (this.keys.D.isDown) {
+      this.facingRight=true;
       this.body.setVelocityX(this.speed);
     }
+    
     else {
       this.body.setVelocityX(0);
     }
-    
-    
-    
+    if(!this.facingRight&&!this.flipped){
+      this.setFlip(true, false);
+      this.flipped=true;
+    }
+   
+    if(this.facingRight){
+      this.setFlip(false, false);
+      this.flipped=false;
+    }
     
   }
 }
