@@ -122,16 +122,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
       this.play('hyperbeam');
+      this.on('animationcomplete', end =>{ 
       if(this.facingRight)
       this.bullet = new Bullet(this.scene,this.x,this.y,400);
       else{
-      this.bullet = new Bullet(this.scene,this.x,this.y,-400);
-      this.bullet.setFlip(false,false);
-
+        this.bullet = new Bullet(this.scene,this.x,this.y,-400);
+        this.bullet.setFlip(false,false);
       }
       this.available=false;
 
-      this.able();
+      this.able();})
     }
     else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
       if(this.facingRight)
