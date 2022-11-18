@@ -13,18 +13,26 @@
      * @param {number} y coordenada y
      * @param {number} tam tamaño del sprite
      */
-    constructor(scene, x, y, tam) {
-      super(scene, x, y, 'baby');
+    constructor(scene, x, y, tam, imageName) {
+      super(scene, x, y, imageName);
+
+      this.initialize(tam)
+
+      // this.speed = 300;
+      // this.movingRight = true;
+      // this.xPosIni = x;
+      // this.maxMovement = 100;
+      // this.currentMovement = 0;
+
+     
+      this.animation();
+
+    }
+
+    initialize(tam){
       this.setFlip(true, false);
-      
       this.scene.add.existing(this);
       this.size = tam;
-
-      this.speed = 300;
-      this.movingRight = true;
-      this.xPosIni = x;
-      this.maxMovement = 100;
-      this.currentMovement = 0;
 
       this.sizeManag();
       this.scene.physics.add.existing(this);
@@ -34,18 +42,12 @@
       //this.body.setVelocity(100,100).setBounce(Phaser.Math.FloatBetween(-1, 1),Phaser.Math.FloatBetween(-1, 1));
       this.body.setCollideWorldBounds();
 
-      this.scene.anims.create({
-        key: 'movingBaby',
-        frames: scene.anims.generateFrameNumbers('baby', { start: 0, end: 3 }),
-        frameRate: 12,
-        repeat: -1
-  
-      })
-
-      this.play('movingBaby');
-
     }
-  
+
+    animation(){
+      //nada en este
+    }
+
     sizeManag(){
         if(this.size == 0){
             this.setScale(0.25);
@@ -69,32 +71,6 @@
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate(t, dt);
-
-      //se va sumando al contador de "pasos" para ver si cambia de dirección
-      this.currentMovement++;
-
-      if(this.currentMovement >= this.maxMovement) {
-        this.currentMovement = 0;//se resetea la cuenta
-
-        if(this.movingRight) this.setFlip(false, false);
-        else this.setFlip(true, false);
-
-        this.movingRight = !this.movingRight;
-      }
-
-      if(this.movingRight){
-        this.body.setVelocityX(this.speed);
-      }
-      else
-        this.body.setVelocityX(-this.speed);
-
-
-      //this.body.setVelocity(100,100).setBounce(1,1);
-      if (this.scene.physics.overlap(this.scene.player, this)) {
-          this.scene.player.lesspoint()
-          this.destroy();
-        
-      }
       
       
     }
