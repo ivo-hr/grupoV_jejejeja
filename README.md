@@ -62,56 +62,73 @@ Enemigos
 </table>
 
 ### Tabla de contenidos
+1. [Aspectos Generales](#aspectos-generales)  
+    1.1 [Relato breve y parcial de una partida típica](#relato-breve)  
+    
+2. [Jugabilidad](#Jugabilidad)  
+    2.1 [Mecánica](#Mecánica)   
+         - [Mecánicas del personaje](#Mecánicas-personaje)  
+         - [Mecánicas del escenario](#Mecánicas-escenario)  
+         - [Controles](#Controles)  
+         - [Cámara](#Cámara)  
+    2.2 [Dinámica](#Dinámica)  
+    2.3 [Estética](#Estética) 
 
-1. [Aspectos generales](#aspectosgenerales)
-    1.  [Relato breve](#relatobreve)
-2. [Mecánica](#mecanica)
-    1. [Controles](#controles)
-    2. [Cámara](#camara)
-2. [Dinámica](#dinamica)
-    1. [Estética](#estetica)
-    2. [Menús](#menus)
-4. [Contenido](#contenido)
-5. [Arquitectura y UML](#arquitectura)
-6. [Assets utilizados](#assets)
+3. [Menús y modos de juegos](#Menús)  
+    3.1 [Configuración](#Configuración)  
+    3.2 [Interfaz y control](#Interfaz)  
 
-## 1. Aspectos generales <a name="aspectosgenerales"></a>
-A Handful pretende crear una experiencia de juego rápida y divertida. Con partidas relativamente cortas y rejugables y distintos niveles a superar en mapas distintos.
+4. [Contenido](#Contenido)  
+    4.1 [Historia](#Historia)  
+    4.2 [Personajes](#Personajes)  
+
+5. [Referencias](#Referencias) 
+
+6. [Diagrama UML](#UML)
+
+
+## 1. Aspectos generales <a name="aspectos-generales"></a>
+A Handful pretende crear una experiencia de juego rápida y divertida. Con partidas relativamente cortas y rejugables y distintos niveles a superar en mapas distintos, acompañado de un sistema de puntuación que hará que el jugador quiera pensar y probar distintas estrategias para conseguir el máximo posible.
 
 <img src="images_gdd/1.PNG">
 
 
-### 1.1 Relato breve de una partida típica <a name="relatobreve"></a>
+### 1.1 Relato breve de una partida típica <a name="relato-breve"></a>
 
-El jugador comienza una partida eligiendo un nivel en el menú principal. Tras comenzar podrá moverse de inmediato (no hay tiempo de espera ni contador antes de empezar).
+El jugador inicia el juego pulsando el botón de "Jugar", el cuál lo llevará a un menú de selección de niveles. Tras elegir uno se le lleva a la posición inicial del nivel elegido y un contador de 3 segundos aparece en pantalla. En cuanto llega a cero la apartida empieza y el contador de tiempo se pone en marcha. El jugador entonces debe recorrer el nivel entero sorteando los obstáculos y enemigos mientras estos le atacan. Si los ataques le dan y su barra de vida se reduce a 0, habrá perdido. Por el camino el jugador puede recoger power-ups y derrotar a los enemigos disparándolos. Cuando llega al final la partida termina y se le indica la puntuación total, así como sus estadísticas individuales de recogida de power-ups, nivel de bondad y maldad y tiempo tardado y se le pone una nota basada en el sistema educativo americano (de F en suspenso a A en 10/10).
 
-El jugador debe intentar evitar todos los obstáculos a lo largo del nivel y al mismo tiempo eliminando al mayor número posible de enemigos a través de un escenario con plataformas.
+## 2. Jugabilidad <a name="Jugabilidad"></a>
 
-## 2. Mecánicas <a name="mecanica"></a>
+### 2.1 Mecánica <a name="Mecánica"></a>
 
-### **Mecánicas de personaje**
-**Movimiento horizontal.** La mano que controla el jugador podrá moverse de forma continua en dos direcciones, izquierda y derecha.
+####  <a name = "Mecánicas-personaje"> Mecánicas del personaje</a>
 
-**Salto.** ¿te puedes mover en medio del salto? a cuanto más pulses más altura etc con limites?
+- Mecanicas generales:
+  - Vida: El jugador tiene una barra que representa la vida de la estatua, y baja cuando recibe daño de los enemigos y obstáculos. Si llega a 0 muere y pierde la partida.
+  - Aire: Las mecánicas son iguales tanto si está en el aire como en el suelo (a excepción del salto), y puede llegar a usar esto en su favor.
+  - Cooldown: Hay un tiempo entre disparos durante el cual el jugador tendrá mecánicas reducidas, y dependerá del tipo de disparo que use.
+  - Tiempo de invulnerabilidad: Si recibe daño, el jugador tendrá un pequeño tiempo de invlunerabilidad durante el cual podrá traspasar enemigos y no podrá recibir daño.
 
-**Barra de vida.** Contiene los puntos de vida del personaje, si llegan a 0, se acaba la partida.
-
-**Distintos modos de disparo o ataque según power up obtenido (ver apartado 2.1.2 para comportamiento de los mismos).** El jugador comienza la partida con el Modo bala de manera predeterminada y podrá ir cambiando en el transcurso de la misma.
+- Mecánicas de movimiento: 
+  - Movimiento lateral: El jugador puede moverse hacia la izquierda y hacia la derecha siempre y cuando no haya obstáculos en su camino.
+  - Salto: El jugador puede saltar hacia arriba si está en el suelo. Cuanto más deje pulsado el botón de salto más saltará, hasta el máximo posible.
+  - Bajar plataforma: Si el jugador se encuentra en un toldo puede bajar de este pulsando una tecla, traspasándolo.
+  - Disparo: El jugador puede atacar a los enemigos para hacerles daño con su disparo seleccionado, el cual puede cambiar con distintos potenciadores.
 
 | |      |
 |----------------|--------------|
 | <img src="images_gdd/2.PNG">         | **Modo bala.** Al estar en este estado, el jugador podrá lanzar balas. Estas balas se desplazarán en horizontal y solo se destruirán al hacer contacto contra enemigos, haciendo 1 de daño. El cooldown de disparo es de 0.5 segundos |
-| <img src="images_gdd/3.PNG">         | **Modo hyperbeam.** Al estar en este estado, el jugador podrá lanzar un rayo que ocupe una casilla de alto y 7 de largo. Este rayo eliminará a todos los enemigos contra los que haga contacto y durará 1 segundo. El cooldown de disparo es de 3 segundos. El jugador no puede moverse mientras se ejecuta esta acción. |
-| <img src="images_gdd/4.PNG">         |**Modo puño.** Se desplaza hacia delante 1 casilla, realizando 1 punto de daño a todos los enemigos en el trayecto. Durante esta acción, no puede moverse o saltar.
+| <img src="images_gdd/3.PNG">         | **Modo hyperbeam.** Al estar en este estado, el jugador podrá lanzar un rayo de alto tiempo de carga, gran longitud y altura igual a la del personaje. Este rayo hará 5 puntos de daño a todos los enemigos contra los que haga contacto. El cooldown de disparo es de 5 segundos. El jugador no puede moverse mientras se ejecuta esta acción. |
+| <img src="images_gdd/4.PNG">         |**Modo puño.** Se lanza hacia delante a mayor velocidad, realizando 2 puntos de daño a todos los enemigos en el trayecto. Durante esta acción, no puede moverse o saltar.
 |
 
 ### **Mecánicas de escenario**
 El escenario contará con distintos obstáculos que no harán daño al jugador, pero que deberá sortear o utilizar a su favor:
-* Bancos. Se encuentran en el suelo, el usuario puede saltar para evitarlos
-* Toldos o tejados. Se encuentran por encima del suelo. El usuario puede llegar a saltar y ponerse encima de ellos, o pasar por debajo.
-* Rampas. 
+- Bancos: Se encuentran en el suelo, el usuario puede saltar para evitarlos y usarlos para ganar algo de altura.
+- Toldos: Se encuentran por encima del suelo. El usuario puede llegar a saltar con ayuda de un banco y ponerse encima de ellos, o pasar por debajo.
+- Farolas: Obstáculos que resultan insorteables sin ayuda de una altura previa como un toldo, por lo que el jugador deberá tener muy en cuenta cúando bajar y cúando no. 
 
-También habrá distintos objetos o **power ups**, los cuales se encontrarán repartidos por el escenario, estáticos. Si el jugador hace colisión con ellos, desaparecerán y le darán ventajas o cambios de habilidades:
+También habrá distintos objetos o **power ups**, los cuales se encontrarán repartidos por el escenario, estáticos. Si el jugador hace colisión con ellos, desaparecerán y le darán ventajas o cambios de habilidades, además de otorgar más puntos al final de la partida:
 
 * Vida extra, para recuperar vida.
 * Power up de cambio de habilidad, para cambiar de modo de ataque (especificado en el apartado anterior).
@@ -121,9 +138,19 @@ También habrá distintos objetos o **power ups**, los cuales se encontrarán re
 
 ### **2.1 Controles**  <a name="controles"></a>
 
-El movimiento del jugador se podrá realizar con las teclas WASD, siendo W la tecla de salto.
+El juego está diseñado para jugar con teclado al ser un juego web.
 
-Para utilizar un ataque se podrá usar la tecla de espacio.
+El menú inicial antes de una partida se controlará con el ratón, pulsando los botones con el click izquierdo del ratón.
+
+En partida el jugador dispone de controles de movimiento y ataque con los que maniobrar por el escenario:
+
+ - Movimiento: Se realizará con las teclas de WASD
+   - A/D: Moverán al jugador en esa dirección.
+   - W: Hará que el jugador salte. El jugador puede moverse a la izquierda y la derecha mientras está en el aire.
+   - S: El jugador bajará de la plataforma en la que esté subido. Si no está subido en ninguna no hace nada.
+ - Ataque: Se atacará pulsando la tecla "Espacio".
+ - Menú de pausa/ajustes: Se abrirá pulsando la tecla "Escape" y se controlará con el ratón y el click izquierdo.
+
 
 ### **2.2 Cámara**  <a name="camara"></a>
 
