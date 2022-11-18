@@ -86,4 +86,7 @@ export default class Level1 extends Phaser.Scene {
 
       }
   }
+  gameover(){
+    this.scene.start('Menu');
+  }
 }

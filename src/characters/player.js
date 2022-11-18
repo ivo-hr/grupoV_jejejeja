@@ -50,6 +50,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			repeat: 0
 		});
 
+    
    
     this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
@@ -74,7 +75,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   lesspoint() {
     this.score--;
     console.log(this.score)
-    this.healthBar.update(10);
+    this.healthBar.update(50);
   }
   
   /**
@@ -147,6 +148,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
     
     }
+
+
     /*if(!this.available){
       let timer=this.scene.time.addEvent({
         delay: 2000, 
