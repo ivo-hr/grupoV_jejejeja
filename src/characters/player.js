@@ -75,7 +75,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   lesspoint() {
     this.score--;
     console.log(this.score)
-    this.healthBar.update(50);
+    this.healthBar.update(20);
   }
   
   /**
@@ -143,10 +143,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
 
     else if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
-      for(let i=0;i<10;i++){
-        this.x+=10;
+      if(this.facingRight){
+      console.log(this)
+      this.body.setVelocityX(100);
+      this.scene.physics.moveTo(this,this.x+300,this.y,300,500)
+      console.log(this.x)
       }
-    
+  
+      else{
+      this.scene.physics.moveTo(this,this.x-300,this.y,20,500)
+
+      }
     }
 
 
@@ -185,7 +192,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       this.body.setVelocityY(-this.jumpSpeed*3/4);
     }
-    if (this.keys.A.isDown) {
+    else if (this.keys.A.isDown) {
       this.facingRight=false;
    
       this.body.setVelocityX(-this.speed);
@@ -195,10 +202,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(this.speed);
     }
     
-    else {
+    /*else {
       this.body.setVelocityX(0);
     }
-    if(!this.facingRight&&!this.flipped){
+    /*if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
       this.flipped=true;
     }
@@ -206,7 +213,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if(this.facingRight){
       this.setFlip(false, false);
       this.flipped=false;
-    }
+    }*/
     
   }
 }
