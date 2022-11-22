@@ -127,7 +127,7 @@ El jugador inicia el juego pulsando el botón de "Jugar", el cuál lo llevará a
 |----------------|--------------|
 | <img src="images_gdd/2.PNG">         | **Modo bala.** Al estar en este estado, el jugador podrá lanzar balas. Estas balas se desplazarán en horizontal y solo se destruirán al hacer contacto contra enemigos, haciendo 1 de daño. El cooldown de disparo es de 0.5 segundos |
 | <img src="images_gdd/3.PNG">         | **Modo hyperbeam.** Al estar en este estado, el jugador podrá lanzar un rayo de alto tiempo de carga, gran longitud y altura igual a la del personaje. Este rayo hará 5 puntos de daño a todos los enemigos contra los que haga contacto. El cooldown de disparo es de 5 segundos. El jugador no puede moverse mientras se ejecuta esta acción. |
-| <img src="images_gdd/4.PNG">         |**Modo puño.** Se lanza hacia delante a mayor velocidad, realizando 2 puntos de daño a todos los enemigos en el trayecto. Durante esta acción, no puede moverse o saltar.
+| <img src="images_gdd/4.PNG">         |**Modo puño.** Se lanza hacia donde estás mirando a mayor velocidad, realizando 3 puntos de daño a todos los enemigos en el trayecto. Durante esta acción, no puede moverse o saltar.
 |
 
 #### **Mecánicas de escenario** <a name="Mecánicas-escenario"></a>
