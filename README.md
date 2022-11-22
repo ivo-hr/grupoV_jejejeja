@@ -41,8 +41,9 @@ Web:
     <td> <b>Cantidades:</b>
 
 Personajes: 1
-
-Enemigos
+Power-Ups: 4
+Enemigos: 5
+Obstáculos: 5
 
  </td>
     <td> <b>Hitos:</b>
@@ -67,24 +68,29 @@ Enemigos
     
 2. [Jugabilidad](#Jugabilidad)  
     2.1 [Mecánica](#Mecánica)   
+         - [Mecánicas generales](#Mecánicas-generales)  
          - [Mecánicas del personaje](#Mecánicas-personaje)  
          - [Mecánicas del escenario](#Mecánicas-escenario)  
          - [Controles](#Controles)  
          - [Cámara](#Cámara)  
-    2.2 [Dinámica](#Dinámica)  
-    2.3 [Estética](#Estética) 
+    2.2 [Dinámica](#Dinámica)
+         - [Sistema de puntuación](#Puntuación)  
+    4.3 [Estética](#Estética) 
 
 3. [Menús y modos de juegos](#Menús)  
-    3.1 [Configuración](#Configuración)  
-    3.2 [Interfaz y control](#Interfaz)  
+    - [Menú principal](#Principal)  
+    - [Menú de pausa](#Pausa)  
+    - [Menú de victoria](#Victoria)  
+    - [Menú de Game Over](#Over)   
 
 4. [Contenido](#Contenido)  
-    4.1 [Historia](#Historia)  
-    4.2 [Personajes](#Personajes)  
+    - [Historia](#Historia)  
+    - [Niveles](#Niveles)
+    - [Enemigos](#Enemigos)    
 
-5. [Referencias](#Referencias) 
+5. [Diagrama UML](#UML)
 
-6. [Diagrama UML](#UML)
+5. [Assets](#Assets) 
 
 
 ## 1. Aspectos generales <a name="aspectos-generales"></a>
@@ -124,7 +130,7 @@ El jugador inicia el juego pulsando el botón de "Jugar", el cuál lo llevará a
 | <img src="images_gdd/4.PNG">         |**Modo puño.** Se lanza hacia delante a mayor velocidad, realizando 2 puntos de daño a todos los enemigos en el trayecto. Durante esta acción, no puede moverse o saltar.
 |
 
-### **Mecánicas de escenario** <a name="Mecánicas-escenario"></a>
+#### **Mecánicas de escenario** <a name="Mecánicas-escenario"></a>
 El escenario contará con distintos obstáculos que no harán daño al jugador, pero que deberá sortear o utilizar a su favor:
 - Bancos: Se encuentran en el suelo, el usuario puede saltar para evitarlos y usarlos para ganar algo de altura.
 - Toldos: Se encuentran por encima del suelo. El usuario puede llegar a saltar con ayuda de un banco y ponerse encima de ellos, o pasar por debajo.
@@ -145,7 +151,7 @@ También habrá distintos objetos o **power ups**, los cuales se encontrarán re
 <img src="images_gdd/5.PNG">
 
 
-### **2.1 Controles**  <a name="controles"></a>
+#### **Controles**  <a name="Controles"></a>
 
 El juego está diseñado para jugar con teclado al ser un juego web.
 
@@ -161,56 +167,57 @@ En partida el jugador dispone de controles de movimiento y ataque con los que ma
  - Menú de pausa/ajustes: Se abrirá pulsando la tecla "Escape" y se controlará con el ratón y el click izquierdo.
 
 
-### **2.2 Cámara**  <a name="camara"></a>
+#### **Cámara**  <a name="Cámara"></a>
 
 La cámara tiene fijado al jugador, y le seguirá cada vez que este se desplace, tanto hacia la izquierda como a la derecha
 
-## 3. Dinámica  <a name="dinamica"></a>
+### 2.2 Dinámica  <a name="Dinámica"></a>
 Para ganar en un nivel, el jugador tiene que llegar al final del mismo sin que se le agoten los puntos de vida. 
 
 Para perder el jugador tiene que quedarse sin puntos de vida, véase por ser atacado por enemigos o elementos del escenario. En caso de morir tendrá la opción de salir al menú o volver a comenzar el nivel en el que estaba.
 
-**Sistema de puntuación.** Al terminar el nivel el jugador tendrá una puntuación calculada en función del tiempo tardado, marcador de bondad/maldad, power-ups cogidos y daño recibido, en base a la cual obtendrá una nota. Además, según el nivel del marcador de bondad/maldad tendrá uno de tres "finales": "Pacifista" si no ha matado a ningún enemigo, "Vengativo" si ha matado a todos y "Neutral" si ha matado y perdonado, el cual se dividirá en "Solo buscas la libertad cueste lo que cueste" si hay más enemigos perdonados que eliminados y "Parte de ti quiere hacerles pagar" si es al contrario.
+#### **Sistema de puntuación.** <a name="Puntuación"></a>
+Al terminar el nivel el jugador tendrá una puntuación calculada en función del tiempo tardado, marcador de bondad/maldad, power-ups cogidos y daño recibido, en base a la cual obtendrá una nota. Además, según el nivel del marcador de bondad/maldad tendrá uno de tres "finales": "Pacifista" si no ha matado a ningún enemigo, "Vengativo" si ha matado a todos y "Neutral" si ha matado y perdonado, el cual se dividirá en "Solo buscas la libertad cueste lo que cueste" si hay más enemigos perdonados que eliminados y "Parte de ti quiere hacerles pagar" si es al contrario.
 
-### 3.1 **Estética**  <a name="estetica"></a>
+### 2.3 **Estética**  <a name="Estética"></a>
 La estética del juego será llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
 
-## 3.2 Menús  <a name="menus"></a>
-- Menú principal:
+## 3 **Menús**  <a name="Menús"></a>
+- Menú principal <a name="Principal"></a>:
   - Botón de jugar:
     - Selección de nivel
   - Botón de Configuración
     - Volumen general
     - Volumen de música
     - Volumen de efectos
-- Menú de pausa
+- Menú de pausa <a name="Pausa"></a>:
   - Botón de Reanudar
   - Botón de Configuración
     - Volumen general
     - Volumen de música
     - Volumen de efectos
-  - Botón de Menú principal
+  - Botón de Menú principal 
     - Confirmación de querer salir de la partida
-- Menú de victoria
+- Menú de victoria <a name="Victoria"></a>: 
   - Marcadores
   - Puntuación final con nota
   - Tipo de final
   - Botón de Menú principal
   - Botón de Volver a jugar nivel
-- Menú de Game Over
+- Menú de Game Over <a name="Over"></a>:
   - Botón de Menú principal
   - Botón de Volver a empezar nivel
 
-## 4. Contenido  <a name="contenido"></a>
-### **Historia**
+## 4. Contenido  <a name="Contenido"></a>
+### **Historia** <a name="Historia"></a>
 Debido al mal mantenimiento de la estatua, esta genera un resentimiento acumulado hacia los humanos y fauna local, culpables de la erosión y estado actual en el que se encuentra la misma. Este resentimiento la impulsa a volverse consciente, liberándose de su prisión de criatura inerte para buscar un sitio en el que descansar por fin, vengándose contra los que la maltrataron en el proceso. 
 
-### **Niveles**
+### **Niveles** <a name="Niveles"></a>
 En principio el juego tendrá cuatro niveles, incrementando la dificultad  de cada uno con un mayor número de enemigos, más obstáculos o incluso que la vida se vaya drenando poco a poco.
 
 <img src="images_gdd/14.PNG">
 
-### **Personajes y enemigos**
+### **Enemigos** <a name="Enemigos"></a>
 
 | Enemigos |      |
 |----------------|--------------|
@@ -220,10 +227,10 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
 | <img src="images_gdd/11.PNG">         |**Borrachos:** se mueven lentamente de izquierda a derecha de forma aleatoria, lanzándo botellas de alcohol en una parábola en intervalos de segundos aleatorios. Si una de estas colisiona con el jugador le hace 2 puntos de daño. Si el jugador colisiona con un borracho, recibe 1 punto de daño.|
 | <img src="images_gdd/12.PNG">         |**Grafiteros:** Se mueven poco de izquierda a derecha y crean una nube de spray de pintura que dura unos segundos. Si el jugador pasa por ella es aturdido momentáneamente (no puede realizar movimientos ni habilidades) y recibe 3 de daño. Si el jugador colisiona con un grafitero, recibe 1 punto de daño.|
 
-## 5. Arquitectura y UML  <a name="arquitectura"></a>
+## 5. Arquitectura y UML  <a name="UML"></a>
  <img src="images_gdd/13.png">
 
- ## 6. Assets utilizados  <a name="assets"></a>
+ ## 6. Assets utilizados  <a name="Assets"></a>
 (Mencionado también en apartado de estética)
 
 La estética del juego será llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
