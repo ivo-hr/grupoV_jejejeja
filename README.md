@@ -101,19 +101,21 @@ El jugador inicia el juego pulsando el botón de "Jugar", el cuál lo llevará a
 
 ### 2.1 Mecánica <a name="Mecánica"></a>
 
+####  <a name = "Mecánicas-generales"> Mecánicas generales</a>
+- Contador de tiempo: Un contador con el tiempo que lleva el jugador jugando la partida. Influenciará en el marcador total al final de esta.
+- Contador de “Maldad”: Un contador que determina el “nivel de venganza” de tu partida. Aumentará con el número de enemigos eliminados a razón 1:1, y tendrá un efecto negativo sobre la puntuación total. Si este contador estuviera al máximo, sin embargo, afectará de manera positiva.
+- Contador de “Bondad”: Un contador que determina el “nivel de pacifismo” de tu partida. Se verá determinado al final de la partida con el número de enemigos no eliminados a razón 1:1, y tendrá un efecto positivo sobre la puntuación total.
+- Puntuación: La puntuación final de la partida se verá determinada por una fórmula formada por el daño recibido, el tiempo que ha tardado en completar la partida, el contador de bondad/maldad y los power-ups recogidos.
+
 ####  <a name = "Mecánicas-personaje"> Mecánicas del personaje</a>
-
-- Mecanicas generales:
-  - Vida: El jugador tiene una barra que representa la vida de la estatua, y baja cuando recibe daño de los enemigos y obstáculos. Si llega a 0 muere y pierde la partida.
-  - Aire: Las mecánicas son iguales tanto si está en el aire como en el suelo (a excepción del salto), y puede llegar a usar esto en su favor.
-  - Cooldown: Hay un tiempo entre disparos durante el cual el jugador tendrá mecánicas reducidas, y dependerá del tipo de disparo que use.
-  - Tiempo de invulnerabilidad: Si recibe daño, el jugador tendrá un pequeño tiempo de invlunerabilidad durante el cual podrá traspasar enemigos y no podrá recibir daño.
-
-- Mecánicas de movimiento: 
-  - Movimiento lateral: El jugador puede moverse hacia la izquierda y hacia la derecha siempre y cuando no haya obstáculos en su camino.
-  - Salto: El jugador puede saltar hacia arriba si está en el suelo. Cuanto más deje pulsado el botón de salto más saltará, hasta el máximo posible.
-  - Bajar plataforma: Si el jugador se encuentra en un toldo puede bajar de este pulsando una tecla, traspasándolo.
-  - Disparo: El jugador puede atacar a los enemigos para hacerles daño con su disparo seleccionado, el cual puede cambiar con distintos potenciadores.
+- Vida: El jugador tiene una barra que representa la vida de la estatua, y baja cuando recibe daño de los enemigos y obstáculos. Si llega a 0 muere y pierde la partida.
+- Aire: Las mecánicas son iguales tanto si está en el aire como en el suelo (a excepción del salto), y puede llegar a usar esto en su favor.
+- Cooldown: Hay un tiempo entre disparos durante el cual el jugador tendrá mecánicas reducidas, y dependerá del tipo de disparo que use.
+- Tiempo de invulnerabilidad: Si recibe daño, el jugador tendrá un pequeño tiempo de invlunerabilidad durante el cual podrá traspasar enemigos y no podrá recibir 
+- Movimiento lateral: El jugador puede moverse hacia la izquierda y hacia la derecha siempre y cuando no haya obstáculos en su camino.
+- Salto: El jugador puede saltar hacia arriba si está en el suelo. Cuanto más deje pulsado el botón de salto más saltará, hasta el máximo posible.
+- Bajar plataforma: Si el jugador se encuentra en un toldo puede bajar de este pulsando una tecla, traspasándolo.
+- Disparo: El jugador puede atacar a los enemigos para hacerles daño con su disparo seleccionado, el cual puede cambiar con distintos potenciadores.
 
 | |      |
 |----------------|--------------|
@@ -122,11 +124,18 @@ El jugador inicia el juego pulsando el botón de "Jugar", el cuál lo llevará a
 | <img src="images_gdd/4.PNG">         |**Modo puño.** Se lanza hacia delante a mayor velocidad, realizando 2 puntos de daño a todos los enemigos en el trayecto. Durante esta acción, no puede moverse o saltar.
 |
 
-### **Mecánicas de escenario**
+### **Mecánicas de escenario** <a name="Mecánicas-escenario"></a>
 El escenario contará con distintos obstáculos que no harán daño al jugador, pero que deberá sortear o utilizar a su favor:
 - Bancos: Se encuentran en el suelo, el usuario puede saltar para evitarlos y usarlos para ganar algo de altura.
 - Toldos: Se encuentran por encima del suelo. El usuario puede llegar a saltar con ayuda de un banco y ponerse encima de ellos, o pasar por debajo.
-- Farolas: Obstáculos que resultan insorteables sin ayuda de una altura previa como un toldo, por lo que el jugador deberá tener muy en cuenta cúando bajar y cúando no. 
+- Farolas: Obstáculos que resultan insorteables sin ayuda de una altura previa como un toldo, por lo que el jugador deberá tener muy en cuenta cúando bajar y cúando no.
+
+Otros, sin embargo, sí pueden dañar al jugador:
+
+| |      |
+|----------------|--------------|
+| <img src="images_gdd/8.PNG">         |**Botes de pintura:** Caen de vez en cuando desde lo alto de los edificios. Si colisionan con el jugador este recibe un 1 punto de daño y le impide realizar ataques durante unos segundos. Si impacta con el suelo se vuelve un charco de pintura el cual reduce la velocidad del jugador al pasar por encima.|
+| <img src="images_gdd/9.PNG">         |**Lluvia ácida:** Caerá en algunas zonas del nivel haciendo daño por tiempo al jugador si le impacta, a razón de 1 punto de daño por segundo.|
 
 También habrá distintos objetos o **power ups**, los cuales se encontrarán repartidos por el escenario, estáticos. Si el jugador hace colisión con ellos, desaparecerán y le darán ventajas o cambios de habilidades, además de otorgar más puntos al final de la partida:
 
@@ -154,31 +163,50 @@ En partida el jugador dispone de controles de movimiento y ataque con los que ma
 
 ### **2.2 Cámara**  <a name="camara"></a>
 
-La cámara se va desplazando en scroll lateral, el jugador puede moverse pero si sale completamente de la vista de la cámara termina la partida.
+La cámara tiene fijado al jugador, y le seguirá cada vez que este se desplace, tanto hacia la izquierda como a la derecha
 
 ## 3. Dinámica  <a name="dinamica"></a>
-Para ganar en un nivel, el jugador tiene que llegar al final del mismo sin que se le agoten los puntos de vida o se salga de los límites de la cámara , independientemente de cuántos enemigos elimine.
+Para ganar en un nivel, el jugador tiene que llegar al final del mismo sin que se le agoten los puntos de vida. 
 
-Para perder el jugador tiene que quedarse sin puntos de vida, véase por ser atacado por enemigos o elementos del escenario. En caso de morir volverá a comenzar el nivel en el que estaba.
+Para perder el jugador tiene que quedarse sin puntos de vida, véase por ser atacado por enemigos o elementos del escenario. En caso de morir tendrá la opción de salir al menú o volver a comenzar el nivel en el que estaba.
 
-**Sistema de puntuación.** La puntuación de un nivel se saca en base a los enemigos eliminados y su tipo, dándose puntos adicionales por las vidas que te queden al final.
-
+**Sistema de puntuación.** Al terminar el nivel el jugador tendrá una puntuación calculada en función del tiempo tardado, marcador de bondad/maldad, power-ups cogidos y daño recibido, en base a la cual obtendrá una nota. Además, según el nivel del marcador de bondad/maldad tendrá uno de tres "finales": "Pacifista" si no ha matado a ningún enemigo, "Vengativo" si ha matado a todos y "Neutral" si ha matado y perdonado, el cual se dividirá en "Solo buscas la libertad cueste lo que cueste" si hay más enemigos perdonados que eliminados y "Parte de ti quiere hacerles pagar" si es al contrario.
 
 ### 3.1 **Estética**  <a name="estetica"></a>
 La estética del juego será llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
 
 ## 3.2 Menús  <a name="menus"></a>
-* Menú principal
-* Menú de selección de niveles
-* Pantalla gameOver
-* Pantalla victoria
+- Menú principal:
+  - Botón de jugar:
+    - Selección de nivel
+  - Botón de Configuración
+    - Volumen general
+    - Volumen de música
+    - Volumen de efectos
+- Menú de pausa
+  - Botón de Reanudar
+  - Botón de Configuración
+    - Volumen general
+    - Volumen de música
+    - Volumen de efectos
+  - Botón de Menú principal
+    - Confirmación de querer salir de la partida
+- Menú de victoria
+  - Marcadores
+  - Puntuación final con nota
+  - Tipo de final
+  - Botón de Menú principal
+  - Botón de Volver a jugar nivel
+- Menú de Game Over
+  - Botón de Menú principal
+  - Botón de Volver a empezar nivel
 
 ## 4. Contenido  <a name="contenido"></a>
 ### **Historia**
-Debido al mal mantenimiento de la estatua, esta genera un resentimiento acumulado hacia los humanos y fauna local, culpables de la erosión y estado actual en el que se encuentra la misma. Este resentimiento la impulsa a volverse consciente y jurar venganza contra los que la maltrataron. Sin embargo, su tiempo de “vida” es limitado, por lo que deberá darse prisa y correr por los distintos niveles, evitando enemigos y destruyéndolos para ganar puntos.
+Debido al mal mantenimiento de la estatua, esta genera un resentimiento acumulado hacia los humanos y fauna local, culpables de la erosión y estado actual en el que se encuentra la misma. Este resentimiento la impulsa a volverse consciente, liberándose de su prisión de criatura inerte para buscar un sitio en el que descansar por fin, vengándose contra los que la maltrataron en el proceso. 
 
 ### **Niveles**
-En principio el juego tendrá cuatro niveles, incrementando la dificultad  de cada uno
+En principio el juego tendrá cuatro niveles, incrementando la dificultad  de cada uno con un mayor número de enemigos, más obstáculos o incluso que la vida se vaya drenando poco a poco.
 
 <img src="images_gdd/14.PNG">
 
@@ -186,13 +214,11 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
 
 | Enemigos |      |
 |----------------|--------------|
-| <img src="images_gdd/6.PNG">        | **Pájaros:** los pájaros volarán por la parte superior de la pantalla, desplazándose de manera constante hacia la izquierda, y tirarán mierda cada 2 segundos en vertical hacia abajo, haciendo 1 punto de daño si esta colisiona con La Mano. En caso de chocar con esta le restarán 1 punto de vida. Se encuentran parados hasta que el jugador se encuentra a 20 casillas de distancia (?).|
-| <img src="images_gdd/7.PNG">         |**Señoras con carrito de bebé:** se mueven de izquierda a derecha en una zona de 3 casillas. En caso de choque con La Mano restan 2 de vida. |
-| <img src="images_gdd/8.PNG">         |**Botes de pintura:** al caer sobre la mano, esta recibe un 1 punto de daño y se vuelve más lenta momentáneamente, al tocar el suelo se vuelve un charco; si solo es un charco de pintura, la velocidad del jugador se reduce un X%.|
-| <img src="images_gdd/9.PNG">         |**Lluvia ácida:** caerá en algunas zonas del nivel, desgastando periódicamente a La Mano, a razón de 1 punto de daño por cada segundo que estés bajo ella.|
-| <img src="images_gdd/10.PNG">         |**Perros:** se mueven hacia la derecha soltando algún truño ocasional, haciendo 1 punto de daño si La Mano lo pisa|
-| <img src="images_gdd/11.PNG">         |**Borrachos:** se mueven lentamente de izquierda a derecha, con el pirulí fuera creando un arco de pis por delante de ellos, haciendo 2 de daño si este colisiona con La Mano.|
-| <img src="images_gdd/12.PNG">         |**Grafiteros:** crean una nube de spray de pintura que dura unos segundos. Si La Mano pasa por ella es aturdida momentáneamente (no puede realizar movimientos ni habilidades) y recibe 1 de daño.|
+| <img src="images_gdd/6.PNG">        | **Pájaros:** los pájaros volarán por la parte superior de la pantalla, desplazándose de manera constante hacia la izquierda, y tirarán mierda cada 2 segundos en vertical hacia abajo, haciendo 1 punto de daño si esta colisiona con el jugador. Si un propio pájaro chocara contra el jugador le hace 2 punto de daño|
+| <img src="images_gdd/7.PNG">         |**Señoras con carrito de bebé:** se mueven de izquierda a derecha en un espacio determinado. En caso de choque con el jugador le restan 2 de vida. |
+| <img src="images_gdd/10.PNG">         |**Perros:** se mueven hacia un lado hasta colisionar con un obstáculo, dándose la vuelta si lo hacen. También dejan algún truño cada varios segundos, el cual se queda en el suelo y hace 1 punto de daño si el jugador lo pisa, además de ralentizarlo durante unos segundos. Si el jugador choca contra un perro recibe 1 de daño. |
+| <img src="images_gdd/11.PNG">         |**Borrachos:** se mueven lentamente de izquierda a derecha de forma aleatoria, lanzándo botellas de alcohol en una parábola en intervalos de segundos aleatorios. Si una de estas colisiona con el jugador le hace 2 puntos de daño. Si el jugador colisiona con un borracho, recibe 1 punto de daño.|
+| <img src="images_gdd/12.PNG">         |**Grafiteros:** Se mueven poco de izquierda a derecha y crean una nube de spray de pintura que dura unos segundos. Si el jugador pasa por ella es aturdido momentáneamente (no puede realizar movimientos ni habilidades) y recibe 3 de daño. Si el jugador colisiona con un grafitero, recibe 1 punto de daño.|
 
 ## 5. Arquitectura y UML  <a name="arquitectura"></a>
  <img src="images_gdd/13.png">
@@ -202,8 +228,7 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
 
 La estética del juego será llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
 
-Por el momento todos los recursos que hemos utilizado en el juego han sido creados por nosotros.
-Estamos utilizando una **licencia MIT**, que se encuentra en la raíz del repositorio.
+Todos los recursos artísticos visuales que estamos utilizado en el juego han sido creados por nosotros.
 
 ## Referencias
 * Contra (NES)
