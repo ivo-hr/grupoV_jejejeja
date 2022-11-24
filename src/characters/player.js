@@ -31,6 +31,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.healthBar = new HealthBar(this.scene, posX, posY, 100);
     this.healthBar.setScrollFactor(0);
     this.available=true;
+    this.stand=true;
 
     this.flipped=false;
     this.facingRight=true;
@@ -83,7 +84,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
 
   setable(){
+    if(!this.available)
     this.available=true;
+
+    if(!this.stand)
+    this.stand=true;
   }
 
   able(){
@@ -142,18 +147,24 @@ export default class Player extends Phaser.GameObjects.Sprite {
     
     }
 
-    else if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
+    if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
       if(this.facingRight){
-      console.log(this)
-      this.body.setVelocityX(100);
+      
       this.scene.physics.moveTo(this,this.x+300,this.y,300,500)
-      console.log(this.x)
+      this.stand=false;
+      this.able();
       }
   
       else{
       this.scene.physics.moveTo(this,this.x-300,this.y,20,500)
+      this.stand=false;
+      this.able();
 
       }
+    }
+    else {
+      if(this.stand)
+      this.body.setVelocityX(0);
     }
 
 
@@ -202,18 +213,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(this.speed);
     }
     
-    /*else {
-      this.body.setVelocityX(0);
-    }
-    /*if(!this.facingRight&&!this.flipped){
+   
+    if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
       this.flipped=true;
     }
    
-    if(this.facingRight){
+    if(this.facingRight&&this.flipped){
       this.setFlip(false, false);
       this.flipped=false;
-    }*/
+    }
     
   }
 }
