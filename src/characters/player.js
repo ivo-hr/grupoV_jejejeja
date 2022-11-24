@@ -31,6 +31,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.healthBar = new HealthBar(this.scene, posX, posY, 100);
     this.healthBar.setScrollFactor(0);
     this.available=true;
+    this.stand=true;
 
     this.flipped=false;
     this.facingRight=true;
@@ -50,6 +51,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			repeat: 0
 		});
 
+    
    
     this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
@@ -74,7 +76,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   lesspoint() {
     this.score--;
     console.log(this.score)
-    this.healthBar.update(10);
+    this.healthBar.update(20);
   }
   
   /**
@@ -82,7 +84,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
 
   setable(){
+    if(!this.available)
     this.available=true;
+
+    if(!this.stand)
+    this.stand=true;
   }
 
   able(){
@@ -141,12 +147,27 @@ export default class Player extends Phaser.GameObjects.Sprite {
     
     }
 
-    else if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
-      for(let i=0;i<10;i++){
-        this.x+=10;
+    if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
+      if(this.facingRight){
+      
+      this.scene.physics.moveTo(this,this.x+300,this.y,300,500)
+      this.stand=false;
+      this.able();
       }
-    
+  
+      else{
+      this.scene.physics.moveTo(this,this.x-300,this.y,20,500)
+      this.stand=false;
+      this.able();
+
+      }
     }
+    else {
+      if(this.stand)
+      this.body.setVelocityX(0);
+    }
+
+
     /*if(!this.available){
       let timer=this.scene.time.addEvent({
         delay: 2000, 
@@ -182,7 +203,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
       this.body.setVelocityY(-this.jumpSpeed*3/4);
     }
-    if (this.keys.A.isDown) {
+    else if (this.keys.A.isDown) {
       this.facingRight=false;
    
       this.body.setVelocityX(-this.speed);
@@ -192,15 +213,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(this.speed);
     }
     
-    else {
-      this.body.setVelocityX(0);
-    }
+   
     if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
       this.flipped=true;
     }
    
-    if(this.facingRight){
+    if(this.facingRight&&this.flipped){
       this.setFlip(false, false);
       this.flipped=false;
     }
