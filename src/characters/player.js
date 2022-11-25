@@ -87,9 +87,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if(!this.available)
     this.available=true;
 
+  
+  }
+
+  end(){
+   
+
     if(!this.stand)
     this.stand=true;
   }
+
 
   able(){
     
@@ -101,6 +108,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
     
     
   }
+
+  dash(){
+    
+    let timer=this.scene.time.addEvent({
+      delay: 200, 
+      callback: this.end,
+      callbackScope: this,
+   });
+  
+  
+}
 
   /**
    * Métodos preUpdate de Phaser. En este caso solo se encarga del movimiento del jugador.
@@ -150,22 +168,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
       if(this.facingRight){
       
-      this.scene.physics.moveTo(this,this.x+300,this.y,300,500)
+      this.scene.physics.moveTo(this,this.x+300,this.y,300,200)
       this.stand=false;
-      this.able();
+      this.dash();
       }
   
       else{
-      this.scene.physics.moveTo(this,this.x-300,this.y,20,500)
+      this.scene.physics.moveTo(this,this.x-300,this.y,300,200)
       this.stand=false;
-      this.able();
+      this.dash();
 
       }
     }
-    else {
-      if(this.stand)
-      this.body.setVelocityX(0);
-    }
+    
 
 
     /*if(!this.available){
@@ -196,7 +211,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     })*/
 
     //Con las teclas WASD variable keys //Funciona
-    if (this.keys.W.isDown && this.body.onFloor()) {
+    else if (this.keys.W.isDown && this.body.onFloor()) {
       this.body.setVelocityY(this.jumpSpeed);
     }
     else if (this.keys.S.isDown) {
@@ -213,6 +228,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(this.speed);
     }
     
+    else {
+      if(this.stand)
+      this.body.setVelocityX(0);
+    }
    
     if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
