@@ -21,7 +21,7 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
 
         //  Health
 
-        this.fillStyle(0xffffff);
+        this.fillStyle(0x00ff00);
         this.fillRect(this.x + 4, this.y + 4, 172, 20);
     }
 
@@ -32,7 +32,7 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
             this.value = this.maxValue;
         }
 
-        this.fillStyle(0xffffff);
+        this.fillStyle(0xff0000);
         this.fillRect(this.x + 4, this.y + 4, 172, 20);
 
 
