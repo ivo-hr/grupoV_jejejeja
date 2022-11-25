@@ -211,22 +211,30 @@ export default class Player extends Phaser.GameObjects.Sprite {
     })*/
 
     //Con las teclas WASD variable keys //Funciona
-    else if (this.keys.W.isDown && this.body.onFloor()) {
+    if (this.keys.W.isDown && this.body.onFloor()) {
       this.body.setVelocityY(this.jumpSpeed);
     }
-    else if (this.keys.S.isDown) {
+    if (this.keys.S.isDown) {
 
       this.body.setVelocityY(-this.jumpSpeed*3/4);
     }
-    else if (this.keys.A.isDown) {
+    if (this.keys.A.isDown) {
+      if(this.stand){
       this.facingRight=false;
    
       this.body.setVelocityX(-this.speed);
     }
-    else if (this.keys.D.isDown) {
-      this.facingRight=true;
-      this.body.setVelocityX(this.speed);
     }
+    else if (this.keys.D.isDown) {
+      if(this.stand){
+
+      this.facingRight=true;
+
+      this.body.setVelocityX(this.speed);
+      }
+    }
+
+   
     
     else {
       if(this.stand)
