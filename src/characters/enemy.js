@@ -60,6 +60,7 @@
         }
     }
     onDestroy(){
+      this.scene.player.score -= 1;
       this.destroy();
     }
 

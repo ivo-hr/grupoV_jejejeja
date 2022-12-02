@@ -5,6 +5,7 @@ import Ball from './ball.js';
 import Enemy from './characters/enemy.js';
 import Bird from './characters/bird.js';
 import Baby from './characters/baby.js';
+import Rain from './hazards/rain.js';
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
  * sobre las que se sitúan las bases en las podrán aparecer las estrellas. 
@@ -45,7 +46,7 @@ export default class Level1 extends Phaser.Scene {
     new Platform(this, this.player, this.bases, 600, 500);
     new Platform(this, this.player, this.bases, 400, 400);
     new Platform(this, this.player, this.bases, 1000, 450);
-    new Obstacle(this, 1000, 200);
+    new Rain(this, 1000, 250, 0.5);
     
     for(let i=0;i<4;i++){
       this.allEnemies.add(new Baby(this,100+i*300,500,96));

@@ -29,6 +29,7 @@ export default class Boot extends Phaser.Scene {
     this.load.spritesheet('penguin', 'penguin.png', {frameWidth: 64, frameHeight:64});
     this.load.spritesheet('bird', 'bird.png', {frameWidth: 96, frameHeight:96});
     this.load.spritesheet('baby', 'baby.png', {frameWidth: 96, frameHeight:96});
+    this.load.spritesheet('rain', 'rain.png', {frameWidth: 50, frameHeight:50});
     this.load.image('background1', 'paraBackground1.png');
     this.load.image('background2', 'paraBackground2.png');
     this.load.image('background3', 'paraBackground3.png');

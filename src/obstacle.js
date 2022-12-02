@@ -30,7 +30,7 @@ export default class Obstacle extends Phaser.GameObjects.Sprite {
     // no se podrá ejecutar la animación del sprite. 
     super.preUpdate();
     if (this.scene.physics.overlap(this.scene.player, this)) {
-        this.scene.player.lesspoint();
+        this.scene.player.minusHealth(1);
         this.destroy();
     }
   }

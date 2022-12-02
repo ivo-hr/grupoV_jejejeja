@@ -15,7 +15,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
-    this.score = 0;
+    this.score = 100;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
@@ -73,10 +73,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.healthBar.update(-10);
   }
 
-  lesspoint() {
-    this.score--;
-    console.log(this.score)
-    this.healthBar.update(20);
+  minusHealth(num) {
+    this.healthBar.update(num);
   }
   
   /**

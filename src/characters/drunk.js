@@ -63,7 +63,7 @@ import Enemy from "./enemys.js";
 
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {
-          this.scene.player.lesspoint()
+          this.scene.player.minusHealth(1)
           this.destroy();
         
       }
