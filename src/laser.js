@@ -12,6 +12,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.setOrigin(0,0.5)
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
+        this.scaleX=1;
 
         //this.setOrigin(x,y);
 
@@ -47,7 +48,9 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         
               this.play('attack');
 
+        //for(let i=0;i<10;i++){
         this.charging();
+       // }
 
     
     }
@@ -63,15 +66,12 @@ export default class Laser extends Phaser.GameObjects.Sprite {
             targets: this,
            
             duration: 1000,
-
-           /* onUpdate: ent()
-            //llamar al this con flecha
-            {
-                this.ent()
-
-            },*/
             ease:'Linear',
-            yoyo:false
+            yoyo:false,
+            scaleX: -10
+            //onUpdate: this.scaleX*=1.3
+            
+           
         })
     }
     
