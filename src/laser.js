@@ -6,13 +6,14 @@ export default class Laser extends Phaser.GameObjects.Sprite {
      * @param {number} y coordenada y
      * @param {Player} player el jugador
      */
-    constructor(scene, x, y,vel){
-        super(scene, x, y,vel,'laserp');
+    constructor(scene, x, y,scal){
+        super(scene, x, y,scal,'laserp');
        
         this.setOrigin(0,0.5)
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.scaleX=1;
+        this.scaleX=scal;
+        //this.toscal=scal*20;
 
         //this.setOrigin(x,y);
 
@@ -21,7 +22,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
         //this.line = this.scene.add.existing(new Phaser.Geom.Line(this.x, 500, this.x, this.y));
-        this.body.setVelocity(vel, 0);
+        this.body.setVelocity(0, 0);
 
         //esto es para mostrar una linea de disparo, no tiene colisiones
         /*this.line = new Phaser.Geom.Line(400, this.y, this.x, this.y);
@@ -65,10 +66,10 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.charge=this.scene.tweens.add({
             targets: this,
            
-            duration: 1000,
+            duration: 300,
             ease:'Linear',
             yoyo:false,
-            scaleX: -10
+            scaleX: this.scaleX*15
             //onUpdate: this.scaleX*=1.3
             
            
