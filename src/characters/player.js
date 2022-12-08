@@ -34,6 +34,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.available=true;
     this.stand=true;
 
+    const estados = {
+      Normal: 0,
+      RaLaser: 1,
+      ElDash: 2
+    }
+
+    this.state= 0;
+
     this.flipped=false;
     this.facingRight=true;
 
@@ -146,17 +154,49 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
-      this.play('hyperbeam');
-      if(this.facingRight)
-      this.bullet = new Bullet(this.scene,this.x,this.y,400);
-      else{
-      this.bullet = new Bullet(this.scene,this.x,this.y,-400);
-      this.bullet.setFlip(false,false);
+      if(this.state===0){
+        this.play('hyperbeam');
+        if(this.facingRight)
+          this.bullet = new Bullet(this.scene,this.x,this.y,400);
+        else{
+          this.bullet = new Bullet(this.scene,this.x,this.y,-400);
+          this.bullet.setFlip(false,false);
 
+        }
+        this.available=false;
+
+        this.able();
       }
-      this.available=false;
+      else if(this.state===1){
+        this.play('hyperbeam');
+        if(this.facingRight)
+        this.bullet = new Laser(this.scene,this.x,this.y,1);
+        else{
+        this.bullet = new Laser(this.scene,this.x,this.y,-1);
+        this.bullet.setFlip(false,false);
+  
+        }
+        this.available=false;
+  
+        this.able();
+      }
+      else if(this.state===2){
+        if(this.facingRight){
+      
+          this.scene.physics.moveTo(this,this.x+300,this.y,300,200)
+          this.stand=false;
+          this.dash();
+          }
+      
+          else{
+          this.scene.physics.moveTo(this,this.x-300,this.y,300,200)
+          this.stand=false;
+          this.dash();
+    
+          }
+      }
 
-      this.able();
+
     }
     else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
       if(this.facingRight)
@@ -165,7 +205,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.x+=-300;
     
     }
-
+ /*
     if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
       if(this.facingRight){
       
