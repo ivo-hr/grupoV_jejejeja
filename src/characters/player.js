@@ -162,6 +162,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.x+=300;
       else
       this.x+=-300;
+      console.log(this.height);
     
     }
 

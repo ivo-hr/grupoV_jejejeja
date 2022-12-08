@@ -64,11 +64,25 @@ export default class Level1 extends Phaser.Scene {
 
   addParallaxImages(){
     
-    this.add.image(0,0,'background1').setOrigin(0,0).setScrollFactor(0.1, 0);
-    this.add.image(0,0,'background2').setOrigin(0,0).setScrollFactor(0.2, 0);
-    this.add.image(0,0,'background3').setOrigin(0,0).setScrollFactor(0.3, 0);
-    this.add.image(0,0,'background4').setOrigin(0,0).setScrollFactor(0.4, 0);
-    this.add.image(0,0,'background5').setOrigin(0,0).setScrollFactor(0.8, 0);
+    // this.add.image(0,0,'background1').setOrigin(0,0).setScrollFactor(0.1, 0);
+    // this.add.image(0,0,'background2').setOrigin(0,0).setScrollFactor(0.2, 0);
+    // this.add.image(0,0,'background3').setOrigin(0,0).setScrollFactor(0.3, 0);
+    // this.add.image(0,0,'background4').setOrigin(0,0).setScrollFactor(0.4, 0);
+    // this.add.image(0,0,'background5').setOrigin(0,0).setScrollFactor(0.8, 0);
+
+    this.addParallaxImage('background1', 15, 0.1)
+    this.addParallaxImage('background2', 15, 0.2)
+    this.addParallaxImage('background3', 15, 0.3)
+    this.addParallaxImage('background4', 15, 0.4)
+    this.addParallaxImage('background5', 15, 0.8, 0.2, 50)
+
+
+  }
+  addParallaxImage(imageKey, count, scrollFactorX, scrollFactorY = 0, offset = 0){
+
+    for(let i = 0; i < count;i++){
+      this.add.image(i*500,offset,imageKey).setOrigin(0,0).setScrollFactor(scrollFactorX, scrollFactorY);
+    }
 
   }
   /**
