@@ -1,5 +1,6 @@
 import Star from '../star.js';
 import Bullet from '../bullet.js';
+import Laser from '../laser.js';
 import HealthBar from "../healthbar.js";
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
@@ -27,11 +28,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
     this.cursors = this.scene.input.keyboard.createCursorKeys();
-    this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T');
+    this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T,L');
     this.healthBar = new HealthBar(this.scene, posX, posY, 100);
     this.healthBar.setScrollFactor(0);
     this.available=true;
     this.stand=true;
+
+    const estados = {
+      Normal: 0,
+      RaLaser: 1,
+      ElDash: 2
+    }
+
+    this.state= 0;
 
     this.flipped=false;
     this.facingRight=true;
@@ -145,17 +154,49 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
-      this.play('hyperbeam');
-      if(this.facingRight)
-      this.bullet = new Bullet(this.scene,this.x,this.y,400);
-      else{
-      this.bullet = new Bullet(this.scene,this.x,this.y,-400);
-      this.bullet.setFlip(false,false);
+      if(this.state===0){
+        this.play('hyperbeam');
+        if(this.facingRight)
+          this.bullet = new Bullet(this.scene,this.x,this.y,400);
+        else{
+          this.bullet = new Bullet(this.scene,this.x,this.y,-400);
+          this.bullet.setFlip(false,false);
 
+        }
+        this.available=false;
+
+        this.able();
       }
-      this.available=false;
+      else if(this.state===1){
+        this.play('hyperbeam');
+        if(this.facingRight)
+        this.bullet = new Laser(this.scene,this.x,this.y,1);
+        else{
+        this.bullet = new Laser(this.scene,this.x,this.y,-1);
+        this.bullet.setFlip(false,false);
+  
+        }
+        this.available=false;
+  
+        this.able();
+      }
+      else if(this.state===2){
+        if(this.facingRight){
+      
+          this.scene.physics.moveTo(this,this.x+300,this.y,300,200)
+          this.stand=false;
+          this.dash();
+          }
+      
+          else{
+          this.scene.physics.moveTo(this,this.x-300,this.y,300,200)
+          this.stand=false;
+          this.dash();
+    
+          }
+      }
 
-      this.able();
+
     }
     else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
       if(this.facingRight)
@@ -165,7 +206,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       console.log(this.height);
     
     }
-
+ /*
     if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
       if(this.facingRight){
       
@@ -182,6 +223,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
     }
     
+    if(Phaser.Input.Keyboard.JustDown(this.keys.L)&&this.available){
+      this.play('hyperbeam');
+      if(this.facingRight)
+      this.bullet = new Laser(this.scene,this.x,this.y,1);
+      else{
+      this.bullet = new Laser(this.scene,this.x,this.y,-1);
+      this.bullet.setFlip(false,false);
+
+      }
+      this.available=false;
+
+      this.able();
+    }
 
 
     /*if(!this.available){
