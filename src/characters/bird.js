@@ -1,5 +1,5 @@
 import Enemy from "./enemy.js";
-
+import FallingObject from "../objects/fallingObject.js";
 /**
  * Clase para los objetos ball que chocan con el jugador
  * Una estrella aparece sobre una base. Cuando el jugador la recoge, se crea 
@@ -20,6 +20,9 @@ import Enemy from "./enemy.js";
       this.speed = 200
       this.setFlip(false, false);
 
+      this.missilFrequency = 400;
+      this.missilCooldown = 0;
+
 
     }
   
@@ -34,30 +37,49 @@ import Enemy from "./enemy.js";
 
       this.play('movingBird');
     }
+
+
     /**
      * Redefinición del preUpdate de Phaser
      * @override
      */
+
+     //diaparan misil hacia abajo 
+     shootMissil(){
+      // if(this.missiCounter < this.missilFrequency)
+      //   this.missiCounter++;
+      // else if(this.missiCounter < this.missilFrequency)
+      new FallingObject(this.scene, this.scene.player, this.x, this.y+10, 'birdShit');
+    }
     preUpdate(t, dt) {
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate(t, dt);
 
+   
+      this.missilCooldown += Math.round(dt);
+      if((this.missilCooldown) > this.missilFrequency){
+          this.missilCooldown = 0;
+          this.shootMissil()
+          console.log("disparo");
+      } 
+
+
       this.body.setVelocityX(-this.speed);
-            
+      
+
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {
         this.scene.player.lesspoint()
         this.destroy();
 
       }
-      //CAMBIAR ESTO LUEGO LOL
+
+      //CAMBIAR ESTO LUEGO
       if(this.x <= 0+this.size/2) this.destroy();
 
-
-
-      
-      
-      
     }
+
+   
+
   }

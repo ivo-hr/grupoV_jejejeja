@@ -27,15 +27,18 @@ export default class Boot extends Phaser.Scene {
     this.load.image('powerPunch', 'powerPunch.png');
     this.load.spritesheet('player', 'player.png',{frameWidth: 65, frameHeight: 70});
     this.load.spritesheet('laserp', 'pruebalaser.png',{frameWidth: 32, frameHeight:32});
-    this.load.spritesheet('hand', 'hand.png', {frameWidth: 90, frameHeight:84});
+    this.load.spritesheet('hand', 'hand68x60.png', {frameWidth: 68, frameHeight:60});
     this.load.spritesheet('penguin', 'penguin.png', {frameWidth: 64, frameHeight:64});
     this.load.spritesheet('bird', 'bird.png', {frameWidth: 96, frameHeight:96});
+    this.load.spritesheet('birdShit', 'birdShit.png', {frameWidth: 16, frameHeight:16});
     this.load.spritesheet('baby', 'baby.png', {frameWidth: 96, frameHeight:96});
     this.load.image('background1', 'background1.png');
     this.load.image('background2', 'background2.png');
     this.load.image('background3', 'background3.png');
     this.load.image('background4', 'background4.png');
     this.load.image('background5', 'background5.png');
+
+    this.load.image('fallingParticle' , 'fallingParticle.png');
 
 
     this.load.setPath('assets/images/');

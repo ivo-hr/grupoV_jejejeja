@@ -50,7 +50,7 @@ export default class Level1 extends Phaser.Scene {
     for(let i=0;i<4;i++){
       this.allEnemies.add(new Baby(this,100+i*300,500,96));
     }
-    this.allEnemies.add(new Bird(this,1000,250,96));
+    //this.allEnemies.add(new Bird(this,1000,250,96));
     this.allEnemies.add(new Bird(this,1800,250,96));
 
     this.spawn();
