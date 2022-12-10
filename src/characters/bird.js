@@ -65,7 +65,7 @@ import FallingObject from "../objects/fallingObject.js";
       } 
 
 
-      this.body.setVelocityX(-this.speed);
+	    this.body.setVelocity(-this.speed, 0); // Aplicamos los valores de velocidad
       
 
       //this.body.setVelocity(100,100).setBounce(1,1);

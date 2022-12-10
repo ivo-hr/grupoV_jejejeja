@@ -17,6 +17,7 @@ import Enemy from "./enemy.js";
       this.xPosIni = x;
       this.maxMovement = 100;
       this.currentMovement = 0;
+      //this.body.setGravity(0,600);
 
 
     }
@@ -60,11 +61,9 @@ import Enemy from "./enemy.js";
       }
 
       if(this.movingRight){
-        this.body.setVelocityX(this.speed);
-      }
+        this.body.setVelocity(this.speed, 0);      }
       else
-        this.body.setVelocityX(-this.speed);
-
+      this.body.setVelocity(-this.speed, 0);
 
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {

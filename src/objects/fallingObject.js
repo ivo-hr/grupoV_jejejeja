@@ -11,7 +11,6 @@ export default class FallingObject extends Phaser.GameObjects.Sprite {
 
       this.body.moves=true;  //Whether the Body's position and rotation are affected by its velocity, acceleration, drag, and gravity.
       this.y -= this.height;
-      this.nLifesLose=1;
   
     }
   
