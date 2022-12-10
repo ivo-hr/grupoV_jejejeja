@@ -23,8 +23,10 @@ export default class Boot extends Phaser.Scene {
     this.load.image('base', 'base.png');
     this.load.image('star', 'star.png');
     this.load.image('powerHyperbeam', 'powerHyperbeam.png');
+    
     this.load.image('powerPunch', 'powerPunch.png');
     this.load.spritesheet('player', 'player.png',{frameWidth: 65, frameHeight: 70});
+    this.load.spritesheet('laserp', 'pruebalaser.png',{frameWidth: 32, frameHeight:32});
     this.load.spritesheet('hand', 'hand.png', {frameWidth: 90, frameHeight:84});
     this.load.spritesheet('penguin', 'penguin.png', {frameWidth: 64, frameHeight:64});
     this.load.spritesheet('bird', 'bird.png', {frameWidth: 96, frameHeight:96});
@@ -42,10 +44,15 @@ export default class Boot extends Phaser.Scene {
     this.load.image('playButton', 'playButton.gif');
 
     this.load.setPath('assets/fonts/');
-    
     this.load.bitmapFont(
       'press_start_2p_font', 'press_start_2p_white.png',
       'press_start_2p.xml');
+
+    this.load.setPath('assets/sounds/');
+    this.load.audio('mainMenu', 'EggyToast_Condemned.mp3');
+    this.load.audio('game1', 'EggyToast_DeathValley.mp3');
+    this.load.audio('game2', 'EggyToast_EnemiesofthePeople.mp3');
+    this.load.audio('game3', 'EggyToast_YouTried.mp3');
   }
 
   /**
