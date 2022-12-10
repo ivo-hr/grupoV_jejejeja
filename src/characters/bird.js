@@ -17,10 +17,14 @@ import Enemy from "./enemy.js";
      */
      constructor(scene, x, y, tam) {
       super(scene, x, y, tam, 'bird');
-      this.speed = 200
-      this.setFlip(false, false);
-
-
+      this.speed = 200;
+      this.movingRight = true;
+      this.movingUp = false;
+      this.setFlip(true, false);
+      this.heightVar = 100;
+      this.minLimit = y - this.heightVar;
+      this.maxLimit = y + this.heightVar;
+      this.body.onWorldBounds = true;
     }
   
     animation(){
@@ -42,17 +46,29 @@ import Enemy from "./enemy.js";
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate(t, dt);
-
+      
       if(this.movingRight){
         this.body.setVelocityX(this.speed);
       }
-      else
+      else{
         this.body.setVelocityX(-this.speed);
-            
-      //this.body.setVelocity(100,100).setBounce(1,1);
+      }
+      if(this.y <= this.minLimit){
+        this.movingUp = false;
+        }    
+        else if(this.y >= this.maxLimit){
+          this.movingUp = true;
+        }
+      if(this.movingUp){
+        this.body.setVelocityY(-this.speed);
+      }
+      else{
+        this.body.setVelocityY(this.speed);
+      }
+
       if (this.scene.physics.overlap(this.scene.player, this)) {
         this.scene.player.minusHealth(2);
-        this.destroy();
+        this.onDestroy();
       }
     }
   }

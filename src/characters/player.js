@@ -139,7 +139,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
   preUpdate(t,dt) {
     super.preUpdate(t,dt);
 
-
+    if(this.body.checkWorldBounds()){
+      console.log("colisionWorld");
+    }
     if(this.slowedTime > 0 && this.isSlowed){
         this.slowedTime --;
     }

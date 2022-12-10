@@ -15,27 +15,24 @@
      */
     constructor(scene, x, y, tam, imageName) {
       super(scene, x, y, imageName);
-
+      this.scene.add.existing(this);
+      this.scene.physics.add.existing(this);
+      this.body.setCollideWorldBounds(true);
       this.initialize(tam)
-
       // this.speed = 300;
       // this.movingRight = true;
       // this.xPosIni = x;
       // this.maxMovement = 100;
       // this.currentMovement = 0;
-
-     
       this.animation();
 
     }
 
     initialize(tam){
       this.setFlip(true, false);
-      this.scene.add.existing(this);
       this.size = tam;
-
       this.sizeManag();
-      this.scene.physics.add.existing(this);
+
       //this.body.setCollideWorldBounds();
       //this.y -= this.height;
 
@@ -44,7 +41,7 @@
 
       //this.body.setVelocity(100,100).setBounce(Phaser.Math.FloatBetween(-1, 1),Phaser.Math.FloatBetween(-1, 1));
 
-      this.body.setCollideWorldBounds();
+
 
     }
 
@@ -65,6 +62,7 @@
     }
     onDestroy(){
       this.scene.player.score -= 1;
+      console.log("Enemy destroyed");
       this.destroy();
     }
 

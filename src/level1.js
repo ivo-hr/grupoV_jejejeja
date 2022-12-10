@@ -33,7 +33,7 @@ export default class Level1 extends Phaser.Scene {
     
     this.cameras.main.setBounds(0, 0, 1000 * 2, 250 * 2);
     //delimita limites del mundo
-    this.physics.world.setBounds(0, 0, 1000 * 2, 250 * 2);
+    this.bounds = this.physics.world.setBounds(0, 0, 1000 * 2, 250 * 2);
 
     //this.stars = 3;
     this.addParallaxImages();
@@ -56,8 +56,8 @@ export default class Level1 extends Phaser.Scene {
     for(let i=0;i<4;i++){
       this.allEnemies.add(new Baby(this,100+i*300,500,96));
     }
-    this.allEnemies.add(new Bird(this,1000,250,96));
-    this.allEnemies.add(new Bird(this,1800,250,96));
+    this.allEnemies.add(new Bird(this,300,250,96));
+    this.allEnemies.add(new Bird(this,300,250,96));
 
     this.spawn();
 
