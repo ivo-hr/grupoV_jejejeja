@@ -43,21 +43,16 @@ import Enemy from "./enemy.js";
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate(t, dt);
 
-      this.body.setVelocityX(-this.speed);
+      if(this.movingRight){
+        this.body.setVelocityX(this.speed);
+      }
+      else
+        this.body.setVelocityX(-this.speed);
             
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {
         this.scene.player.minusHealth(2);
         this.destroy();
-
       }
-      //CAMBIAR ESTO LUEGO LOL
-      if(this.x <= 0+this.size/2) this.destroy();
-
-
-
-      
-      
-      
     }
   }

@@ -1,17 +1,19 @@
 export default class Rain extends Phaser.GameObjects.Sprite{
-    constructor(scene, x, y, tam) {
+    constructor(scene, x, y, tam, h, w) {
         super(scene, x, y, 'rain');
   
-        this.initialize(tam);
+        this.initialize(tam, h, w);
         this.animation();
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this, true);
         this.lastHit = 0;
     }
 
-    initialize(tam){
+    initialize(tam, h, w){
         this.size = tam;  
         this.sizeManag();
+        this.displayHeight = h;
+        this.displayWeigth = w;
     }
     sizeManag(){
         if(this.size == 0){

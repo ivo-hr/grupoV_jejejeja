@@ -38,8 +38,12 @@
       this.scene.physics.add.existing(this);
       //this.body.setCollideWorldBounds();
       //this.y -= this.height;
-      this.scene.physics.add.collider(this, this.scene.walls);
+
+      //Esto hace que colisione con las plataformas
+      // this.scene.physics.add.collider(this, this.scene.bases);
+
       //this.body.setVelocity(100,100).setBounce(Phaser.Math.FloatBetween(-1, 1),Phaser.Math.FloatBetween(-1, 1));
+
       this.body.setCollideWorldBounds();
 
     }
