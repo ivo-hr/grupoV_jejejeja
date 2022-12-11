@@ -28,7 +28,7 @@ import FallingObject from "../objects/fallingObject.js";
       this.body.onWorldBounds = true;
 
       
-      this.missilFrequency = 400;
+      this.missilFrequency = 800;
       this.missilCooldown = 0;
     }
   

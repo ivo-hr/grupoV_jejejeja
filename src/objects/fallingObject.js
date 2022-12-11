@@ -23,6 +23,7 @@ export default class FallingObject extends Phaser.GameObjects.Sprite {
         this.createParticlesFallingbj();
 
       }
+  
     }
   
 
@@ -36,10 +37,7 @@ export default class FallingObject extends Phaser.GameObjects.Sprite {
         this.destroy();
 
       }
-      else if(this.y >= this.height){
-        this.destroy();
-
-      }
+      
 
 
     }
