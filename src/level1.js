@@ -54,11 +54,12 @@ export default class Level1 extends Phaser.Scene {
     
     
     for(let i=0;i<4;i++){
-      this.allEnemies.add(new Baby(this, 100+i*300, 450, 90));
+      let baby = new Baby(this, 100+i*300, 450, 90);
+      this.allEnemies.add(baby);
     }
-
-    this.allEnemies.add(new Bird(this,300,250,96));
-    this.allEnemies.add(new Bird(this,300,250,96));
+    let birb = new Bird(this, 300, 250, 96);
+    birb.sfxConfig = this.soundConfig;
+    this.allEnemies.add(birb);
 
     this.spawn();
 
@@ -67,6 +68,14 @@ export default class Level1 extends Phaser.Scene {
 
     this.cameras.main.followOffset.set(0, 0);
     
+
+
+    this.cfgScreen = this.scene.get('Config');
+    this.musicConfig = this.cfgScreen.musicConfig;
+    this.soundConfig = this.cfgScreen.soundConfig;
+
+    this.music = this.sound.add('game1', this.musicConfig);
+    this.music.play();
   }
 
   addParallaxImages(){

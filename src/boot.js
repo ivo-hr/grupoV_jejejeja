@@ -43,7 +43,13 @@ export default class Boot extends Phaser.Scene {
 
     this.load.setPath('assets/images/');
     this.load.image('mainMenu', 'main.png');
-    this.load.image('playButton', 'playButton.gif');
+    this.load.image('config', 'config.png');
+    this.load.image('playButton', 'playButton.png');
+    this.load.image('cfgButton', 'cfgButton.png');
+    this.load.image('moreMButton', 'plusM.png');
+    this.load.image('lessMButton', 'minusM.png');
+    this.load.image('moreSButton', 'plusS.png');
+    this.load.image('lessSButton', 'minusS.png');
 
     this.load.setPath('assets/fonts/');
     this.load.bitmapFont(
@@ -55,6 +61,10 @@ export default class Boot extends Phaser.Scene {
     this.load.audio('game1', 'EggyToast_DeathValley.mp3');
     this.load.audio('game2', 'EggyToast_EnemiesofthePeople.mp3');
     this.load.audio('game3', 'EggyToast_YouTried.mp3');
+    this.load.audio('dmg', 'dmgtaken.wav');
+    this.load.audio('shot', 'shot.wav');
+    this.load.audio('laser', 'laser.wav');
+    this.load.audio('pengu', 'pengu.wav');
   }
 
   /**

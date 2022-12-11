@@ -37,6 +37,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.available=true;
     this.stand=true;
 
+
+    this.sfxConfig = this.scene.soundConfig;
+
+    // this.pengu = this.sound.add('pengu', this.sfxConfig);
+    // his.shot = this.sound.add('shot', this.sfxConfig);
+    // this.laser = this.sound.add('laser', this.sfxConfig);
+    // this.dmg = this.sound.add('dmg', this.sfxConfig);
+
     const estados = {
       Normal: 0,
       RaLaser: 1,
@@ -73,6 +81,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			
 		})
     this.play('movingplayer');
+
+
   }
 
   /**
@@ -87,6 +97,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   minusHealth(num) {
     this.healthBar.update(num);
+    this.dmg.play();
   }
   
   /**
@@ -173,8 +184,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         }
         this.available=false;
-
         this.able();
+
+        this.pengu.play();
       }
       else if(this.state===1){
         this.play('hyperbeam');
@@ -186,8 +198,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
   
         }
         this.available=false;
-  
         this.able();
+
+        this.laser.play();
       }
       else if(this.state===2){
         if(this.facingRight){
@@ -203,6 +216,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
           this.dash();
     
           }
+
+          this.shot.play();
       }
 
     }

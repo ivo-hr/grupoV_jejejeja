@@ -10,10 +10,11 @@
      */
     constructor(scene, config, image) {
 
-        super(scene, config.x, config.y, image);
+        super(scene, config.x, config.y, config.id, image);
 
+        
         this.scene.add.existing(this);
-
+        this.id = config.id;
         this.setInteractive();
         this.on('pointerdown', this.onDown, this);
         this.on('pointerover', this.onOver, this);
@@ -41,7 +42,7 @@
      */
     onDown() {
 
-        this.scene.events.emit('buttonPressed');
+        this.scene.events.emit('buttonPressed' + this.id);
     }
 
 }
