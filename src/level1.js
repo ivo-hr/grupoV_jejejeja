@@ -38,8 +38,14 @@ export default class Level1 extends Phaser.Scene {
     //this.stars = 3;
     this.addParallaxImages();
 
+    this.cfgScreen = this.scene.get('Config');
+
+    this.musicConfig = this.cfgScreen.musicConfig;
+    this.sfxConfig = this.cfgScreen.sfxConfig;
+
     this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
+    this.player.generateSounds(this.sfxConfig);
     this.allEnemies = this.add.group();
     this.obstacles = this.add.group();
    
@@ -70,9 +76,7 @@ export default class Level1 extends Phaser.Scene {
     
 
 
-    this.cfgScreen = this.scene.get('Config');
-    this.musicConfig = this.cfgScreen.musicConfig;
-    this.soundConfig = this.cfgScreen.soundConfig;
+  
 
     this.music = this.sound.add('game1', this.musicConfig);
     this.music.play();

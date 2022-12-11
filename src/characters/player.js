@@ -38,13 +38,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.stand=true;
 
 
-    this.sfxConfig = this.scene.soundConfig;
-
-    // this.pengu = this.sound.add('pengu', this.sfxConfig);
-    // his.shot = this.sound.add('shot', this.sfxConfig);
-    // this.laser = this.sound.add('laser', this.sfxConfig);
-    // this.dmg = this.sound.add('dmg', this.sfxConfig);
-
     const estados = {
       Normal: 0,
       RaLaser: 1,
@@ -228,6 +221,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.x+=-300;
       console.log(this.height);
     
+      this.shot.play();
+
     }
  /*
     if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
@@ -291,6 +286,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //Con las teclas WASD variable keys //Funciona
     if (this.keys.W.isDown && this.body.onFloor()) {
       this.body.setVelocityY(this.jumpSpeed);
+
+      this.jump.play();
     }
     if (this.keys.S.isDown) {
 
@@ -351,6 +348,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.reduceSpeed(percentage);
     this.slowedTime = time;
     this.isSlowed = true;
+  }
+
+
+
+  generateSounds(sfxConfig){
+    this.pengu = this.scene.sound.add('pengu', sfxConfig);
+    this.shot = this.scene.sound.add('shot', sfxConfig);
+    this.laser = this.scene.sound.add('laser', sfxConfig);
+    this.dmg = this.scene.sound.add('dmg', sfxConfig);
+    this.jump = this.scene.sound.add('jump', sfxConfig);
   }
 }
     
