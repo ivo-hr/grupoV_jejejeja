@@ -359,6 +359,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.dmg = this.scene.sound.add('dmg', sfxConfig);
     this.jump = this.scene.sound.add('jump', sfxConfig);
   }
+
+  //remember this is a function
 }
     
     

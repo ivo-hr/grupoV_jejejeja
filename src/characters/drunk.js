@@ -70,4 +70,12 @@ import Enemy from "./enemys.js";
       
       
     }
+
+    generateSounds(sfxConfig){
+      this.pengu = this.scene.sound.add('pengu', sfxConfig);
+      this.shot = this.scene.sound.add('shot', sfxConfig);
+      this.laser = this.scene.sound.add('laser', sfxConfig);
+      this.dmg = this.scene.sound.add('dmg', sfxConfig);
+      this.jump = this.scene.sound.add('jump', sfxConfig);
+    }
   }
