@@ -1,7 +1,7 @@
 import Button from "./button.js";
 
 /**
- * Escena del menú inicial.
+ * Escena del menú config.
  * @extends Phaser.Scene
  */
 export default class Config extends Phaser.Scene {
