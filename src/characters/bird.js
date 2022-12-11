@@ -17,13 +17,19 @@ import FallingObject from "../objects/fallingObject.js";
      */
      constructor(scene, x, y, tam) {
       super(scene, x, y, tam, 'bird');
-      this.speed = 200
-      this.setFlip(false, false);
 
+      this.speed = 200;
+      this.movingRight = true;
+      this.movingUp = false;
+      this.setFlip(true, false);
+      this.heightVar = 100;
+      this.minLimit = y - this.heightVar;
+      this.maxLimit = y + this.heightVar;
+      this.body.onWorldBounds = true;
+
+      
       this.missilFrequency = 400;
       this.missilCooldown = 0;
-
-
     }
   
     animation(){
@@ -56,7 +62,6 @@ import FallingObject from "../objects/fallingObject.js";
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate(t, dt);
 
-   
       this.missilCooldown += Math.round(dt);
       if((this.missilCooldown) > this.missilFrequency){
           this.missilCooldown = 0;
@@ -64,20 +69,29 @@ import FallingObject from "../objects/fallingObject.js";
           console.log("disparo");
       } 
 
-
-	    this.body.setVelocity(-this.speed, 0); // Aplicamos los valores de velocidad
-      
-
-      //this.body.setVelocity(100,100).setBounce(1,1);
-      if (this.scene.physics.overlap(this.scene.player, this)) {
-        this.scene.player.lesspoint()
-        this.destroy();
-
+      if(this.movingRight){
+        this.body.setVelocityX(this.speed);
+      }
+      else{
+        this.body.setVelocityX(-this.speed);
+      }
+      if(this.y <= this.minLimit){
+        this.movingUp = false;
+        }    
+        else if(this.y >= this.maxLimit){
+          this.movingUp = true;
+        }
+      if(this.movingUp){
+        this.body.setVelocityY(-this.speed);
+      }
+      else{
+        this.body.setVelocityY(this.speed);
       }
 
-      //CAMBIAR ESTO LUEGO
-      if(this.x <= 0+this.size/2) this.destroy();
-
+      if (this.scene.physics.overlap(this.scene.player, this)) {
+        this.scene.player.minusHealth(2);
+        this.onDestroy();
+      }
     }
 
    

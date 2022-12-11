@@ -5,6 +5,9 @@ import Ball from './ball.js';
 import Enemy from './characters/enemy.js';
 import Bird from './characters/bird.js';
 import Baby from './characters/baby.js';
+import Rain from './hazards/rain.js';
+import PaintBucket from './hazards/paintBucket.js';
+
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
  * sobre las que se sitúan las bases en las podrán aparecer las estrellas. 
@@ -30,7 +33,7 @@ export default class Level1 extends Phaser.Scene {
     
     this.cameras.main.setBounds(0, 0, 1000 * 2, 250 * 2);
     //delimita limites del mundo
-    this.physics.world.setBounds(0, 0, 1000 * 2, 250 * 2);
+    this.bounds = this.physics.world.setBounds(0, 0, 1000 * 2, 250 * 2);
 
     //this.stars = 3;
     this.addParallaxImages();
@@ -38,20 +41,24 @@ export default class Level1 extends Phaser.Scene {
     this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
     this.allEnemies = this.add.group();
+    this.obstacles = this.add.group();
    
 
     new Platform(this, this.player, this.bases, 150, 500);
     new Platform(this, this.player, this.bases, 850, 450);
-    new Platform(this, this.player, this.bases, 600, 500);
+    new Platform(this, this.player, this.bases, 700, 500);
     new Platform(this, this.player, this.bases, 400, 400);
     new Platform(this, this.player, this.bases, 1000, 450);
-    new Obstacle(this, 1000, 200);
+    this.obstacles.add(new Rain(this, 1000, 250, 0.5, 200));
+    this.obstacles.add(new PaintBucket(this, 700, 150, 0.5));
+    
     
     for(let i=0;i<4;i++){
       this.allEnemies.add(new Baby(this, 100+i*300, 450, 90));
     }
-    //this.allEnemies.add(new Bird(this,1000,250,96));
-    this.allEnemies.add(new Bird(this,1800,250,64));
+
+    this.allEnemies.add(new Bird(this,300,250,96));
+    this.allEnemies.add(new Bird(this,300,250,96));
 
     this.spawn();
 

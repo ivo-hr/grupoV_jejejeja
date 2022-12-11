@@ -16,14 +16,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
-    this.score = 0;
+    this.score = 100;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
     this.body.setGravity(0,600);
-    this.speed = 200;
-    this.jumpSpeed = -400;
+    this.originalSpeed = 200;
+    this.speed = this.originalSpeed;
+    this.slowedTime = 0;
+    this.isSlowed = false;
+    this.jumpSpeed = -450;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
@@ -82,10 +85,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.healthBar.update(-10);
   }
 
-  lesspoint() {
-    this.score--;
-    console.log(this.score)
-    this.healthBar.update(20);
+  minusHealth(num) {
+    this.healthBar.update(num);
   }
   
   /**
@@ -137,6 +138,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
    */
   preUpdate(t,dt) {
     super.preUpdate(t,dt);
+
+    if(this.body.checkWorldBounds()){
+      console.log("colisionWorld");
+    }
+    if(this.slowedTime > 0 && this.isSlowed){
+        this.slowedTime --;
+    }
+
     
     /*if (this.cursors.up.isDown && this.body.onFloor()) {
       this.body.setVelocityY(this.jumpSpeed);
@@ -195,7 +204,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     
           }
       }
-
 
     }
     else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
@@ -305,7 +313,29 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.setFlip(false, false);
       this.flipped=false;
     }
+
+    if(this.slowedTime == 0 && this.isSlowed){
+      this.restoreSpeed(); 
+      this.isSlowed = false;
+      console.log(this.speed);
+    }
     
+  }
+
+  reduceSpeed(percentage){ //Reduce la velocidad del jugador
+    let reducedSpeed = this.speed * percentage/100;
+    this.speed -= reducedSpeed;
+    console.log(this.speed);
+  }
+
+  restoreSpeed(){ //Restaura la velocidad del jugador
+    this.speed = this.originalSpeed; 
+  }
+
+  slowDown(percentage, time){ //Reduce la velocidad del jugador durante un tiempo
+    this.reduceSpeed(percentage);
+    this.slowedTime = time;
+    this.isSlowed = true;
   }
 }
     
