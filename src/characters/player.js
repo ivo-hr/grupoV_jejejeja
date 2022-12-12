@@ -222,6 +222,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.notmove=true;
         this.inmov();
         this.laserable();
+        this.body.setVelocityX(0);
+        this.body.setVelocityY(0);
 
 
         this.laser.play();

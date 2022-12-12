@@ -75,6 +75,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
             
            
         })
+       
     }
     
     onDestroy(){
