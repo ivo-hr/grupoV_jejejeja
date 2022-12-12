@@ -36,6 +36,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.healthBar.setScrollFactor(0);
     this.available=true;
     this.stand=true;
+    this.notmove=false;
 
 
     const estados = {
@@ -44,7 +45,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       ElDash: 2
     }
 
-    this.state= 0;
+    this.state= 1;
 
     this.flipped=false;
     this.facingRight=true;
@@ -100,6 +101,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   setable(){
     if(!this.available)
     this.available=true;
+    
 
   
   }
@@ -121,6 +123,32 @@ export default class Player extends Phaser.GameObjects.Sprite {
      });
     
     
+  }
+
+  mov(){
+    this.notmove=false;
+  }
+
+  inmov(){
+    
+    let timer=this.scene.time.addEvent({
+      delay: 1000, 
+      callback: this.mov,
+      callbackScope: this,
+   });
+  
+  
+  }
+
+  laserable(){
+    
+    let timer=this.scene.time.addEvent({
+      delay: 3000, 
+      callback: this.setable,
+      callbackScope: this,
+   });
+  
+  
   }
 
   dash(){
@@ -167,7 +195,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
-      if(this.state===0){
+      if(this.state===0&&this.available){
         this.play('hyperbeam');
         if(this.facingRight)
           this.bullet = new Bullet(this.scene,this.x,this.y,400);
@@ -181,7 +209,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         this.pengu.play();
       }
-      else if(this.state===1){
+      else if(this.state===1&&this.available){
         this.play('hyperbeam');
         if(this.facingRight)
         this.bullet = new Laser(this.scene,this.x,this.y,1);
@@ -191,11 +219,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
   
         }
         this.available=false;
-        this.able();
+        this.notmove=true;
+        this.inmov();
+        this.laserable();
+
 
         this.laser.play();
       }
-      else if(this.state===2){
+      else if(this.state===2&&this.available){
         if(this.facingRight){
       
           this.scene.physics.moveTo(this,this.x+300,this.y,300,200)
@@ -284,38 +315,38 @@ export default class Player extends Phaser.GameObjects.Sprite {
     })*/
 
     //Con las teclas WASD variable keys //Funciona
-    if (this.keys.W.isDown && this.body.onFloor()) {
-      this.body.setVelocityY(this.jumpSpeed);
+    if(!this.notmove){
+      if (this.keys.W.isDown && this.body.onFloor()) {
+        this.body.setVelocityY(this.jumpSpeed);
 
-      this.jump.play();
-    }
-    if (this.keys.S.isDown) {
+        this.jump.play();
+     }
+      if (this.keys.S.isDown) {
 
-      this.body.setVelocityY(-this.jumpSpeed*3/4);
-    }
-    if (this.keys.A.isDown) {
-      if(this.stand){
-      this.facingRight=false;
+        this.body.setVelocityY(-this.jumpSpeed*3/4);
+      }
+      if (this.keys.A.isDown) {
+        if(this.stand){
+          this.facingRight=false;
    
-      this.body.setVelocityX(-this.speed);
-    }
-    }
-    else if (this.keys.D.isDown) {
-      if(this.stand){
+          this.body.setVelocityX(-this.speed);
+        }
+      }
+      else if (this.keys.D.isDown) {
+        if(this.stand){
 
-      this.facingRight=true;
+          this.facingRight=true;
 
-      this.body.setVelocityX(this.speed);
+        this.body.setVelocityX(this.speed);
+        }
+      }
+    
+
+      else {
+        if(this.stand)
+        this.body.setVelocityX(0);
       }
     }
-
-   
-    
-    else {
-      if(this.stand)
-      this.body.setVelocityX(0);
-    }
-   
     if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
       this.flipped=true;

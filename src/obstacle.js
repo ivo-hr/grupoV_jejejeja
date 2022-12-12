@@ -31,7 +31,7 @@ export default class Obstacle extends Phaser.GameObjects.Sprite {
     super.preUpdate();
     if (this.scene.physics.overlap(this.scene.player, this)) {
         //this.scene.player.lesspoint();
-        this.scene.player.state=2;
+        this.scene.player.state=1;
         this.destroy();
     }
   }

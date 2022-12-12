@@ -12,6 +12,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.setOrigin(0,0.5)
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
+        this.body.setGravity(0,-100);
         this.scaleX=scal;
         //this.toscal=scal*20;
 
@@ -69,7 +70,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
             duration: 300,
             ease:'Linear',
             yoyo:false,
-            scaleX: this.scaleX*15
+            scaleX: this.scaleX*10
             //onUpdate: this.scaleX*=1.3
             
            
@@ -86,26 +87,23 @@ export default class Laser extends Phaser.GameObjects.Sprite {
 
     preUpdate(t, dt){
         super.preUpdate(t, dt);
-        if(this.body.newVelocity.y <= 0){ 
-            //this.line.y2 = this.y;
-            //this.graphics.strokeLineShape(this.line);
-        }
-        else{
+       
 
             let timer=this.scene.time.addEvent({
-                delay: 2000, 
+                delay: 1000, 
                 callback: this.onDestroy,
                 callbackScope: this,
                 
             });
             
-        }
+        
 
         this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
             // hacer algo
             this.scene.player.point();
             o1.onDestroy(); 
-            this.onDestroy();
+            this.body.setVelocity(0, 0);
+            //this.onDestroy();
         });
 
         // if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
