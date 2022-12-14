@@ -32,8 +32,8 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
     
      this.scene.anims.create({
         key: 'movingBullet',
-        frames: scene.anims.generateFrameNumbers('penguin', { start: 0, end: 3 }),
-        frameRate: 12,
+        frames: scene.anims.generateFrameNumbers('bullet', { start: 0, end: 2 }),
+        frameRate: 6,
         repeat: -1
       
         })

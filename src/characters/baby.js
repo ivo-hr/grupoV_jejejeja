@@ -31,7 +31,7 @@ import Enemy from "./enemy.js";
       this.scene.anims.create({
         key: 'movingBaby',
         frames: this.scene.anims.generateFrameNumbers('baby', { start: 0, end: 3 }),
-        frameRate: 12,
+        frameRate: 10,
         repeat: -1
   
       })

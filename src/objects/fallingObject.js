@@ -59,7 +59,6 @@ export default class FallingObject extends Phaser.GameObjects.Sprite {
     */
     handleCollisionFloor() {
       //this.fallingSound.play();
-      this.createParticlesFallingbj();
       this.destroy();
     }
   
