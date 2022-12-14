@@ -32,7 +32,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     let posY = this.scene.cameras.main.height*0.1;
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T,L');
-    this.healthBar = new HealthBar(this.scene, posX, posY, 10);
+    this.healthBar = new HealthBar(this.scene, posX, posY, 1000);
     this.healthBar.setScrollFactor(0);
     this.available=true;
     this.stand=true;
