@@ -31,7 +31,7 @@ export default class Level1 extends Phaser.Scene {
    */
   create() {
     
-    this.cameras.main.setBounds(0, 0, 1000 * 2, 250 * 2);
+    this.cameras.main.setBounds(0, 150, 1000 * 2, 180 * 2);
     //delimita limites del mundo
     this.bounds = this.physics.world.setBounds(0, 0, 1000 * 2, 250 * 2);
 
@@ -46,15 +46,25 @@ export default class Level1 extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'lvlP' });
     const tileset = map.addTilesetImage('tumama', 'tiles');
     const layer2 = map.createLayer('Building', tileset, 0, 200);
-    const layer3 = map.createLayer('Toldos', tileset, 0, 200);
-    const layer1 = map.createLayer('Collide', tileset, 0, 200);
-    layer3.setCollisionByProperty({collides: true});
-    layer3.forEachTile(tile => {
+    this.layer3 = map.createLayer('Toldos', tileset, 0, 200);
+    this.layer1 = map.createLayer('Collide', tileset, 0, 200);
+    this.layer4 = map.createLayer('Bancos', tileset, 0, 200);
+    this.layer5 = map.createLayer('Suelo', tileset, 0, 200);
+    this.layer3.setCollisionByProperty({collides: true});
+    this.layer3.forEachTile(tile => {
       if (tile.properties["Atravesable"]) {
         tile.setCollision(false, false, true, false);
       }
-   });
-    layer1.setCollisionByExclusion(-1, true);
+    });
+    this.layer4.setCollisionByProperty({collides: true});
+    this.layer4.forEachTile(tile => {
+      if (tile.properties["Atravesable"]) {
+        tile.setCollision(false, false, true, false);
+      }
+    });
+    this.layer1.setCollisionByExclusion([-1], true);
+    this.layer5.setCollisionByExclusion([-1], true);
+    layer2.setCollisionByExclusion([-1], false);
 
     // this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
@@ -62,8 +72,10 @@ export default class Level1 extends Phaser.Scene {
     this.allEnemies = this.add.group();
     this.obstacles = this.add.group();
 
-    this.physics.add.collider(this.player, layer1);
-    this.physics.add.collider(this.player, layer3);
+    this.physics.add.collider(this.player, this.layer1);
+    this.physics.add.collider(this.player, this.layer3);
+    this.physics.add.collider(this.player, this.layer4);
+    this.physics.add.collider(this.player, this.layer5);
 
     // new Platform(this, this.player, this.bases, 150, 500);
     // new Platform(this, this.player, this.bases, 850, 450);
