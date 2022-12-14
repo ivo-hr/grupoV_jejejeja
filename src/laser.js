@@ -13,7 +13,9 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setGravity(0,-100);
-        this.scaleX=scal;
+        this.scaleX=1;
+        this.dir=scal;
+        this.elong=7;
        
 
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
@@ -57,7 +59,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
     }
 
     charging(){
-       
+       if(this.dir===1){
 
         this.charge=this.scene.tweens.add({
             targets: this,
@@ -65,11 +67,30 @@ export default class Laser extends Phaser.GameObjects.Sprite {
             duration: 300,
             ease:'Linear',
             yoyo:false,
-            scaleX: this.scaleX*10
+            scaleX: this.scaleX*this.elong,
+            
             //onUpdate: this.scaleX*=1.3
             
            
         })
+       }
+       else if(this.dir===-1){
+        this.x=this.x-30;
+        this.charge=this.scene.tweens.add({
+            targets: this,
+           
+            duration: 300,
+            ease:'Linear',
+            yoyo:false,
+            scaleX: this.scaleX*this.elong,
+            x: this.x-27.5*this.elong
+            //onUpdate: this.scaleX*=1.3
+            
+        })
+
+
+
+       }
        
     }
     
