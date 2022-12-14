@@ -45,9 +45,15 @@ export default class Boot extends Phaser.Scene {
     this.load.image('background5', 'background5.png');
     this.load.image('fallingParticle' , 'baby.png');
 
+    this.load.image('dial', 'dial.png');
+    this.load.image('dialHand', 'dialHand.png');
+
+    
     this.load.setPath('assets/tilemaps/');
     this.load.image('tiles', 'spritesheetMap.png');
     this.load.tilemapTiledJSON('lvlP', 'levelPrueba.json');
+
+
 
     this.load.setPath('assets/images/');
     this.load.image('mainMenu', 'main.png');

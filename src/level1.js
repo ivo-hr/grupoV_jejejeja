@@ -8,6 +8,8 @@ import Baby from './characters/baby.js';
 import Rain from './hazards/rain.js';
 import PaintBucket from './hazards/paintBucket.js';
 
+import scoreDial from './score.js';
+
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
  * sobre las que se sitúan las bases en las podrán aparecer las estrellas. 
@@ -95,6 +97,9 @@ export default class Level1 extends Phaser.Scene {
     this.allEnemies.add(birb);
 
     // this.spawn();
+
+    this.scoreDial = new scoreDial(this, 200, 300);
+    this.scoreDial.update(0.5);
 
 
     this.cameras.main.startFollow(this.player);
