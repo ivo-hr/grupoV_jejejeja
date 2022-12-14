@@ -15,10 +15,13 @@ export default class scoreDial extends Phaser.GameObjects.Container {
         this.displayHeight = y;
         this.value = 0;
         this.maxValue = 500;
-        this.scale = 4;
+        this.scale = 3;
 
         this.bckgrd = this.initBackground(this.scale, x, y);
         this.handle = this.initHand(this.scale, x, y);
+
+        this.bckgrd.setScrollFactor(0,0);
+        this.handle.setScrollFactor(0,0);
 
         this.scene.add.existing(this);
     }
@@ -28,7 +31,8 @@ export default class scoreDial extends Phaser.GameObjects.Container {
         bck.setScale(scale);
         bck.setOrigin(0.5, 1);
         bck.x = x;
-        bck.y = y +2;
+        bck.y = y -2;
+        bck.setRotation(Phaser.Math.DegToRad(180));
         return bck;
     }
 
@@ -38,7 +42,7 @@ export default class scoreDial extends Phaser.GameObjects.Container {
         hand.setOrigin(0.5, 1);
         hand.x = x;
         hand.y = y;
-        hand.setRotation(Phaser.Math.DegToRad(-90));
+        hand.setRotation(Phaser.Math.DegToRad(-100));
         return hand;
     }
 
@@ -50,7 +54,8 @@ export default class scoreDial extends Phaser.GameObjects.Container {
             this.value = this.maxValue;
         }
 
-        this.handle.setRotation(Phaser.Math.DegToRad(-90 + (this.value * 180 / this.maxValue)));
+        this.handle.setRotation(Phaser.Math.DegToRad(-100 - (this.value * 180 / this.maxValue)));
+        console.log("score updated");
     }
 
     getScore(){

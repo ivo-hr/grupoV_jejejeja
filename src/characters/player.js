@@ -259,7 +259,7 @@ setInvincible(){
         this.available=false;
         this.able();
 
-        this.pengu.play();
+        this.shot.play();
       }
       else if(this.state===1){
         this.play('hyperbeam');
@@ -300,9 +300,6 @@ setInvincible(){
       else
       this.x+=-300;
       console.log(this.height);
-    
-      this.shot.play();
-
     }
  /*
     if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
@@ -433,7 +430,13 @@ setInvincible(){
     this.laser = this.scene.sound.add('laser', sfxConfig);
     this.dmg = this.scene.sound.add('dmg', sfxConfig);
     this.jump = this.scene.sound.add('jump', sfxConfig);
+    this.killenemy = this.scene.sound.add('enemyKill', sfxConfig);
   }
 
+  addScore(score){
+    this.killenemy.play();
+    this.score += score;
+    this.scene.scoreDial.update(score);
+  }
   //remember this is a function
 }

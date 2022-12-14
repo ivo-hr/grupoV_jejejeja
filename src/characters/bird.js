@@ -27,6 +27,8 @@ import BirdShit from "../hazards/birdShit.js";
       this.maxLimit = y + this.heightVar;
       this.body.onWorldBounds = true;
 
+
+      this.myScore = 20;
       
       this.missilFrequency = 800;
       this.missilCooldown = 0;
@@ -73,6 +75,8 @@ import BirdShit from "../hazards/birdShit.js";
           this.missilCooldown = 0;
           this.shootMissil();
           console.log("disparo");
+
+          this.pengu.play();
       } 
 
       if(this.movingRight){
@@ -103,9 +107,6 @@ import BirdShit from "../hazards/birdShit.js";
    
     generateSounds(sfxConfig){
       this.pengu = this.scene.sound.add('pengu', sfxConfig);
-      this.shot = this.scene.sound.add('shot', sfxConfig);
-      this.laser = this.scene.sound.add('laser', sfxConfig);
-      this.dmg = this.scene.sound.add('dmg', sfxConfig);
-      this.jump = this.scene.sound.add('jump', sfxConfig);
+
     }
   }

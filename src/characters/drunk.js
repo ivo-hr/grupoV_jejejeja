@@ -15,6 +15,8 @@ import Enemy from "./enemys.js";
       this.movingRight = true;
       this.throwBottle = false;
       this.time = Phaser.Math.RandomDataGenerator;
+
+      this.myScore = 30;
     }
 
     /**
