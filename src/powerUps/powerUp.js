@@ -1,7 +1,7 @@
 export default class PowerUp extends Phaser.GameObjects.Sprite {
 
    
-    constructor(scene, x, y, nombreImg) {
+    constructor(scene, x, y, nombreImg, type) {
     
      super(scene, x, y, nombreImg);
      
@@ -15,6 +15,7 @@ export default class PowerUp extends Phaser.GameObjects.Sprite {
      this.scene=scene;
     
      this.nameImg= nombreImg;
+     this.type = type;
      
      this.createTweenMovement(y);
      
@@ -49,5 +50,11 @@ export default class PowerUp extends Phaser.GameObjects.Sprite {
    preUpdate(t,dt)
    {
     super.preUpdate(t,dt);
+
+    if (this.scene.physics.overlap(this.scene.player, this)) {
+        //this.scene.player.lesspoint();
+        this.scene.player.state = this.type;
+        this.destroy();
+    }
    }
  }

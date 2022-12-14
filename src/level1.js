@@ -9,6 +9,7 @@ import Rain from './hazards/rain.js';
 import PaintBucket from './hazards/paintBucket.js';
 
 import scoreDial from './score.js';
+import PowerUp from './powerUps/PowerUp.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -97,6 +98,10 @@ export default class Level1 extends Phaser.Scene {
     this.allEnemies.add(birb);
 
     // this.spawn();
+
+    this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
+    this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
+    this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
 
     this.scoreDial = new scoreDial(this, 200, 300);
     this.scoreDial.update(0.5);
