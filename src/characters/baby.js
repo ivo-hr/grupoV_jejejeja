@@ -65,7 +65,8 @@ import Enemy from "./enemy.js";
       this.body.setVelocity(-this.speed, 0);
 
       //this.body.setVelocity(100,100).setBounce(1,1);
-      if (this.scene.physics.overlap(this.scene.player, this)) {
+      if (this.scene.physics.overlap(this.scene.player, this)&&!this.scene.player.invincible) {
+        this.scene.player.setInvincible();
           this.scene.player.minusHealth(2)        
       }
     }

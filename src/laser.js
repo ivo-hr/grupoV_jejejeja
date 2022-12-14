@@ -14,13 +14,8 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.existing(this);
         this.body.setGravity(0,-100);
         this.scaleX=scal;
-        //this.toscal=scal*20;
+       
 
-        //this.setOrigin(x,y);
-
-        
-        
-        
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
         //this.line = this.scene.add.existing(new Phaser.Geom.Line(this.x, 500, this.x, this.y));
         this.body.setVelocity(0, 0);
@@ -107,16 +102,5 @@ export default class Laser extends Phaser.GameObjects.Sprite {
             //this.onDestroy();
         });
 
-        // if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
-        //     this.scene.player.point();
-        //     this.onDestroy();
-        // }
-
-        // if(this.scene.physics.overlap(this.scene.allEnemies, this)){
-        //     this.scene.player.point();
-        //     this.onDestroy();
-        //     //this.scene.allEnemies.onDestroy();
-        // }
-       // game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
     }
 }

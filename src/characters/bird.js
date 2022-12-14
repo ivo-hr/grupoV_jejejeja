@@ -94,7 +94,8 @@ import BirdShit from "../hazards/birdShit.js";
         this.body.setVelocityY(this.speed);
       }
 
-      if (this.scene.physics.overlap(this.scene.player, this)) {
+      if (this.scene.physics.overlap(this.scene.player, this)&&!this.scene.player.invincible) {
+        this.scene.player.setInvincible();
         this.scene.player.minusHealth(2);
       }
     }
