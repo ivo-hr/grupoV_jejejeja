@@ -18,12 +18,9 @@
       this.scene.add.existing(this);
       this.scene.physics.add.existing(this);
       this.body.setCollideWorldBounds(true);
+      this.scene.physics.add.collider(this, this.scene.layer5);
       this.initialize(tam)
-      // this.speed = 300;
-      // this.movingRight = true;
-      // this.xPosIni = x;
-      // this.maxMovement = 100;
-      // this.currentMovement = 0;
+    
       this.animation();
 
     }
@@ -32,15 +29,6 @@
       this.setFlip(true, false);
       this.size = tam;
       this.sizeManag();
-
-      //this.body.setCollideWorldBounds();
-      //this.y -= this.height;
-
-      //Esto hace que colisione con las plataformas
-      // this.scene.physics.add.collider(this, this.scene.bases);
-
-      //this.body.setVelocity(100,100).setBounce(Phaser.Math.FloatBetween(-1, 1),Phaser.Math.FloatBetween(-1, 1));
-
 
 
     }

@@ -1,5 +1,5 @@
 import Enemy from "./enemy.js";
-import FallingObject from "../objects/fallingObject.js";
+import BirdShit from "../hazards/birdShit.js";
 /**
  * Clase para los objetos ball que chocan con el jugador
  * Una estrella aparece sobre una base. Cuando el jugador la recoge, se crea 
@@ -55,17 +55,23 @@ import FallingObject from "../objects/fallingObject.js";
       // if(this.missiCounter < this.missilFrequency)
       //   this.missiCounter++;
       // else if(this.missiCounter < this.missilFrequency)
-      new FallingObject(this.scene, this.scene.player, this.x, this.y+10, 'birdShit');
+      new BirdShit(this.scene, this.scene.player, this.x, this.y+10, 'birdShit');
     }
     preUpdate(t, dt) {
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate(t, dt);
 
+      //comprueba si se choca con los limites del mundo
+      if(this.body.blocked.left || this.body.blocked.right){
+        this.movingRight = !this.movingRight;
+        if(this.movingRight) this.setFlip(true, false);
+        else this.setFlip(false, false);
+      }
       this.missilCooldown += Math.round(dt);
       if((this.missilCooldown) > this.missilFrequency){
           this.missilCooldown = 0;
-          this.shootMissil()
+          this.shootMissil();
           console.log("disparo");
       } 
 
@@ -90,7 +96,6 @@ import FallingObject from "../objects/fallingObject.js";
 
       if (this.scene.physics.overlap(this.scene.player, this)) {
         this.scene.player.minusHealth(2);
-        this.onDestroy();
       }
     }
 

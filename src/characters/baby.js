@@ -19,7 +19,6 @@ import Enemy from "./enemy.js";
       this.currentMovement = 0;
       //this.body.setGravity(0,600);
 
-
     }
 
     /**
@@ -31,7 +30,7 @@ import Enemy from "./enemy.js";
       this.scene.anims.create({
         key: 'movingBaby',
         frames: this.scene.anims.generateFrameNumbers('baby', { start: 0, end: 3 }),
-        frameRate: 12,
+        frameRate: 10,
         repeat: -1
   
       })
@@ -67,13 +66,8 @@ import Enemy from "./enemy.js";
 
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {
-          this.scene.player.minusHealth(2)
-          this.onDestroy();
-        
+          this.scene.player.minusHealth(2)        
       }
-      
-      
-
     }
 
     generateSounds(sfxConfig){

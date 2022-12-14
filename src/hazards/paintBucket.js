@@ -17,6 +17,8 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
       this.body.setCollideWorldBounds(); //Collision with the limits of the world
       this.body.moves=false;
       this.isMoving=false;
+      //rango de distancia en el que se empieza a caer el cubo
+      this.range = 200;
     }
 
     initialize(tam){
@@ -47,7 +49,7 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate();
       // If player enters the range
-    if(this.scene.player.x + 10>= this.x) 
+    if(this.scene.player.x + this.range >= this.x) 
     {
       //Fall
       this.body.moves=true;
@@ -60,7 +62,7 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
       this.angle++; 
     } 
 
-    if(this.body.onFloor()){
+    if(this.scene.physics.collide(this.scene.layer5, this) || this.scene.physics.collide(this.scene.layer3, this)){
       this.onFloorCollision(); 
     }
     else if (this.scene.physics.overlap(this.scene.player, this)) {

@@ -13,6 +13,8 @@ export default class PaintStain extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setCollideWorldBounds();
+        this.scene.physics.add.collider(this, this.scene.layer3);
+        this.scene.physics.add.collider(this, this.scene.layer5);
       }
       initialize(tam){
         this.size = tam;  
