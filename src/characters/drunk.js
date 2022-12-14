@@ -1,4 +1,5 @@
-import Enemy from "./enemys.js";
+import Enemy from "./enemy.js";
+import Bottle from "../hazards/bottle.js"
 
  export default class Drunk extends Enemy {
   
@@ -12,11 +13,13 @@ import Enemy from "./enemys.js";
     constructor(scene, x, y, tam) {
       super(scene, x, y, tam, 'drunk'); //Cambiar por drunk cuando tenga el sprite
       
-      this.speed = 200;
+      this.speed = 50;
       this.movingRight = true;
-      this.isBottlethrown = false;
       this.setFlip(true, false);
-      this.time = Phaser.Math.RandomDataGenerator;
+      this.maxMovement = 100;
+      this.currentMovement = 0;
+      this.missilCooldown = 0;
+      this.missilFrequency = 50;
     }
 
     /**
@@ -28,7 +31,7 @@ import Enemy from "./enemys.js";
       this.scene.anims.create({ 
         key: 'movingdrunk',
         frames: this.scene.anims.generateFrameNumbers('drunk', { start: 0, end: 4 }), //Cambiar por drunk
-        frameRate: 12, 
+        frameRate: 4, 
         repeat: -1 
     })
 
@@ -37,12 +40,13 @@ import Enemy from "./enemys.js";
 
     //lanza botella en forma de parabola contra el suelo
     throwbottle(){
+      
       let aux = Phaser.Math.RandomDataGenerator; //random para settear la forma de parabola del lanzamiento
-      if(movingRight){
-        new Bottle(this.scene, this.scene.player, this.x, this.y, 'bottle');
+      if(this.movingRight){
+        new Bottle(this.scene, this.x, this.y, 15);
       }
       else{
-        new Bottle(this.scene, this.scene.player, this.x, this.y, 'bottle');
+        new Bottle(this.scene, this.x, this.y, 15);
       }
 
     }
@@ -58,10 +62,6 @@ import Enemy from "./enemys.js";
 
       //se va sumando al contador de "pasos" para ver si cambia de dirección
       this.currentMovement++;
-
-      if(this.currentMovement >= this.maxMovement) {
-        this.currentMovement = 0;//se resetea la cuenta
-
       //comprueba si se choca con los limites del mundo
       if(this.body.blocked.left || this.body.blocked.right){
         this.movingRight = !this.movingRight;
@@ -71,11 +71,13 @@ import Enemy from "./enemys.js";
       this.missilCooldown += Math.round(dt);
       if((this.missilCooldown) > this.missilFrequency){
           this.missilCooldown = 0;
-          this.isBottlethrown = true;
+          this.missilFrequency = 500000;
           this.throwbottle();
-          this.isBottlethrown = false;
           console.log("disparo");
       }
+
+      if(this.currentMovement >= this.maxMovement) {
+        this.currentMovement = Phaser.Math.Between(this.maxMovement / 2, this.maxMovement);//se resetea la cuenta
 
         if(this.movingRight) this.setFlip(false, false);
         else this.setFlip(true, false);
@@ -84,11 +86,9 @@ import Enemy from "./enemys.js";
       }
 
       if(this.movingRight){
-        this.body.setVelocityX(this.speed);
-      }
+        this.body.setVelocity(this.speed, 0);      }
       else
-        this.body.setVelocityX(-this.speed);
-
+      this.body.setVelocity(-this.speed, 0);
 
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {

@@ -24,8 +24,8 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
     initialize(tam){
       this.size = tam;  
       this.sizeManag();
-  }
-  sizeManag(){
+    }
+    sizeManag(){
       if(this.size == 0){
           this.setScale(0.25);
       }
@@ -35,12 +35,12 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
       else{
           this.setScale(1);
       }
-  }
+    }
     /**
      * Redefinición del preUpdate de Phaser
      * @override
      */
-     onFloorCollision(){
+    onFloorCollision(){
       this.scene.obstacles.add(new PaintStain(this.scene, this.x, this.y));
       this.destroy();
     }

@@ -7,6 +7,7 @@ import Bird from './characters/bird.js';
 import Baby from './characters/baby.js';
 import Rain from './hazards/rain.js';
 import PaintBucket from './hazards/paintBucket.js';
+import Drunk from './characters/drunk.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -93,6 +94,9 @@ export default class Level1 extends Phaser.Scene {
     let birb = new Bird(this, 300, 250, 96);
     birb.sfxConfig = this.soundConfig;
     this.allEnemies.add(birb);
+
+    let borracho = new Drunk(this, 200, 450, 96);
+    this.allEnemies.add(borracho);
 
     // this.spawn();
 
