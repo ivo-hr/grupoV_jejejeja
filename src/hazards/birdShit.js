@@ -17,12 +17,12 @@ export default class FallingObject extends Phaser.GameObjects.Sprite {
     preUpdate() {
       super.preUpdate();
       this.handleCollision();
-
-    
-  
     }
   
-
+    onDestroy(){
+       this.destroy(this);
+   }
+   
     //Handles the collision with player and floor
     
     handleCollision(){
