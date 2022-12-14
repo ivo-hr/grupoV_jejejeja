@@ -21,7 +21,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
-    this.body.setGravity(0,600);
+    this.gforce=600;
+    this.body.setGravity(0,this.gforce);
     this.originalSpeed = 200;
     this.speed = this.originalSpeed;
     this.slowedTime = 0;
@@ -37,6 +38,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.available=true;
     this.stand=true;
     this.invincible=false;
+    this.notmove=false;
 
     this.body.setSize(60, 40);
 
@@ -47,7 +49,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       ElDash: 2
     }
 
-    this.state= 0;
+    this.state= 1;
 
     this.flipped=false;
     this.facingRight=true;
@@ -169,6 +171,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.stand=true;
   }
 
+  
+
   vulnerable(){
     if(this.invincible){
       this.invincible=false;
@@ -212,6 +216,33 @@ invincibility(){
 setInvincible(){
   this.invincible=true;
   this.invincibility();
+}
+
+mov(){
+  this.notmove=false;
+  this.body.setGravity(0,this.gforce);
+}
+
+inmov(){
+    
+  let timer=this.scene.time.addEvent({
+    delay: 1000, 
+    callback: this.mov,
+    callbackScope: this,
+ });
+
+
+}
+
+laserable(){
+  
+  let timer=this.scene.time.addEvent({
+    delay: 3000, 
+    callback: this.setable,
+    callbackScope: this,
+ });
+
+
 }
 
   /**
@@ -271,7 +302,12 @@ setInvincible(){
   
         }
         this.available=false;
-        this.able();
+        this.notmove=true;
+        this.inmov();
+        this.laserable();
+        this.body.setVelocityX(0);
+        this.body.setVelocityY(0);
+        this.body.setGravity(0,-100);
 
         this.laser.play();
       }
@@ -359,6 +395,7 @@ setInvincible(){
     })*/
 
     //Con las teclas WASD variable keys //Funciona
+    if(!this.notmove){
     if (this.keys.W.isDown && this.body.onFloor()) {
       this.body.setVelocityY(this.jumpSpeed);
 
@@ -383,6 +420,7 @@ setInvincible(){
       this.body.setVelocityX(this.speed);
       }
     }
+  
 
    
     
@@ -390,6 +428,8 @@ setInvincible(){
       if(this.stand)
       this.body.setVelocityX(0);
     }
+
+  }
    
     if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
