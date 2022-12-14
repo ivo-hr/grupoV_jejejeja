@@ -26,7 +26,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.speed = this.originalSpeed;
     this.slowedTime = 0;
     this.isSlowed = false;
-    this.jumpSpeed = -450;
+    this.jumpSpeed = -380;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
@@ -138,15 +138,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
    * El jugador ha recogido una estrella por lo que este método añade un punto y
    * actualiza la UI con la puntuación actual.
    */
-  point() {
-    this.score++;
-    console.log(this.score)
-    this.healthBar.update(-10);
-  }
+  // point() {
+  //   this.score++;
+  //   console.log(this.score)
+  //   this.healthBar.update(-10);
+  // }
 
   minusHealth(num) {
     this.healthBar.update(num);
     this.dmg.play();
+    console.log(this.healthBar.value);
   }
   
   /**

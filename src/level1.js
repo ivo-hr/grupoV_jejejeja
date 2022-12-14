@@ -43,20 +43,35 @@ export default class Level1 extends Phaser.Scene {
     this.musicConfig = this.cfgScreen.musicConfig;
     this.sfxConfig = this.cfgScreen.sfxConfig;
 
-    this.bases = this.add.group();
+    const map = this.make.tilemap({ key: 'lvlP' });
+    const tileset = map.addTilesetImage('tumama', 'tiles');
+    const layer2 = map.createLayer('Building', tileset, 0, 200);
+    const layer3 = map.createLayer('Toldos', tileset, 0, 200);
+    const layer1 = map.createLayer('Collide', tileset, 0, 200);
+    layer3.setCollisionByProperty({collides: true});
+    layer3.forEachTile(tile => {
+      if (tile.properties["Atravesable"]) {
+        tile.setCollision(false, false, true, false);
+      }
+   });
+    layer1.setCollisionByExclusion(-1, true);
+
+    // this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
     this.player.generateSounds(this.sfxConfig);
     this.allEnemies = this.add.group();
     this.obstacles = this.add.group();
-   
 
-    new Platform(this, this.player, this.bases, 150, 500);
-    new Platform(this, this.player, this.bases, 850, 450);
-    new Platform(this, this.player, this.bases, 700, 500);
-    new Platform(this, this.player, this.bases, 400, 400);
-    new Platform(this, this.player, this.bases, 1000, 450);
+    this.physics.add.collider(this.player, layer1);
+    this.physics.add.collider(this.player, layer3);
+
+    // new Platform(this, this.player, this.bases, 150, 500);
+    // new Platform(this, this.player, this.bases, 850, 450);
+    // new Platform(this, this.player, this.bases, 700, 500);
+    // new Platform(this, this.player, this.bases, 400, 400);
+    // new Platform(this, this.player, this.bases, 1000, 450);
     this.obstacles.add(new Rain(this, 1000, 250, 0.5, 200));
-    this.obstacles.add(new PaintBucket(this, 700, 150, 0.5));
+    this.obstacles.add(new PaintBucket(this, 650, 150, 0.5));
     
     
     for(let i=0;i<4;i++){
@@ -67,7 +82,7 @@ export default class Level1 extends Phaser.Scene {
     birb.sfxConfig = this.soundConfig;
     this.allEnemies.add(birb);
 
-    this.spawn();
+    // this.spawn();
 
 
     this.cameras.main.startFollow(this.player);
@@ -110,9 +125,9 @@ export default class Level1 extends Phaser.Scene {
    * @param {Array<Base>} from Lista de bases sobre las que se puede crear una estrella
    * Si es null, entonces se crea aleatoriamente sobre cualquiera de las bases existentes
    */
-  spawn(from = null) {
-    Phaser.Math.RND.pick(from || this.bases.children.entries).spawn();
-  }
+  // spawn(from = null) {
+  //   Phaser.Math.RND.pick(from || this.bases.children.entries).spawn();
+  // }
 
   /**
    * Método que se ejecuta al coger una estrella. Se pasa la base
@@ -124,11 +139,11 @@ export default class Level1 extends Phaser.Scene {
       if (this.player.score == this.stars) {
         this.scene.start('end');
       }
-      else {
-        let s = this.bases.children.entries;
-        this.spawn(s.filter(o => o !== base));
+      // else {
+      //   let s = this.bases.children.entries;
+      //   this.spawn(s.filter(o => o !== base));
 
-      }
+      // }
   }
   gameover(){
     this.scene.start('Menu');

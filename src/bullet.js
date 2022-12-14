@@ -69,7 +69,7 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
 
         this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
             // hacer algo
-            this.scene.player.point();
+            this.scene.player.score--;
             o1.onDestroy(); 
             this.onDestroy();
         });

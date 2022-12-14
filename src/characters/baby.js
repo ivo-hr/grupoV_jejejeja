@@ -66,12 +66,8 @@ import Enemy from "./enemy.js";
 
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {
-          this.scene.player.minusHealth(2)
-        
+          this.scene.player.minusHealth(2)        
       }
-      
-      
-
     }
 
     generateSounds(sfxConfig){

@@ -1,4 +1,4 @@
-export default class FallingObject extends Phaser.GameObjects.Sprite {
+export default class BirdShit extends Phaser.GameObjects.Sprite {
 
     constructor(scene, player, x, y, nombreImg) {
       super(scene, x, y, nombreImg); 
