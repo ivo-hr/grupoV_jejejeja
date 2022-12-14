@@ -60,7 +60,6 @@ import Enemy from "./enemys.js";
       else
         this.body.setVelocityX(-this.speed);
 
-
       //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {
           this.scene.player.minusHealth(1);   
