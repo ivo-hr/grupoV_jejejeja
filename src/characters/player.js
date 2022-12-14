@@ -26,13 +26,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.speed = this.originalSpeed;
     this.slowedTime = 0;
     this.isSlowed = false;
-    this.jumpSpeed = -450;
+    this.jumpSpeed = -380;
     // Esta label es la UI en la que pondremos la puntuación del jugador
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T,L');
-    this.healthBar = new HealthBar(this.scene, posX, posY, 100);
+    this.healthBar = new HealthBar(this.scene, posX, posY, 1000);
     this.healthBar.setScrollFactor(0);
     this.available=true;
     this.stand=true;
@@ -63,36 +63,49 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.anims.create({
       key: 'idlePlayer',
       frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 1 }),
-      frameRate: 12,
+      frameRate: 6,
       repeat: -1
 
     })
     
     this.scene.anims.create({
-      key: 'idlePlayer',
-      frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 1 }),
-      frameRate: 6,
-      repeat: -1
+      key: 'jumpPlayer',
+      frames: scene.anims.generateFrameNumbers('hand', { start: 16, end: 20 }),
+      frameRate: 9,
+      repeat: 0
 
     })
 
     
     this.scene.anims.create({
       key: 'takeDamagePlayer',
-      frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 1 }),
+      frames: scene.anims.generateFrameNumbers('hand', { start: 2, end: 3 }),
       frameRate: 8,
-      repeat: -1
+      repeat: 0
 
     })
 
 
     this.scene.anims.create({
 			key: 'hyperbeam',
-			frames: scene.anims.generateFrameNumbers('hand', {start:3, end:5}),
+			frames: scene.anims.generateFrameNumbers('hand', {start:8, end:9}),
 			frameRate: 9,
 			repeat: 0
 		});
 
+    this.scene.anims.create({
+			key: 'gun',
+			frames: scene.anims.generateFrameNumbers('hand', {start:10, end:11}),
+			frameRate: 9,
+			repeat: 0
+		});
+
+    this.scene.anims.create({
+			key: 'dash',
+			frames: scene.anims.generateFrameNumbers('hand', {start:12, end:15}),
+			frameRate: 9,
+			repeat: 0
+		});
     
    
     this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
@@ -102,24 +115,39 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			}
 			
 		})
+
+   this.onAnimationComplete('hyperbeam', 'movingplayer');
+   this.onAnimationComplete('gun', 'movingplayer');
+   this.onAnimationComplete('dash', 'movingplayer');
+
     this.play('movingplayer');
 
 
   }
 
+  onAnimationComplete(currentAnimation, nextAnimation){
+    this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
+			//console.log(this.anims.currentAnim.key)
+			if(this.anims.currentAnim.key === currentAnimation){ //comprobamos si la animación que ha terminado es 'attack'
+				this.play(nextAnimation); //ejecutamos la animación 'idle'
+			}
+			
+		})
+  }
   /**
    * El jugador ha recogido una estrella por lo que este método añade un punto y
    * actualiza la UI con la puntuación actual.
    */
-  point() {
-    this.score++;
-    console.log(this.score)
-    this.healthBar.update(-10);
-  }
+  // point() {
+  //   this.score++;
+  //   console.log(this.score)
+  //   this.healthBar.update(-10);
+  // }
 
   minusHealth(num) {
     this.healthBar.update(num);
     this.dmg.play();
+    console.log(this.healthBar.value);
   }
   
   /**
@@ -197,7 +225,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
       if(this.state===0){
-        this.play('hyperbeam');
+        this.play('gun');
         if(this.facingRight)
           this.bullet = new Bullet(this.scene,this.x,this.y,400);
         else{

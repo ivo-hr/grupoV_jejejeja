@@ -62,7 +62,7 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
       this.angle++; 
     } 
 
-    if(this.body.onFloor()){
+    if(this.scene.physics.collide(this.scene.layer5, this) || this.scene.physics.collide(this.scene.layer3, this)){
       this.onFloorCollision(); 
     }
     else if (this.scene.physics.overlap(this.scene.player, this)) {

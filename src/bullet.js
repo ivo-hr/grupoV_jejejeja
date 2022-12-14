@@ -9,11 +9,10 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y,vel){
         super(scene, x, y,vel,'penguin');
         this.setFlip(true, false)
-
+        this.maxMovement = 200;
+        this.movement = this.x;
         this.scene.add.existing(this);
-        this.scene.physics.add.existing(this);
-        
-        
+        this.scene.physics.add.existing(this);   
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
         //this.line = this.scene.add.existing(new Phaser.Geom.Line(this.x, 500, this.x, this.y));
         this.body.setVelocity(vel, 0);
@@ -52,27 +51,33 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
 
     preUpdate(t, dt){
         super.preUpdate(t, dt);
-        if(this.body.newVelocity.y <= 0){ 
-            //this.line.y2 = this.y;
-            //this.graphics.strokeLineShape(this.line);
-        }
-        else{
+        // if(this.body.newVelocity.y <= 0){ 
+        //     //this.line.y2 = this.y;
+        //     //this.graphics.strokeLineShape(this.line);
+        // }
+        // else{
 
-            let timer=this.scene.time.addEvent({
-                delay: 2000, 
-                callback: this.onDestroy,
-                callbackScope: this,
+        //     let timer=this.scene.time.addEvent({
+        //         delay: 2000, 
+        //         callback: this.onDestroy,
+        //         callbackScope: this,
                 
-            });
+        //     });
             
-        }
+        // }
 
         this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
             // hacer algo
-            this.scene.player.point();
+            this.scene.player.score--;
             o1.onDestroy(); 
             this.onDestroy();
         });
+        if(this.x - this.movement >= this.maxMovement || this.x - this.movement <= -this.maxMovement) {
+            this.onDestroy();
+        }
+        else if(this.body.blocked.left || this.body.blocked.right){
+            this.onDestroy();
+        }
 
         // if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
         //     this.scene.player.point();

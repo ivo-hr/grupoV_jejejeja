@@ -18,6 +18,7 @@
       this.scene.add.existing(this);
       this.scene.physics.add.existing(this);
       this.body.setCollideWorldBounds(true);
+      this.scene.physics.add.collider(this, this.scene.layer5);
       this.initialize(tam)
     
       this.animation();

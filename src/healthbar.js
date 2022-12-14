@@ -35,12 +35,7 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
         this.fillStyle(0xff0000);
         this.fillRect(this.x + 4, this.y + 4, 172, 20);
 
-
-        if (this.value < this.maxValue / 3) {
-            this.fillStyle(0xff0000);
-        } else {
-            this.fillStyle(0x00ff00);
-        }
+        this.fillStyle(0x00ff00);
 
         let d = Math.floor(this.proportion * this.value);
 
