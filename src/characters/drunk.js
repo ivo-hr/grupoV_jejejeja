@@ -10,10 +10,12 @@ import Enemy from "./enemys.js";
      * @param {number} tam tamaño del sprite
      */
     constructor(scene, x, y, tam) {
-      super(scene, x, y, tam, 'baby'); //Cambiar por drunk cuando tenga el sprite
+      super(scene, x, y, tam, 'drunk'); //Cambiar por drunk cuando tenga el sprite
       
+      this.speed = 200;
       this.movingRight = true;
-      this.throwBottle = false;
+      this.isBottlethrown = false;
+      this.setFlip(true, false);
       this.time = Phaser.Math.RandomDataGenerator;
     }
 
@@ -24,13 +26,25 @@ import Enemy from "./enemys.js";
     animation(){
       
       this.scene.anims.create({ 
-        key: 'movingBaby',
-        frames: this.scene.anims.generateFrameNumbers('baby', { start: 0, end: 3 }), //Cambiar por drunk
+        key: 'movingdrunk',
+        frames: this.scene.anims.generateFrameNumbers('drunk', { start: 0, end: 4 }), //Cambiar por drunk
         frameRate: 12, 
         repeat: -1 
     })
 
-      this.play('movingBaby');
+      this.play('movingdrunk');
+    }
+
+    //lanza botella en forma de parabola contra el suelo
+    throwbottle(){
+      let aux = Phaser.Math.RandomDataGenerator; //random para settear la forma de parabola del lanzamiento
+      if(movingRight){
+        new Bottle(this.scene, this.scene.player, this.x, this.y, 'bottle');
+      }
+      else{
+        new Bottle(this.scene, this.scene.player, this.x, this.y, 'bottle');
+      }
+
     }
   
     /**
@@ -47,6 +61,21 @@ import Enemy from "./enemys.js";
 
       if(this.currentMovement >= this.maxMovement) {
         this.currentMovement = 0;//se resetea la cuenta
+
+      //comprueba si se choca con los limites del mundo
+      if(this.body.blocked.left || this.body.blocked.right){
+        this.movingRight = !this.movingRight;
+        if(this.movingRight) this.setFlip(true, false);
+        else this.setFlip(false, false);
+      }
+      this.missilCooldown += Math.round(dt);
+      if((this.missilCooldown) > this.missilFrequency){
+          this.missilCooldown = 0;
+          this.isBottlethrown = true;
+          this.throwbottle();
+          this.isBottlethrown = false;
+          console.log("disparo");
+      }
 
         if(this.movingRight) this.setFlip(false, false);
         else this.setFlip(true, false);
