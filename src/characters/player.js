@@ -37,6 +37,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.available=true;
     this.stand=true;
 
+    this.body.setSize(60, 40);
+
 
     const estados = {
       Normal: 0,
@@ -51,11 +53,38 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     this.scene.anims.create({
       key: 'movingplayer',
-      frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 3 }),
+      frames: scene.anims.generateFrameNumbers('hand', { start: 4, end: 7 }),
       frameRate: 12,
       repeat: -1
 
     })
+
+    
+    this.scene.anims.create({
+      key: 'idlePlayer',
+      frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 1 }),
+      frameRate: 12,
+      repeat: -1
+
+    })
+    
+    this.scene.anims.create({
+      key: 'idlePlayer',
+      frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 1 }),
+      frameRate: 6,
+      repeat: -1
+
+    })
+
+    
+    this.scene.anims.create({
+      key: 'takeDamagePlayer',
+      frames: scene.anims.generateFrameNumbers('hand', { start: 0, end: 1 }),
+      frameRate: 8,
+      repeat: -1
+
+    })
+
 
     this.scene.anims.create({
 			key: 'hyperbeam',

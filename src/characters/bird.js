@@ -1,5 +1,5 @@
 import Enemy from "./enemy.js";
-import FallingObject from "../objects/fallingObject.js";
+import FallingObject from "../hazards/birdShit.js";
 /**
  * Clase para los objetos ball que chocan con el jugador
  * Una estrella aparece sobre una base. Cuando el jugador la recoge, se crea 

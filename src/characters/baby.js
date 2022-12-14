@@ -19,7 +19,6 @@ import Enemy from "./enemy.js";
       this.currentMovement = 0;
       //this.body.setGravity(0,600);
 
-
     }
 
     /**
