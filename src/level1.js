@@ -177,14 +177,14 @@ export default class Level1 extends Phaser.Scene {
     }
 
   }
-  
+
   update(time){
     if(this.restarted){
       this.newtime=time;
       this.restarted=false;
     }
-    let gameRuntime = (time-this.newtime) * 0.001; 
-    this.timeText.setText("Time: " + Math.round(gameRuntime));
+    this.gameRuntime = (time-this.newtime) * 0.001; 
+    this.timeText.setText("Time: " + Math.round(this.gameRuntime));
   }
 
 
