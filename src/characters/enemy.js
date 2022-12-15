@@ -34,11 +34,13 @@
       //nada en este
     }
 
+    //configura el score que da al morir
     setScore(score){
       this.myScore = score;
     }
     
 
+    //Redimensiona el objeto en funcion de su tamaño
     sizeManag(){
         if(this.size == 0){
             this.setScale(0.25);
@@ -50,6 +52,8 @@
             this.setScale(1);
         }
     }
+
+    //funcion que se ejecuta al morir, se encarga de destruir el objeto y añadir el score al jugador
     onDestroy(){
       this.scene.player.addScore(this.myScore);
       console.log("Enemy destroyed");
@@ -57,12 +61,13 @@
     }
 
     
-
+  //funcion que se ejecuta al colisionar con el jugador, se encarga de restarle vida al jugador
     minusHP(number){
       this.hp -= number;
 
     }
 
+    //chequea si el enemigo esta muerto
     checkHP(){
       if(this.hp <= 0)
         this.onDestroy();

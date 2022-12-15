@@ -20,6 +20,7 @@ export default class PaintStain extends Phaser.GameObjects.Sprite {
         this.size = tam;  
         this.sizeManag();
     }
+    //Redimensiona el objeto en funcion de su tamaño
     sizeManag(){
         if(this.size == 0){
             this.setScale(0.25);

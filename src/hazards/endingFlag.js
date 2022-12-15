@@ -18,6 +18,7 @@ export default class EndingFlag extends Phaser.GameObjects.Sprite {
         repeat: -1
     });
 
+    //animation
     this.play('flagMoving');
           
    }
@@ -36,6 +37,7 @@ export default class EndingFlag extends Phaser.GameObjects.Sprite {
     this.onCollisionPlayer();
    }
 
+   //al choca con el jugador se llama a la funcion gameWin
    onCollisionPlayer(){
     if (this.scene.physics.overlap(this.scene.player, this)) {
 

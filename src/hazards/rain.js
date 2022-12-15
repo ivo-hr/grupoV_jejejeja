@@ -9,12 +9,15 @@ export default class Rain extends Phaser.GameObjects.Sprite{
         this.hitable = true;
     }
 
+    //inicializa el objeto
     initialize(tam, h, w){
         this.size = tam;  
         this.sizeManag();
         this.displayHeight = h;
         this.displayWeigth = w;
     }
+
+    //Redimensiona el objeto en funcion de su tamaño
     sizeManag(){
         if(this.size == 0){
             this.setScale(0.25);
@@ -26,6 +29,8 @@ export default class Rain extends Phaser.GameObjects.Sprite{
             this.setScale(1);
         }
     }
+
+    //Hace que el objeto no pueda dañar al jugador durante un tiempo
     dable(){  
         let timer=this.scene.time.addEvent({
           delay: 1500, 

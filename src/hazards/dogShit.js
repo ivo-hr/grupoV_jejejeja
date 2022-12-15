@@ -20,6 +20,7 @@ export default class DogShit extends Phaser.GameObjects.Sprite {
         this.handleCollision();
     }
 
+    //genstiona la caida de la caca
     falling(){
         if(!this.shitIsOnFloor) this.body.setGravity(0, 350);
     }
