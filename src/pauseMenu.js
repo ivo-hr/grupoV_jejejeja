@@ -40,7 +40,7 @@ export default class PauseMenu extends Phaser.Scene {
   }
 
   startGame() {
-    this.scene.run('level1');
+    this.scene.resume('level1');
     this.scene.stop();
     
   }
