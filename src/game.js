@@ -4,6 +4,7 @@ import Config from './menucfg.js';
 import PauseMenu from './pauseMenu.js';
 import Level1 from './level1.js';
 import GameOver from './gameOver.js';
+import GameWin from './gameWin.js';
 
 
 /**
@@ -20,7 +21,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, Menu, Config, Level1, PauseMenu, GameOver],
+    scene: [Boot, Menu, Config, Level1, PauseMenu, GameOver, GameWin],
     physics: { 
         default: 'arcade', 
         arcade: { 

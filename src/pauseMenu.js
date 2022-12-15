@@ -26,6 +26,7 @@ export default class PauseMenu extends Phaser.Scene {
     pmenu.displayHeight = document.getElementById("mainCanvas").height;
     pmenu.displayWidth = document.getElementById("mainCanvas").width;
 
+    //Botón de continuar
     let pbuttonConfig = {
 
       x: this.canvas.width / 2,
@@ -38,7 +39,8 @@ export default class PauseMenu extends Phaser.Scene {
 
     this.events.on('buttonPressedplayButton', this.startGame, this);
   }
-
+  
+  //Función para continuar la partida
   startGame() {
     this.scene.resume('level1');
     this.scene.stop();

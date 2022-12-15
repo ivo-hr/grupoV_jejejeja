@@ -60,7 +60,12 @@ export default class Boot extends Phaser.Scene {
     this.load.image('mainMenu', 'main.png');
     this.load.image('config', 'config.png');
     this.load.image('pause', 'pause.png');
+
     this.load.image('gameOver', 'gameOver.png');
+    this.load.image('gamePacifist', 'gamePacifist.png');
+    this.load.image('gameNeutral', 'gameNeutral.png');
+    this.load.image('gameGenocide', 'gameGenocide.png');
+
     this.load.image('playButton', 'playButton.png');
     this.load.image('cfgButton', 'cfgButton.png');
     this.load.image('moreMButton', 'plusM.png');

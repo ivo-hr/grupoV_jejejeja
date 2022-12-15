@@ -26,15 +26,18 @@ export default class Menu extends Phaser.Scene {
     //Imagen del menú ppal
     var mainmenu = this.add.image(document.getElementById("mainCanvas").width / 2, document.getElementById("mainCanvas").height / 2, 'mainMenu', 0);
 
+    //escala la imagen al tamaño del canvas
     mainmenu.displayHeight = document.getElementById("mainCanvas").height;
     mainmenu.displayWidth = document.getElementById("mainCanvas").width;
 
+    //botón de play
     let plybuttonConfig = {
 
       x: this.canvas.width / 2,
       y: this.canvas.height *2.1/ 3,
       id: 'playButton'
     };
+    //botón de configuración
     let cfgbuttonConfig = {
 
       x: this.canvas.width / 2,
@@ -64,6 +67,7 @@ export default class Menu extends Phaser.Scene {
       this.music.play();
   }
 
+  //cambia a la escena de juego
   startGame() {
 
     this.music.stop();
@@ -81,6 +85,7 @@ export default class Menu extends Phaser.Scene {
     
   }
 
+  //cambia a la escena de configuración
   configMenu(){
     this.music.stop();
     this.cfgScreen.scene.start();

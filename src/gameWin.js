@@ -17,36 +17,58 @@ export default class GameWin extends Phaser.Scene {
    * @override
    */
   create() {
-    this.canvas = document.getElementById("mainCanvas");
+    this.cfgScreen = this.scene.get('Config');
 
+    this.canvas = document.getElementById("mainCanvas");
+    
     var winMenu;
-    var musicName = 'game3';
-    //Imagen del menú ppal, dependiendo de la moralidad
-    if (this.morality <= this.maxMorality / 3){
+
+
+    this.musicConfig = this.cfgScreen.grabMusicConfig();
+    this.sfxConfig = this.cfgScreen.grabSfxConfig();
+    //Imagen y musica del menú ppal, dependiendo de la moralidad
+    //si la moralidad es menor a 1/3, es pacifista
+    if (this.morality == 0){
         winMenu = this.add.image(document.getElementById("mainCanvas").width / 2, 
         document.getElementById("mainCanvas").height / 2, 'gamePacifist', 0);
 
-        musicName = 'pacifist';
+        if (this.pmusic == null)
+        this.pmusic = this.sound.add('pacifist', this.musicConfig);
+        
+        this.pmusic.play();
+    
     }
+    //si la moralidad es menor a 2/3, es neutral
     else if (this.morality <= this.maxMorality * 2 / 3){
         winMenu = this.add.image(document.getElementById("mainCanvas").width / 2, 
         document.getElementById("mainCanvas").height / 2, 'gameNeutral', 0);
 
-        musicName = 'neutral';
+        if (this.nmusic == null)
+        this.nmusic = this.sound.add('neutral', this.musicConfig);
+        
+        this.nmusic.play();
     }
+    //si la moralidad es mayor a 2/3, es genocida
     else{
         winMenu = this.add.image(document.getElementById("mainCanvas").width / 2,
         document.getElementById("mainCanvas").height / 2, 'gameGenocide', 0);
 
-        musicName = 'genocide';
+        
+        if (this.gmusic == null)
+        this.gmusic = this.sound.add('genocide', this.musicConfig);
+        
+        this.gmusic.play();
     }
+    //escala la imagen
     winMenu.displayHeight = document.getElementById("mainCanvas").height;
     winMenu.displayWidth = document.getElementById("mainCanvas").width;
 
+
+    //boton de play
     let plybuttonConfig = {
 
       x: this.canvas.width / 2,
-      y: this.canvas.height *3.1/ 4,
+      y: this.canvas.height * 9 / 10,
       id: 'playButton'
     };
 
@@ -56,23 +78,48 @@ export default class GameWin extends Phaser.Scene {
     this.events.on('buttonPressedplayButton', this.startGame, this);
 
 
-    //play music
-    this.musicConfig = this.cfgScreen.grabMusicConfig();
-    this.sfxConfig = this.cfgScreen.grabSfxConfig();
 
-    //si hay musica, la elimina
-    if (this.music != null)
-    this.sound.removeall();
+    let grade = '';
+    let gradeColor = '#000000';
 
-    this.music = this.sound.add(musicName, this.musicConfig);
-    this.music.play();
+    if (this.score <= 40){
+        grade = 'D';
+        gradeColor = '#994d00';
+    }
+    else if (this.score <= 60){
+        grade = 'C';
+        gradeColor = '#adad85';
+    }
+    else if (this.score <= 80){
+        grade = 'B';
+        gradeColor = '#a6a6a6';
+    }
+    else if (this.score < 100){
+        grade = 'A';
+        gradeColor = '#ffb31a';
+    }
+    else if (this.score >= 100){
+        grade = 'S';
+        gradeColor = '#cc99ff';
+    }
+
+    //add the grade to the screen
+    let gradeText = this.add.text(this.canvas.width / 20, this.canvas.height * 6 / 10, grade, 
+    {   fontFamily: 'Arial', 
+        fontSize: 120, 
+        fill: gradeColor,
+        stroke: '#000000',
+        strokeThickness: 10
+    });
+
+    
   }
 
   //carga la escena del menu
   startGame() {
 
-    this.music.stop();
-    this.scene.stop();
+    this.musicStopper();
+
     this.registry.destroy();
     this.events.off();
 
@@ -82,11 +129,21 @@ export default class GameWin extends Phaser.Scene {
   }
 
   //carga la moralidad
-  moralitySet(morality, maxMorality) {
+  moralitySet(morality, maxMorality, score) {
     this.morality = morality;
     this.maxMorality = maxMorality;
+    this.score = score;
   }
 
+  //para parar la musica
+  musicStopper(){
+    if (this.pmusic != null)
+      this.pmusic.stop();
+    if (this.nmusic != null)
+      this.nmusic.stop();
+    if (this.gmusic != null)
+      this.gmusic.stop();
+  }
 
 
 }

@@ -30,7 +30,7 @@ export default class GameOver extends Phaser.Scene {
     let plybuttonConfig = {
 
       x: this.canvas.width / 2,
-      y: this.canvas.height *3.1/ 4,
+      y: this.canvas.height * 9/ 10,
       id: 'playButton'
     };
 
