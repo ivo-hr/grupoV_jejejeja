@@ -17,6 +17,7 @@ export default class GameWin extends Phaser.Scene {
    * @override
    */
   create() {
+    //referencia a la escena de config para poder acceder a sus variables
     this.cfgScreen = this.scene.get('Config');
 
     this.canvas = document.getElementById("mainCanvas");
@@ -78,7 +79,7 @@ export default class GameWin extends Phaser.Scene {
     this.events.on('buttonPressedplayButton', this.startGame, this);
 
 
-
+    //sistema de puntuacion
     let grade = '';
     let gradeColor = '#000000';
 
@@ -103,7 +104,7 @@ export default class GameWin extends Phaser.Scene {
         gradeColor = '#cc99ff';
     }
 
-    //add the grade to the screen
+    //añade el texto de la puntuacion
     let gradeText = this.add.text(this.canvas.width / 20, this.canvas.height * 6 / 10, grade, 
     {   fontFamily: 'Arial', 
         fontSize: 120, 

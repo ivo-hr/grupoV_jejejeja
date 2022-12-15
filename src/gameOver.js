@@ -27,6 +27,7 @@ export default class GameOver extends Phaser.Scene {
     mainmenu.displayHeight = document.getElementById("mainCanvas").height;
     mainmenu.displayWidth = document.getElementById("mainCanvas").width;
 
+    //Botón de continuar
     let plybuttonConfig = {
 
       x: this.canvas.width / 2,
@@ -51,6 +52,7 @@ export default class GameOver extends Phaser.Scene {
       this.music.play();
   }
 
+  //inicio del menu ppal
   startGame() {
 
     this.music.stop();

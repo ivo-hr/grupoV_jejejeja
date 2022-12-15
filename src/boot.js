@@ -18,6 +18,8 @@ export default class Boot extends Phaser.Scene {
    */
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
+
+    //carga de sprites
     this.load.setPath('assets/sprites/');
     this.load.image('powerHyperbeam', 'powerHyperbeam.png');
     this.load.image('powerShot', 'powerShot.png');
@@ -40,7 +42,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('paint', 'paintStain.png');
     this.load.spritesheet('flag', 'flag.png', {frameWidth: 128, frameHeight:128});
     this.load.image('dogshit', 'dogShit.png');
-
+    //carga de fondos
     this.load.image('background1', 'background1.png');
     this.load.image('background2', 'background2.png');
     this.load.image('background3', 'background3.png');
@@ -48,16 +50,17 @@ export default class Boot extends Phaser.Scene {
     this.load.image('background5', 'background5.png');
     this.load.image('fallingParticle' , 'baby.png');
 
+    //carga del dial
     this.load.image('dial', 'dial.png');
     this.load.image('dialHand', 'dialHand.png');
 
-    
+    //carga de tilemaps
     this.load.setPath('assets/tilemaps/');
     this.load.image('tiles', 'spritesheetMap.png');
     this.load.tilemapTiledJSON('lvlP', 'levelPrueba.json');
 
 
-
+    //carga de imagenes
     this.load.setPath('assets/images/');
     this.load.image('mainMenu', 'main.png');
     this.load.image('config', 'config.png');
@@ -75,11 +78,13 @@ export default class Boot extends Phaser.Scene {
     this.load.image('moreSButton', 'plusS.png');
     this.load.image('lessSButton', 'minusS.png');
 
+    //carga de fuentes
     this.load.setPath('assets/fonts/');
     this.load.bitmapFont(
       'press_start_2p_font', 'press_start_2p_white.png',
       'press_start_2p.xml');
 
+    //carga de sonidos y musica
     this.load.setPath('assets/sounds/');
     this.load.audio('mainMenu', 'EggyToast_Condemned.mp3');
     this.load.audio('game1', 'EggyToast_DeathValley.mp3');

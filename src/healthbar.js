@@ -1,5 +1,6 @@
 export default class HealthBar extends Phaser.GameObjects.Graphics {
 
+    //Constructor de la barra de vida
     constructor(scene, x, y, maxValue) {
         super(scene, x, y, 'healthbar');
 
@@ -11,7 +12,7 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
         this.draw();
         scene.add.existing(this);
     }
-
+    //dibuja la barra de vida
     draw() {
         this.clear();
 
@@ -24,7 +25,7 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
         this.fillStyle(0x00ff00);
         this.fillRect(this.x + 4, this.y + 4, 172, 20);
     }
-
+    //actualiza la barra de vida
     update(value) {
         this.value -= value;
         if(this.value > this.maxValue)
