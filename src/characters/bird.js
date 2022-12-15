@@ -29,8 +29,7 @@ import BirdShit from "../hazards/birdShit.js";
 
 
       this.myScore = 20;
-      this.missilFrequency = 800;
-      this.missilCooldown = 0;
+      this.shitIsTaken = true;
 
       //el pajaro tiene menos vida que el enemigo común
       this.hp = 1;
@@ -55,12 +54,19 @@ import BirdShit from "../hazards/birdShit.js";
      * @override
      */
 
-     //diaparan misil hacia abajo 
-     shootMissil(){
-      // if(this.missiCounter < this.missilFrequency)
-      //   this.missiCounter++;
-      // else if(this.missiCounter < this.missilFrequency)
-      new BirdShit(this.scene, this.scene.player, this.x, this.y+10, 'birdShit');
+    poop() {
+      this.scene.obstacles.add(new BirdShit(this.scene, this.x, this.y));
+    }
+    cagable(){  
+      let timer=this.scene.time.addEvent({
+        delay: 3000, 
+        callback: this.setCagable,
+        callbackScope: this,
+     });
+    }
+    setCagable(){
+      if(!this.shitIsTaken) 
+      this.shitIsTaken = true;
     }
     preUpdate(t, dt) {
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
@@ -73,14 +79,11 @@ import BirdShit from "../hazards/birdShit.js";
         if(this.movingRight) this.setFlip(true, false);
         else this.setFlip(false, false);
       }
-      this.missilCooldown += Math.round(dt);
-      if((this.missilCooldown) > this.missilFrequency){
-          this.missilCooldown = 0;
-          this.shootMissil();
-          console.log("disparo");
-
-          this.pengu.play();
-      } 
+      if(this.shitIsTaken){
+        this.poop();
+        this.shitIsTaken = false;
+        this.cagable();
+      }
 
       if(this.movingRight){
         this.body.setVelocityX(this.speed);

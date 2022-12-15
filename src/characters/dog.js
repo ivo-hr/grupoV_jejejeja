@@ -20,13 +20,12 @@ export default class Dog extends Enemy {
 
         this.speed = 130;
         this.movingRight = true;
-        this.setFlip(true, false);
+        this.setFlip(false, false);
         this.body.onWorldBounds = true;
-        this.shitIsTaken = false;
+        this.shitIsTaken = true;
+        this.setScale(0.6)
 
-        this.myScore = 20;
-        this.missilFrequency = 1500;
-        this.missilCooldown = Phaser.Math.Between(10, this.missilFrequency / 2);
+        this.myScore = 60;
     }
 
     animation() {
@@ -48,7 +47,18 @@ export default class Dog extends Enemy {
 
     //caga
     poop() {
-        //new DogShit(this.scene, this.scene.player, this.x, this.y + 10, 'dogShit');
+        this.scene.obstacles.add(new DogShit(this.scene, this.x, this.y));
+    }
+    cagable(){  
+        let timer=this.scene.time.addEvent({
+          delay: 3000, 
+          callback: this.setCagable,
+          callbackScope: this,
+       });
+    }
+    setCagable(){
+        if(!this.shitIsTaken) 
+        this.shitIsTaken = true;
     }
     preUpdate(t, dt) {
         // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
@@ -56,18 +66,16 @@ export default class Dog extends Enemy {
         super.preUpdate(t, dt);
 
         //comprueba si se choca con los limites del mundo
-        if (this.body.blocked.left || this.body.blocked.right) {
+        if(this.body.blocked.left || this.body.blocked.right){
             this.movingRight = !this.movingRight;
-            if (this.movingRight) this.setFlip(true, false);
+            if(this.movingRight) this.setFlip(false, false);
+            else this.setFlip(true, false);
         }
 
-        if (this.shitIsTaken) this.shitIsTaken = false;
-        this.missilCooldown += Math.round(dt);
-        if ((this.missilCooldown) > this.missilFrequency) {
-            this.missilCooldown = 0;
+        if(this.shitIsTaken){
             this.poop();
-            console.log("ha cagado");
-            //this.pengu.play();
+            this.shitIsTaken = false;
+            this.cagable();
         }
 
         if (!this.shitIsTaken) {
@@ -82,16 +90,6 @@ export default class Dog extends Enemy {
         if (this.scene.physics.overlap(this.scene.player, this) && !this.scene.player.invincible) {
             this.scene.player.setInvincible();
             this.scene.player.minusHealth(1);
-        }
-
-        if (this.scene.physics.collide(this.scene.layer1, this)
-            || this.scene.physics.collide(this.scene.layer3, this)
-            || this.scene.physics.collide(this.scene.layer4, this)
-            || this.scene.physics.collide(this.scene.layer5, this)) {
-            if (this.movingRight) this.setFlip(false, false);
-            else this.setFlip(true, false);
-
-            this.movingRight = !this.movingRight;
         }
         this.checkHP();
 

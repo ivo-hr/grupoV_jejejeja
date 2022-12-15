@@ -1,9 +1,8 @@
 export default class BirdShit extends Phaser.GameObjects.Sprite {
 
-  constructor(scene, player, x, y, nombreImg) {
-    super(scene, x, y, nombreImg); 
-
-    this.player=player;
+  constructor(scene, x, y) {
+    super(scene, x, y, 'birdshit'); 
+    this.scene = scene;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     this.body.setCollideWorldBounds(); //Collision with the limits of the world
@@ -27,7 +26,9 @@ export default class BirdShit extends Phaser.GameObjects.Sprite {
   
   handleCollision(){
    if (this.scene.physics.overlap(this.scene.player, this)) {
-      this.scene.player.minusHealth(1)
+      if(!this.scene.player.invincible){
+        this.scene.player.setInvincible();
+      }
       this.onDestroy();
     }
     else if(this.scene.physics.collide(this.scene.layer1, this)){

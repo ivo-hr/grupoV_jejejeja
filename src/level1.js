@@ -1,7 +1,5 @@
-import Platform from './platform.js';
 import Player from './characters/player.js';
 import Obstacle from './obstacle.js';
-import Ball from './ball.js';
 import Enemy from './characters/enemy.js';
 import Bird from './characters/bird.js';
 import Baby from './characters/baby.js';
@@ -70,6 +68,7 @@ export default class Level1 extends Phaser.Scene {
     this.layer1.setCollisionByExclusion([-1], true);
     this.layer5.setCollisionByExclusion([-1], true);
     layer2.setCollisionByExclusion([-1], false);
+    this.floorLevel = 380;
 
     // this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
@@ -96,25 +95,27 @@ export default class Level1 extends Phaser.Scene {
     this.obstacles.add(paintBucket);
     
     this.moralDialValue = 0;
-    for(let i=0;i<4;i++){
-      let baby = new Baby(this, 100+i*300, 380, 90);
-      baby.setScore(baby.myScore);
-      this.moralDialValue += baby.myScore;
-      baby.generateSounds(this.sfxConfig);
-      this.allEnemies.add(baby);
-    }
-    let birb = new Bird(this, 300, 250, 96);
-    birb.setScore(birb.myScore);
-    this.moralDialValue += birb.myScore;
-    birb.generateSounds(this.sfxConfig);
-    this.allEnemies.add(birb);
+    // for(let i=0;i<4;i++){
+    //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
+    //   baby.setScore(baby.myScore);
+    //   this.moralDialValue += baby.myScore;
+    //   baby.generateSounds(this.sfxConfig);
+    //   this.allEnemies.add(baby);
+    // }
+    // let birb = new Bird(this, 300, 250, 96);
+    // birb.setScore(birb.myScore);
+    // this.moralDialValue += birb.myScore;
+    // birb.generateSounds(this.sfxConfig);
+    // this.allEnemies.add(birb);
 
-    let borracho = new Drunk(this, 200, 380, 96);
-    this.allEnemies.add(borracho);
-    borracho.setScore(borracho.myScore);
-    this.moralDialValue += borracho.myScore;
+    // let borracho = new Drunk(this, 200, this.floorLevel, 96);
+    // this.allEnemies.add(borracho);
+    // borracho.setScore(borracho.myScore);
+    // this.moralDialValue += borracho.myScore;
 
-    let dog = new Dog(this, 250, 450, 60);
+    let dog = new Dog(this, 400, this.floorLevel, 60);
+    dog.setScore(dog.myScore);
+    this.moralDialValue += dog.myScore;
     this.allEnemies.add(dog);
 
     // this.spawn();
