@@ -135,7 +135,7 @@ export default class Level1 extends Phaser.Scene {
     this.cameras.main.followOffset.set(0, 0);
 
 
-  
+  // si no hay musica, la crea y la reproduce
     if (this.music == null)
       this.music = this.sound.add('game1', this.musicConfig);
 
@@ -192,7 +192,7 @@ export default class Level1 extends Phaser.Scene {
 
     // }
   }
-
+ //si el jugador muere, se para la musica y se llama a la escena de gameOver
   gameOver() {
     this.music.stop();
     this.scene.stop();
@@ -212,7 +212,7 @@ export default class Level1 extends Phaser.Scene {
     GameWin.scene.restart();
     //this.GameOver.scene.launch();
   }
-
+//si el jugador gana, se para la musica y se llama a la escena de gameWin
   gameWin() {
     this.music.stop();
     this.scene.stop();
@@ -220,8 +220,8 @@ export default class Level1 extends Phaser.Scene {
     this.events.off();
 
     let GameWin = this.scene.get('gameWin');
-
-    GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal);
+    //configura la moral en la escena de gameWin
+    GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, 100 /*aqui va la variable puntuación */);
 
     
     GameWin.scene.restart();
