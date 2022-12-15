@@ -19,9 +19,6 @@ export default class Boot extends Phaser.Scene {
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     this.load.setPath('assets/sprites/');
-    this.load.image('platform', 'platform.png');
-    this.load.image('base', 'base.png');
-    this.load.image('star', 'star.png');
     this.load.image('powerHyperbeam', 'powerHyperbeam.png');
     this.load.image('powerShot', 'powerShot.png');
     this.load.image('powerPunch', 'powerPunch.png');
@@ -35,6 +32,7 @@ export default class Boot extends Phaser.Scene {
     this.load.spritesheet('birdShit', 'birdShit.png', {frameWidth: 16, frameHeight:16});
     this.load.spritesheet('baby', 'baby64x66.png', {frameWidth: 64, frameHeight:66});
     this.load.spritesheet('drunk', 'drunk.png', {frameWidth: 40, frameHeight:64});
+    this.load.spritesheet('dog', 'perro.png' , {frameWidth: 64, frameHeight: 58})
     this.load.image('bottle', 'botella.png');
     this.load.spritesheet('rain', 'rain.png', {frameWidth: 50, frameHeight:50});
     this.load.spritesheet('bullet', 'fireBall.png', {frameWidth: 26, frameHeight:26});

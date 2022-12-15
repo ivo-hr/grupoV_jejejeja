@@ -6,7 +6,7 @@ export default class Rain extends Phaser.GameObjects.Sprite{
         this.animation();
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this, true);
-        this.lastHit = 0;
+        this.hitable = true;
     }
 
     initialize(tam, h, w){
@@ -26,15 +26,24 @@ export default class Rain extends Phaser.GameObjects.Sprite{
             this.setScale(1);
         }
     }
+    dable(){  
+        let timer=this.scene.time.addEvent({
+          delay: 1500, 
+          callback: this.setHitable,
+          callbackScope: this,
+       });
+    }
+    setHitable(){
+        if(!this.hitable) 
+        this.hitable = true;
+    }
     preUpdate(time, delta){
         super.preUpdate(time, delta);
-        if (this.scene.physics.overlap(this.scene.player, this) && this.lastHit == 0) {
+        if (this.scene.physics.overlap(this.scene.player, this) && this.hitable && !this.scene.player.invincible) {
             this.scene.player.minusHealth(1);
-            this.lastHit = 60;
+            this.hitable = false;
+            this.dable();
             console.log("colision");
-        }
-        else if(this.lastHit > 0){
-            this.lastHit -= 1;
         }
     }
     animation(){
