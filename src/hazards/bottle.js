@@ -7,16 +7,17 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
      * @param {number} x coordenada x
      * @param {number} y coordenada y
      */
-    constructor(scene, x, y, tam) {
+    constructor(scene, x, y, tam, movement) {
         super(scene, x, y, 'bottle');
         this.initialize(tam);
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setCollideWorldBounds(); //Collision with the limits of the world
-        this.maxHeight = Phaser.Math.Between(250, 400); //Parametro que dicta la altura max a la que llegara la botella
+        this.maxHeight = Phaser.Math.Between(280, 350); //Parametro que dicta la altura max a la que llegara la botella
         this.reachMaxHeight = false; //Boolean de si ha llegado a la altura tope
         this.itsFalling = false; //Boolean que dice si esta cayendo la botella
-        this.speed = Phaser.Math.Between(160, 200); //Velocidad de la botella
+        this.speed = Phaser.Math.Between(200, 250); //Velocidad de la botella
+        this.movingRight = movement;
     }
   
     initialize(tam){
@@ -41,16 +42,29 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
     }
     
     movement(){
-        
-        if(this.y >= this.maxHeight && !this.reachMaxHeight){
-            if(this.speed > 50) this.body.setVelocityX(--this.speed);
-            this.body.setVelocityY(-this.speed);
+        if(this.movingRight) {
+            if(this.y >= this.maxHeight && !this.reachMaxHeight){
+                if(this.speed > 50) this.body.setVelocityX(--this.speed);
+                this.body.setVelocityY(-this.speed);
+            }
+            else {
+                this.reachMaxHeight = true;
+                this.itsFalling = true;
+                if(this.speed < 250) this.body.setVelocityX(++this.speed);
+                this.body.setVelocityY(this.speed);
+            }
         }
-        else {
-            this.reachMaxHeight = true;
-            this.itsFalling = true;
-            if(this.speed < 250) this.body.setVelocityX(++this.speed);
-            this.body.setVelocityY(this.speed);
+        else { 
+            if(this.y >= this.maxHeight && !this.reachMaxHeight){
+                if(this.speed > 50) this.body.setVelocityX(++this.speed * (-1));
+                this.body.setVelocityY(-this.speed);
+            }
+            else {
+                this.reachMaxHeight = true;
+                this.itsFalling = true;
+                if(this.speed < 250) this.body.setVelocityX(--this.speed * (-1));
+                this.body.setVelocityY(this.speed);
+            }
         }
 
         //Rotate
@@ -61,9 +75,12 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
     //Handles the collision with player and floor
     
     handleCollision(){
-        if(this.scene.physics.collide(this.scene.layer5, this) 
-        || this.scene.physics.collide(this.scene.layer3, this)) {
+        if(this.scene.physics.collide(this.scene.layer5, this)) {
             this.destroy();
-          }
+        }
+        else if (this.scene.physics.overlap(this.scene.player, this)) {
+            this.scene.player.minusHealth(1);
+            this.destroy();
+        }
     }
 }
