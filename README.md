@@ -240,7 +240,7 @@ Todos los recursos artísticos visuales que estamos utilizado en el juego han si
 
  <img src="images_gdd/15.png">
 
-Fuente de la imagen gratuita:
+Fuente de la imagen gratuita, creada por Bit Life:
 
 [https://bit-life.itch.io/free-city-parallax-background](https://bit-life.itch.io/free-city-parallax-background)
 
@@ -257,6 +257,16 @@ Final pacifista
 
  <img src="images_gdd/19.png">
 Muerte de la mano
+
+
+Para sonidos hemos sacado la banda sonora de:
+
+[Toby Fox](https://www.youtube.com/playlist?list=OLAK5uy_l6pEkEJgy577R-aDlJ3Gkp5rmlgIOu8bc)
+
+[EggyToast](https://freemusicarchive.org/music/eggy-toast/discography)
+
+[SoundEffects de sfxr](https://sfxr.me/)
+
 
 ## Referencias
 * Contra (NES)
