@@ -89,25 +89,26 @@ export default class Level1 extends Phaser.Scene {
     // new Platform(this, this.player, this.bases, 700, 500);
     // new Platform(this, this.player, this.bases, 400, 400);
     // new Platform(this, this.player, this.bases, 1000, 450);
-    let rain = new Rain(this, 1000, 250, 0.5, 200);
+    // let rain = new Rain(this, 1000, 250, 0.5, 200);
 
-    this.obstacles.add(rain);
-    let paintBucket = new PaintBucket(this, 650, 150, 0.5);
-    paintBucket.generateSounds(this.sfxConfig);
-    this.obstacles.add(paintBucket);
+    // this.obstacles.add(rain);
+    // let paintBucket = new PaintBucket(this, 650, 150, 0.5);
+    // paintBucket.generateSounds(this.sfxConfig);
+    // this.obstacles.add(paintBucket);
     
-    //valor maximo del dial
-    this.maxDialVal = 0;
+    this.maxDialValue = 0;
+    let baby = new Baby(this, 300, this.floorLevel, 90);
+    baby.setScore(baby.myScore);
+    this.moralDialValue += baby.myScore;
+    baby.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby);
 
-    //creacion de los enemigos
+    let baby2 = new Baby(this, 1200, this.floorLevel, 90);
+    baby2.setScore(baby2.myScore);
+    this.moralDialValue += baby2.myScore;
+    baby2.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby2);
 
-    // for(let i=0;i<4;i++){
-    //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
-    //   baby.setScore(baby.myScore);
-    //   this.moralDialValue += baby.myScore;
-    //   baby.generateSounds(this.sfxConfig);
-    //   this.allEnemies.add(baby);
-    // }
     // let birb = new Bird(this, 300, 250, 96);
     // birb.setScore(birb.myScore);
     // this.moralDialValue += birb.myScore;
@@ -119,10 +120,10 @@ export default class Level1 extends Phaser.Scene {
     // borracho.setScore(borracho.myScore);
     // this.moralDialValue += borracho.myScore;
 
-    let dog = new Dog(this, 400, this.floorLevel, 60);
-    dog.setScore(dog.myScore);
-    this.maxDialVal += dog.myScore;
-    this.allEnemies.add(dog);
+    // let dog = new Dog(this, 400, this.floorLevel, 60);
+    // dog.setScore(dog.myScore);
+    // this.moralDialValue += dog.myScore;
+    // this.allEnemies.add(dog);
 
     //crea el dial de moral
     this.scoreDial = new scoreDial(this, 450, 0, this.maxDialVal);
@@ -179,15 +180,14 @@ export default class Level1 extends Phaser.Scene {
     }
 
   }
-  
 
   update(time){
     if(this.restarted){
       this.newtime=time;
       this.restarted=false;
     }
-    let gameRuntime = (time-this.newtime) * 0.001; 
-    this.timeText.setText("Time: " + Math.round(gameRuntime));
+    this.gameRuntime = (time-this.newtime) * 0.001; 
+    this.timeText.setText("Time: " + Math.round(this.gameRuntime));
   }
 
 
