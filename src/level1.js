@@ -77,6 +77,7 @@ export default class Level1 extends Phaser.Scene {
     this.player.generateSounds(this.sfxConfig);
 
     this.allEnemies = this.add.group();
+    this.allPowerUps = this.add.group();
     this.obstacles = this.add.group();
 
     this.physics.add.collider(this.player, this.layer1);
@@ -129,10 +130,10 @@ export default class Level1 extends Phaser.Scene {
     this.scoreDial = new scoreDial(this, 450, 0, this.maxDialVal);
     
     //crea obstaculos
-    this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
-    this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
-    this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
-    this.obstacles.add(new PowerHealth(this, 600, 300));
+    this.allPowerUps.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
+    this.allPowerUps.add(new PowerUp(this, 400, 300, 'powerShot', 0));
+    this.allPowerUps.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
+    this.allPowerUps.add(new PowerHealth(this, 600, 300));
 
     //crea la bandera final
     this.obstacles.add(new EndingFlag(this, 600, 300));
