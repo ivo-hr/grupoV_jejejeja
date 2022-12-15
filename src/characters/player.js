@@ -145,6 +145,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   //resta vida al jugador
   minusHealth(num) {
+    if(num > 0) {
+      this.scene.damage += num;
+    }
     this.health -= num;
     if(this.health < 0){
       this.health = 0;

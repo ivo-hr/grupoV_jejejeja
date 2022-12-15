@@ -48,6 +48,8 @@ export default class Level1 extends Phaser.Scene {
     this.musicConfig = this.cfgScreen.musicConfig;
     this.sfxConfig = this.cfgScreen.sfxConfig;
 
+
+   
     const map = this.make.tilemap({ key: 'lvlP' });
     const tileset = map.addTilesetImage('tumama', 'tiles');
     const layer2 = map.createLayer('Building', tileset, 0, 0);
@@ -97,19 +99,20 @@ export default class Level1 extends Phaser.Scene {
     // paintBucket.generateSounds(this.sfxConfig);
     // this.obstacles.add(paintBucket);
     
-    this.maxDialValue = 0;
-    let baby = new Baby(this, 300, this.floorLevel, 90);
-    baby.setScore(baby.myScore);
-    this.moralDialValue += baby.myScore;
-    baby.generateSounds(this.sfxConfig);
-    this.allEnemies.add(baby);
+    this.maxDialVal = 0;
+    this.gameScore = 0;
+    this.n = allEnemies.getLength(); //numero de enemigos en el nivel
+    this.p = allPowerUps.getLength(); //power-ups del nivel
+    
+    this.damage = 0;
 
-    let baby2 = new Baby(this, 1200, this.floorLevel, 90);
-    baby2.setScore(baby2.myScore);
-    this.moralDialValue += baby2.myScore;
-    baby2.generateSounds(this.sfxConfig);
-    this.allEnemies.add(baby2);
-
+    // for(let i=0;i<4;i++){
+    //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
+    //   baby.setScore(baby.myScore);
+    //   this.moralDialValue += baby.myScore;
+    //   baby.generateSounds(this.sfxConfig);
+    //   this.allEnemies.add(baby);
+    // }
     // let birb = new Bird(this, 300, 250, 96);
     // birb.setScore(birb.myScore);
     // this.moralDialValue += birb.myScore;
@@ -202,10 +205,24 @@ export default class Level1 extends Phaser.Scene {
 
     let GameOver = this.scene.get('gameOver');
 
-    GameOver.scene.restart();
+    //GameOver.scene.restart();
+
+    
+    let GameWin = this.scene.get('gameWin');
+
+    GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, this.gameScore);
+
+
+    GameWin.scene.restart();
+    //this.GameOver.scene.launch();
   }
 //si el jugador gana, se para la musica y se llama a la escena de gameWin
   gameWin() {
+    this.r = this.scoreDial.getScore(); //score de enemigos matados - score de enemigos total del nivel
+    this.d = D = this.damage; //daño recibido en el nivel
+    this.t = this.gameRunTime; //tiempo en pasarse el nivel
+    this.gameScore = (this.n ^ this.p + (this.r + this.d) / (this.d + 1)) / this.t;
+
     this.music.stop();
     this.scene.stop();
     this.registry.destroy();
@@ -213,7 +230,10 @@ export default class Level1 extends Phaser.Scene {
 
     let GameWin = this.scene.get('gameWin');
 
-    GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, 100 /*aqui va la variable puntuación */);
+    this.gameScore = (this.n ^ this.p + (this.r + this.d) / (this.d + 1)) / this.t;
+
+    //configura la moral en la escena de gameWin
+    GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, this.gameScore /*aqui va la variable puntuación */);
 
     GameWin.scene.restart();
   }
