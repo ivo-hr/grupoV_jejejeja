@@ -2,7 +2,7 @@ export default class BirdShit extends Phaser.GameObjects.Sprite {
 
   constructor(scene, x, y) {
     super(scene, x, y, 'birdshit'); 
-    this.scene = scene;
+
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     this.body.setCollideWorldBounds(); //Collision with the limits of the world

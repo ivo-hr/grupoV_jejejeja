@@ -1,18 +1,21 @@
 export default class DogShit extends Phaser.GameObjects.Sprite {
-
     constructor(scene, x, y) {
         super(scene, x, y, 'dogshit');
-        this.scene = scene;
+
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setCollideWorldBounds(); //Collision with the limits of the world 
         this.scene.physics.add.collider(this, this.scene.layer5);
         this.shitIsOnFloor = false;
-        console.log(this.x);
     }
 
     preUpdate() {
         super.preUpdate();
+        let timer = this.scene.time.addEvent({
+            delay: 3000, 
+            callback: this.onDestroy,
+            callbackScope: this,
+        });
         this.falling();
         this.handleCollision();
     }
@@ -24,7 +27,6 @@ export default class DogShit extends Phaser.GameObjects.Sprite {
     onDestroy() {
         this.destroy(this);
     }
-
     //Handles the collision with floor
     handleCollision() {
         if (this.scene.physics.collide(this.scene.layer5, this)) {
