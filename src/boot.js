@@ -25,6 +25,8 @@ export default class Boot extends Phaser.Scene {
     this.load.image('powerHyperbeam', 'powerHyperbeam.png');
     this.load.image('powerShot', 'powerShot.png');
     this.load.image('powerPunch', 'powerPunch.png');
+    this.load.image('powerHealth', 'powerHealth.png');
+
     this.load.spritesheet('player', 'player.png',{frameWidth: 65, frameHeight: 70});
     this.load.spritesheet('laserp', 'pruebalaser.png',{frameWidth: 32, frameHeight:32});
     this.load.spritesheet('hand', 'hand68x60.png', {frameWidth: 68, frameHeight:60});

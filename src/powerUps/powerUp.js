@@ -50,11 +50,14 @@ export default class PowerUp extends Phaser.GameObjects.Sprite {
    preUpdate(t,dt)
    {
     super.preUpdate(t,dt);
+    this.onCollisionPlayer();
+   }
 
+   onCollisionPlayer(){
     if (this.scene.physics.overlap(this.scene.player, this)) {
-        //this.scene.player.lesspoint();
-        this.scene.player.state = this.type;
-        this.destroy();
-    }
+      //this.scene.player.lesspoint();
+      this.scene.player.state = this.type;
+      this.destroy();
+  }
    }
  }
