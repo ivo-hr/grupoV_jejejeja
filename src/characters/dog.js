@@ -93,6 +93,8 @@ export default class Dog extends Enemy {
 
             this.movingRight = !this.movingRight;
         }
+        this.checkHP();
+
 
         //Darle sonido de perro
         /*generateSounds(sfxConfig) {
