@@ -1,6 +1,7 @@
 import Star from '../star.js';
 import Bullet from '../bullet.js';
 import Laser from '../laser.js';
+import Dashield from "../dashield.js"
 import HealthBar from "../healthbar.js";
 /**
  * Clase que representa el jugador del juego. El jugador se mueve por el mundo usando los cursores.
@@ -176,7 +177,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   end(){
    
-
     if(!this.stand)
     this.stand=true;
   }
@@ -340,6 +340,7 @@ dashable(){
           this.available=false;
           this.dash();
           this.dashable();
+          this.obdash=new Dashield(this.scene,this.x,this.y)
           }
       
           else{
@@ -348,6 +349,7 @@ dashable(){
           this.available=false;
           this.dash();
           this.dashable();
+          this.obdash=new Dashield(this.scene,this.x,this.y)
     
           }
 
