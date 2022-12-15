@@ -101,45 +101,23 @@ export default class Level1 extends Phaser.Scene {
     
     this.maxDialVal = 0;
     this.gameScore = 0;
-    this.n = allEnemies.getLength(); //numero de enemigos en el nivel
-    this.p = allPowerUps.getLength(); //power-ups del nivel
-    
     this.damage = 0;
+    this.p = 0;
 
-    // for(let i=0;i<4;i++){
-    //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
-    //   baby.setScore(baby.myScore);
-    //   this.moralDialValue += baby.myScore;
-    //   baby.generateSounds(this.sfxConfig);
-    //   this.allEnemies.add(baby);
-    // }
-    // let birb = new Bird(this, 300, 250, 96);
-    // birb.setScore(birb.myScore);
-    // this.moralDialValue += birb.myScore;
-    // birb.generateSounds(this.sfxConfig);
-    // this.allEnemies.add(birb);
-
-    // let borracho = new Drunk(this, 200, this.floorLevel, 96);
-    // this.allEnemies.add(borracho);
-    // borracho.setScore(borracho.myScore);
-    // this.moralDialValue += borracho.myScore;
-
-    // let dog = new Dog(this, 400, this.floorLevel, 60);
-    // dog.setScore(dog.myScore);
-    // this.moralDialValue += dog.myScore;
-    // this.allEnemies.add(dog);
+    this.spawnBabys();
+    this.spawnDrunks();
+    this.spawnDogs();
+    this.spawnBirds();
+    this.spawnBuckets();
+    this.spawnPowerUps();
+    this.spawnRains();
+    this.n = this.allEnemies.getLength(); //numero de enemigos en el nivel
 
     //crea el dial de moral
     this.scoreDial = new scoreDial(this, 450, 0, this.maxDialVal);
-    
-    //crea obstaculos
-    this.allPowerUps.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
-    this.allPowerUps.add(new PowerUp(this, 400, 300, 'powerShot', 0));
-    this.allPowerUps.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
-    this.allPowerUps.add(new PowerHealth(this, 600, 300));
 
     //crea la bandera final
-    this.obstacles.add(new EndingFlag(this, 600, 300));
+    this.obstacles.add(new EndingFlag(this, 1700*2, 200));
 
     //crea el texto de tiempo
     this.newtime=0;
@@ -191,10 +169,91 @@ export default class Level1 extends Phaser.Scene {
       this.restarted=false;
     }
     this.gameRuntime = (time-this.newtime) * 0.001; 
-    this.timeText.setText("Time: " + Math.round(this.gameRuntime));
+    this.playingTime = Math.round(this.gameRuntime);
+    this.timeText.setText("Time: " + this.playingTime);
   }
 
+  spawnBabys(){
+    let baby = new Baby(this, 300, this.floorLevel, 90);
+    baby.setScore(baby.myScore);
+    this.maxDialVal += baby.myScore;
+    baby.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby);
 
+    let baby2 = new Baby(this, 1450, this.floorLevel, 90);
+    baby2.setScore(baby2.myScore);
+    this.maxDialVal += baby2.myScore;
+    baby2.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby2);
+  }
+  spawnDrunks(){
+    let drunk = new Drunk(this, 950, this.floorLevel, 90);
+    drunk.setScore(drunk.myScore);
+    this.maxDialVal += drunk.myScore;
+    this.allEnemies.add(drunk);
+
+    let drunk2 = new Drunk(this, 2300, this.floorLevel, 90);
+    drunk2.setScore(drunk2.myScore);
+    this.maxDialVal += drunk2.myScore;
+    this.allEnemies.add(drunk2);
+  }
+
+  spawnDogs(){
+    let dog = new Dog(this, 1200, this.floorLevel, 60);
+    dog.setScore(dog.myScore);
+    this.maxDialVal += dog.myScore;
+    this.allEnemies.add(dog);
+
+    let dog2 = new Dog(this, 2600, this.floorLevel, 60);
+    dog2.setScore(dog2.myScore);
+    this.maxDialVal += dog2.myScore;
+    this.allEnemies.add(dog2);
+  }
+
+  spawnBirds(){
+    let bird = new Bird(this, 600, 150, 96);
+    bird.setScore(bird.myScore);
+    this.maxDialVal += bird.myScore;
+    bird.generateSounds(this.sfxConfig);
+    this.allEnemies.add(bird);
+
+    let bird2 = new Bird(this, 2900, 150, 96);
+    bird2.setScore(bird2.myScore);
+    this.maxDialVal += bird2.myScore;
+    bird2.generateSounds(this.sfxConfig);
+    this.allEnemies.add(bird2);
+  }
+
+  spawnBuckets(){
+    let bucket = new PaintBucket(this, 770, 20, 60);
+    this.obstacles.add(bucket);
+
+    let bucket2 = new PaintBucket(this, 1800, 20, 60);
+    this.obstacles.add(bucket2);
+
+    let bucket3 = new PaintBucket(this, 1100, 20, 60);
+    this.obstacles.add(bucket3);
+
+    let bucket4 = new PaintBucket(this, 2600, 20, 60);
+    this.obstacles.add(bucket4);
+  }
+
+  spawnPowerUps(){
+    this.allPowerUps.add(new PowerUp(this, 2070, this.floorLevel-60, 'powerHyperbeam', 1));
+    this.allPowerUps.add(new PowerHealth(this, 1260, this.floorLevel-200));
+    this.allPowerUps.add(new PowerHealth(this, 1850, this.floorLevel-70));
+    this.allPowerUps.add(new PowerHealth(this, 2450, this.floorLevel-100));
+    this.allPowerUps.add(new PowerHealth(this, 3150, this.floorLevel-100));
+    this.allPowerUps.add(new PowerUp(this, 850, this.floorLevel-50, 'powerPunch', 2));
+    this.allPowerUps.add(new PowerUp(this, 2130, this.floorLevel - 180, 'powerPunch', 2));
+    this.allPowerUps.add(new PowerUp(this, 1400, this.floorLevel-240, 'powerShot', 0));
+  }
+
+  spawnRains(){
+    this.obstacles.add(new Rain(this, 1480, 100, 0.5, 630));
+    this.obstacles.add(new Rain(this, 2070, 100, 0.5, 630));
+    this.obstacles.add(new Rain(this, 3020, 100, 0.5, 630));
+  }
 
  //si el jugador muere, se para la musica y se llama a la escena de gameOver
   gameOver() {
@@ -208,9 +267,9 @@ export default class Level1 extends Phaser.Scene {
     //GameOver.scene.restart();
 
     
-    let GameWin = this.scene.get('gameWin');
+    // let GameWin = this.scene.get('gameWin');
 
-    GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, this.gameScore);
+    // GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, this.gameScore);
 
 
     GameWin.scene.restart();
@@ -218,10 +277,23 @@ export default class Level1 extends Phaser.Scene {
   }
 //si el jugador gana, se para la musica y se llama a la escena de gameWin
   gameWin() {
-    this.r = this.scoreDial.getScore(); //score de enemigos matados - score de enemigos total del nivel
-    this.d = D = this.damage; //daño recibido en el nivel
-    this.t = this.gameRunTime; //tiempo en pasarse el nivel
-    this.gameScore = (this.n ^ this.p + (this.r + this.d) / (this.d + 1)) / this.t;
+    this.r = this.scoreDial.getScore() - this.maxDialVal; //score de enemigos matados - score de enemigos total del nivel
+    if(this.r == 0){
+      this.r = this.maxDialVal;
+    }
+    else if(this.r == -this.maxDialVal){
+      this.r = this.maxDialVal;
+    }
+    this.d = this.damage; //daño recibido en el nivel
+    this.t = this.playingTime; //tiempo en pasarse el nivel
+    this.e = this.n * this.p;
+    console.log(this.r);
+    console.log(this.d);
+    console.log(this.t);
+    console.log(this.n);
+    console.log(this.p);
+    console.log(this.maxDialVal);
+    this.gameScore = ((this.e + (this.r - this.d) / (this.d + 1)) / this.t) * 10;
 
     this.music.stop();
     this.scene.stop();
@@ -230,8 +302,7 @@ export default class Level1 extends Phaser.Scene {
 
     let GameWin = this.scene.get('gameWin');
 
-    this.gameScore = (this.n ^ this.p + (this.r + this.d) / (this.d + 1)) / this.t;
-
+    console.log(this.gameScore);
     //configura la moral en la escena de gameWin
     GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, this.gameScore /*aqui va la variable puntuación */);
 

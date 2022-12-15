@@ -65,14 +65,14 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
     //si colsiona con el suelo crea una mancha de pintura y se destruye
     if(this.scene.physics.collide(this.scene.layer5, this) || this.scene.physics.collide(this.scene.layer3, this)){
       this.onFloorCollision(); 
-      this.fall.play();
+      // this.fall.play();
     }
 
     //si colisiona con el jugador le quita vida y se destruye
     else if (this.scene.physics.overlap(this.scene.player, this)) {
           this.scene.player.minusHealth(1);
           this.scene.player.slowDown(50, 60);
-          this.fall.play();
+          // this.fall.play();
           this.destroy();
       }
     }
