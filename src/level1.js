@@ -96,7 +96,11 @@ export default class Level1 extends Phaser.Scene {
     paintBucket.generateSounds(this.sfxConfig);
     this.obstacles.add(paintBucket);
     
+    //valor maximo del dial
     this.maxDialVal = 0;
+
+    //creacion de los enemigos
+
     // for(let i=0;i<4;i++){
     //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
     //   baby.setScore(baby.myScore);
@@ -120,15 +124,19 @@ export default class Level1 extends Phaser.Scene {
     this.maxDialVal += dog.myScore;
     this.allEnemies.add(dog);
 
-    // this.spawn();
-
+    //crea el dial de moral
     this.scoreDial = new scoreDial(this, 450, 0, this.maxDialVal);
-
+    
+    //crea obstaculos
     this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
     this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
     this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
     this.obstacles.add(new PowerHealth(this, 600, 300));
 
+    //crea la bandera final
+    this.obstacles.add(new EndingFlag(this, 600, 300));
+
+    //crea el texto de tiempo
     this.newtime=0;
     this.restarted=true;
     this.timeText=this.add.text(20,5, "Time: ", 
@@ -136,6 +144,8 @@ export default class Level1 extends Phaser.Scene {
     
     this.timeText.setScrollFactor(0);
 
+
+    //camaras sigue al jugador
     this.cameras.main.startFollow(this.player);
 
     this.cameras.main.followOffset.set(0, 0);
@@ -150,13 +160,8 @@ export default class Level1 extends Phaser.Scene {
 
   }
 
+  //creacion de imagenes de fondo
   addParallaxImages() {
-
-    // this.add.image(0,0,'background1').setOrigin(0,0).setScrollFactor(0.1, 0);
-    // this.add.image(0,0,'background2').setOrigin(0,0).setScrollFactor(0.2, 0);
-    // this.add.image(0,0,'background3').setOrigin(0,0).setScrollFactor(0.3, 0);
-    // this.add.image(0,0,'background4').setOrigin(0,0).setScrollFactor(0.4, 0);
-    // this.add.image(0,0,'background5').setOrigin(0,0).setScrollFactor(0.8, 0);
 
     this.addParallaxImage('background1', 15, 0.1)
     this.addParallaxImage('background2', 15, 0.2)
@@ -166,6 +171,7 @@ export default class Level1 extends Phaser.Scene {
 
 
   }
+  //añade imagenes de fondo
   addParallaxImage(imageKey, count, scrollFactorX, scrollFactorY = 0, offset = 0) {
 
     for (let i = 0; i < count; i++) {
@@ -173,20 +179,6 @@ export default class Level1 extends Phaser.Scene {
     }
 
   }
-  /**
-   * Genera una estrella en una de las bases del escenario
-   * @param {Array<Base>} from Lista de bases sobre las que se puede crear una estrella
-   * Si es null, entonces se crea aleatoriamente sobre cualquiera de las bases existentes
-   */
-  // spawn(from = null) {
-  //   Phaser.Math.RND.pick(from || this.bases.children.entries).spawn();
-  // }
-
-  /**
-   * Método que se ejecuta al coger una estrella. Se pasa la base
-   * sobre la que estaba la estrella cogida para evitar repeticiones
-   * @param {Base} base La base sobre la que estaba la estrella que se ha cogido
-   */
   
 
   update(time){
