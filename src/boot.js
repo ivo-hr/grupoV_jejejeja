@@ -58,6 +58,8 @@ export default class Boot extends Phaser.Scene {
     this.load.setPath('assets/images/');
     this.load.image('mainMenu', 'main.png');
     this.load.image('config', 'config.png');
+    this.load.image('pause', 'pause.png');
+    this.load.image('gameOver', 'gameOver.png');
     this.load.image('playButton', 'playButton.png');
     this.load.image('cfgButton', 'cfgButton.png');
     this.load.image('moreMButton', 'plusM.png');
@@ -83,6 +85,7 @@ export default class Boot extends Phaser.Scene {
     this.load.audio('baby', 'baby.wav');
     this.load.audio('enemyKill', 'killedEnemy.wav');
     this.load.audio('bucket', 'bucket.wav');
+    this.load.audio('death', 'death.wav');
   }
 
   /**

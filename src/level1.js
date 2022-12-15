@@ -32,7 +32,7 @@ export default class Level1 extends Phaser.Scene {
    * Creación de los elementos de la escena principal de juego
    */
   create() {
-    
+    if (this.scene)
     this.cameras.main.setBounds(0, -100, 1650 * 2, 270 * 2);
     //delimita limites del mundo
     this.bounds = this.physics.world.setBounds(0, -100, 1650 * 2, 270 * 2);
@@ -170,7 +170,16 @@ export default class Level1 extends Phaser.Scene {
 
       // }
   }
-  gameover(){
-    this.scene.start('Menu');
+
+  gameOver() {
+    this.music.stop();
+    this.scene.stop();
+    this.registry.destroy();
+    this.events.off();
+
+    let GameOver = this.scene.get('gameOver');
+
+    GameOver.scene.restart();
+    //this.GameOver.scene.launch();
   }
 }

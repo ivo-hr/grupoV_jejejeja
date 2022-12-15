@@ -40,10 +40,6 @@ export default class HealthBar extends Phaser.GameObjects.Graphics {
         let d = Math.floor(this.proportion * this.value);
 
         this.fillRect(this.x + 4, this.y + 4, d, 20);
-
-        if(d<=0){
-            this.scene.gameover();
-        }
     }
 
 }

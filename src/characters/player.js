@@ -17,6 +17,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
     this.score = 100;
+    this.health = 10;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
@@ -31,8 +32,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     let posX = this.scene.cameras.main.centerX*0.1;
     let posY = this.scene.cameras.main.height*0.1;
     this.cursors = this.scene.input.keyboard.createCursorKeys();
-    this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T,L');
-    this.healthBar = new HealthBar(this.scene, posX, posY, 1000);
+    this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T,L,P');
+    this.healthBar = new HealthBar(this.scene, posX, posY, this.health);
     this.healthBar.setScrollFactor(0);
     this.available=true;
     this.stand=true;
@@ -146,8 +147,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
   // }
 
   minusHealth(num) {
+    this.health -= num;
     this.healthBar.update(num);
+    if (this.health <= 0) {
+      this.death.play();
+      
+      this.scene.gameOver();
+    }
+    else
     this.dmg.play();
+
+
     console.log(this.healthBar.value);
   }
   
@@ -301,6 +311,13 @@ setInvincible(){
       this.x+=-300;
       console.log(this.height);
     }
+    
+    else if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
+      //make a pause menu
+      this.scene.scene.launch('pauseMenu');
+      console.log("paused");
+      this.scene.scene.pause();
+    }
  /*
     if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
       if(this.facingRight){
@@ -426,6 +443,7 @@ setInvincible(){
 
   generateSounds(sfxConfig){
     this.pengu = this.scene.sound.add('pengu', sfxConfig);
+    this.death = this.scene.sound.add('death', sfxConfig);
     this.shot = this.scene.sound.add('shot', sfxConfig);
     this.laser = this.scene.sound.add('laser', sfxConfig);
     this.dmg = this.scene.sound.add('dmg', sfxConfig);

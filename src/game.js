@@ -1,7 +1,9 @@
 import Boot from './boot.js';
 import Menu from './menumain.js';
 import Config from './menucfg.js';
+import PauseMenu from './pauseMenu.js';
 import Level1 from './level1.js';
+import GameOver from './gameOver.js';
 
 
 /**
@@ -18,7 +20,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, Menu, Config, Level1],
+    scene: [Boot, Menu, Config, Level1, PauseMenu, GameOver],
     physics: { 
         default: 'arcade', 
         arcade: { 
@@ -29,3 +31,4 @@ let config = {
 };
 
 new Phaser.Game(config);
+
