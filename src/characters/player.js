@@ -49,7 +49,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       ElDash: 2
     }
 
-    this.state= 1;
+    this.state= 2;
 
     this.flipped=false;
     this.facingRight=true;
@@ -237,7 +237,18 @@ inmov(){
 laserable(){
   
   let timer=this.scene.time.addEvent({
-    delay: 3000, 
+    delay: 5000, 
+    callback: this.setable,
+    callbackScope: this,
+ });
+
+
+}
+
+dashable(){
+  
+  let timer=this.scene.time.addEvent({
+    delay: 1500, 
     callback: this.setable,
     callbackScope: this,
  });
@@ -314,15 +325,19 @@ laserable(){
       else if(this.state===2){
         if(this.facingRight){
       
-          this.scene.physics.moveTo(this,this.x+300,this.y,300,200)
+          this.scene.physics.moveTo(this,this.x+150,this.y,500,200)
           this.stand=false;
+          this.available=false;
           this.dash();
+          this.dashable();
           }
       
           else{
-          this.scene.physics.moveTo(this,this.x-300,this.y,300,200)
+          this.scene.physics.moveTo(this,this.x-150,this.y,500,200)
           this.stand=false;
+          this.available=false;
           this.dash();
+          this.dashable();
     
           }
 
