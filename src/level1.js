@@ -110,7 +110,7 @@ export default class Level1 extends Phaser.Scene {
     let borracho = new Drunk(this, 200, 450, 96);
     this.allEnemies.add(borracho);
 
-    let dog = new Dog(this, 600, 400, 60);
+    let dog = new Dog(this, 250, 450, 60);
     this.allEnemies.add(dog);
 
     // this.spawn();

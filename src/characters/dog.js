@@ -48,7 +48,7 @@ export default class Dog extends Enemy {
 
     //caga
     poop() {
-        new DogShit(this.scene, this.scene.player, this.x, this.y + 10, 'dogShit');
+        //new DogShit(this.scene, this.scene.player, this.x, this.y + 10, 'dogShit');
     }
     preUpdate(t, dt) {
         // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
@@ -61,16 +61,16 @@ export default class Dog extends Enemy {
             if (this.movingRight) this.setFlip(true, false);
         }
 
-        if(this.shitIsTaken) this.shitIsTaken = false;
+        if (this.shitIsTaken) this.shitIsTaken = false;
         this.missilCooldown += Math.round(dt);
         if ((this.missilCooldown) > this.missilFrequency) {
             this.missilCooldown = 0;
             this.poop();
             console.log("ha cagado");
-            this.pengu.play();
+            //this.pengu.play();
         }
 
-        if (!shitIsTaken) {
+        if (!this.shitIsTaken) {
             if (this.movingRight) {
                 this.body.setVelocityX(this.speed);
             }
@@ -83,12 +83,21 @@ export default class Dog extends Enemy {
             this.scene.player.setInvincible();
             this.scene.player.minusHealth(1);
         }
-        //this.checkHP();
-    }
 
-    //Darle sonido de perro
-    generateSounds(sfxConfig) {
-        this.pengu = this.scene.sound.add('pengu', sfxConfig);
+        if (this.scene.physics.collide(this.scene.layer1, this)
+            || this.scene.physics.collide(this.scene.layer3, this)
+            || this.scene.physics.collide(this.scene.layer4, this)
+            || this.scene.physics.collide(this.scene.layer5, this)) {
+            if (this.movingRight) this.setFlip(false, false);
+            else this.setFlip(true, false);
 
+            this.movingRight = !this.movingRight;
+        }
+
+        //Darle sonido de perro
+        /*generateSounds(sfxConfig) {
+            this.pengu = this.scene.sound.add('pengu', sfxConfig);
+
+        }*/
     }
 }

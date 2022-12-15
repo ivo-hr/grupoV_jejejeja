@@ -17,13 +17,17 @@ export default class DogShit extends Phaser.GameObjects.Sprite {
     }
 
     falling(){
-        if(!shitIsOnFloor) this.body.setGravity(0, 350);
+        if(!this.shitIsOnFloor) this.body.setGravity(0, 350);
     }
-    //Handles the collision with player and floor
 
+    //Handles the collision with floor
     handleCollision() {
         if (this.scene.physics.collide(this.scene.layer5, this)) {
             this.shitIsOnFloor = true;
+        }
+        if (this.scene.physics.overlap(this.scene.player, this) && !this.scene.player.invincible) {
+            this.scene.player.setInvincible();
+            this.scene.player.minusHealth(1);
         }
     }
 }
