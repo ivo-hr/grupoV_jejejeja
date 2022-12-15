@@ -49,6 +49,8 @@ export default class Dog extends Enemy {
     poop() {
         this.scene.obstacles.add(new DogShit(this.scene, this.x, this.y));
     }
+
+    //comprueba si puede cagar
     cagable(){  
         let timer=this.scene.time.addEvent({
           delay: 3000, 

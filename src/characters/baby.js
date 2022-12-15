@@ -77,6 +77,7 @@ import Enemy from "./enemy.js";
 
     }
 
+    //se genera el sonido del baby
     generateSounds(sfxConfig){
       this.baby = this.scene.sound.add('baby', sfxConfig);
     }

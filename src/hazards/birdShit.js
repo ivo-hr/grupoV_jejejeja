@@ -1,5 +1,6 @@
 export default class BirdShit extends Phaser.GameObjects.Sprite {
 
+  //Constructor
   constructor(scene, x, y) {
     super(scene, x, y, 'birdshit'); 
 

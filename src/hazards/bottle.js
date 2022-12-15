@@ -20,10 +20,13 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
         this.movingRight = movement;
     }
   
+    //Inicializa la botella
     initialize(tam){
         this.size = tam;  
         this.sizeManag();
     }
+
+    //Gestiona el tamaño de la botella
     sizeManag(){
         if(this.size == 0){
             this.setScale(0.25);
@@ -41,6 +44,7 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
         if(this.itsFalling) this.handleCollision();
     }
     
+    //Gestiona el movimiento de la botella
     movement(){
         if(this.movingRight) {
             if(this.y >= this.maxHeight && !this.reachMaxHeight){

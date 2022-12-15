@@ -52,6 +52,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.body.setSize(60, 40);
 
 
+    //estados de disparo
     const estados = {
       Normal: 0,
       RaLaser: 1,
@@ -63,6 +64,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.flipped=false;
     this.facingRight=true;
 
+    //creacion de animaciones
     this.scene.anims.create({
       key: 'movingplayer',
       frames: scene.anims.generateFrameNumbers('hand', { start: 4, end: 7 }),
@@ -119,15 +121,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			repeat: 0
 		});
     
-   
-    /*this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
-			//console.log(this.anims.currentAnim.key)
-			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'
-				this.play('movingplayer'); //ejecutamos la animación 'idle'
-			}
-			
-		})*/
 
+    //al finalizar las animaciones, se lanza las balas
     this.onAnimationComplete('hyperbeam', 'idlePlayer');
     this.onAnimationComplete('gun', 'idlePlayer');
     this.onAnimationComplete('dash', 'idlePlayer');
@@ -137,6 +132,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   }
 
+  //lanza la animacion de disparo
   onAnimationComplete(currentAnimation, nextAnimation){
     this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
@@ -146,16 +142,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			
 		})
   }
-  /**
-   * El jugador ha recogido una estrella por lo que este método añade un punto y
-   * actualiza la UI con la puntuación actual.
-   */
-  // point() {
-  //   this.score++;
-  //   console.log(this.score)
-  //   this.healthBar.update(-10);
-  // }
 
+  //resta vida al jugador
   minusHealth(num) {
     this.health -= num;
     if(this.health < 0){
@@ -176,11 +164,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // console.log(this.healthBar.value);
     // console.log(this.health);
   }
-  
-  /**
-   * Actualiza la UI con la puntuación actual
-   */
 
+  //funciones de estado de animacion
   setable(){
     if(!this.available)
       this.available=true;
@@ -227,7 +212,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   
 }
 
-
+//funciones de invulnerabilidad
 invincibility(){
     
   let timer=this.scene.time.addEvent({
@@ -244,6 +229,7 @@ setInvincible(){
   this.invincibility();
 }
 
+//funciones de movimiento
 mov(){
   this.notmove=false;
   this.body.setGravity(0,this.gforce);
@@ -261,6 +247,7 @@ inmov(){
 
 }
 
+//funciones de laser y dash
 laserable(){
   
   let timer=this.scene.time.addEvent({
@@ -332,6 +319,7 @@ playerdmg(){
       this.slowedTime --;
     }
 
+    //input del jugador y movimiento y disparo
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
       if(this.state===0){
         this.play('gun');
@@ -504,6 +492,7 @@ playerdmg(){
 
 
 
+  //genera los sonidos
   generateSounds(sfxConfig){
     this.pengu = this.scene.sound.add('pengu', sfxConfig);
     this.death = this.scene.sound.add('death', sfxConfig);
@@ -514,6 +503,7 @@ playerdmg(){
     this.killenemy = this.scene.sound.add('enemyKill', sfxConfig);
   }
 
+  //añade puntuacion al matar enemigos
   addScore(score){
     this.killenemy.play();
     this.score += score;
