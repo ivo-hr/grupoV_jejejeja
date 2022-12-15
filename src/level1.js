@@ -88,21 +88,26 @@ export default class Level1 extends Phaser.Scene {
     // new Platform(this, this.player, this.bases, 700, 500);
     // new Platform(this, this.player, this.bases, 400, 400);
     // new Platform(this, this.player, this.bases, 1000, 450);
-    let rain = new Rain(this, 1000, 250, 0.5, 200);
+    // let rain = new Rain(this, 1000, 250, 0.5, 200);
 
-    this.obstacles.add(rain);
-    let paintBucket = new PaintBucket(this, 650, 150, 0.5);
-    paintBucket.generateSounds(this.sfxConfig);
-    this.obstacles.add(paintBucket);
+    // this.obstacles.add(rain);
+    // let paintBucket = new PaintBucket(this, 650, 150, 0.5);
+    // paintBucket.generateSounds(this.sfxConfig);
+    // this.obstacles.add(paintBucket);
     
-    this.maxDialVal = 0;
-    // for(let i=0;i<4;i++){
-    //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
-    //   baby.setScore(baby.myScore);
-    //   this.moralDialValue += baby.myScore;
-    //   baby.generateSounds(this.sfxConfig);
-    //   this.allEnemies.add(baby);
-    // }
+    this.maxDialValue = 0;
+    let baby = new Baby(this, 300, this.floorLevel, 90);
+    baby.setScore(baby.myScore);
+    this.moralDialValue += baby.myScore;
+    baby.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby);
+
+    let baby2 = new Baby(this, 1200, this.floorLevel, 90);
+    baby2.setScore(baby2.myScore);
+    this.moralDialValue += baby2.myScore;
+    baby2.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby2);
+
     // let birb = new Bird(this, 300, 250, 96);
     // birb.setScore(birb.myScore);
     // this.moralDialValue += birb.myScore;
@@ -114,10 +119,10 @@ export default class Level1 extends Phaser.Scene {
     // borracho.setScore(borracho.myScore);
     // this.moralDialValue += borracho.myScore;
 
-    let dog = new Dog(this, 400, this.floorLevel, 60);
-    dog.setScore(dog.myScore);
-    this.maxDialVal += dog.myScore;
-    this.allEnemies.add(dog);
+    // let dog = new Dog(this, 400, this.floorLevel, 60);
+    // dog.setScore(dog.myScore);
+    // this.moralDialValue += dog.myScore;
+    // this.allEnemies.add(dog);
 
     // this.spawn();
 
@@ -167,32 +172,6 @@ export default class Level1 extends Phaser.Scene {
     }
 
   }
-  /**
-   * Genera una estrella en una de las bases del escenario
-   * @param {Array<Base>} from Lista de bases sobre las que se puede crear una estrella
-   * Si es null, entonces se crea aleatoriamente sobre cualquiera de las bases existentes
-   */
-  // spawn(from = null) {
-  //   Phaser.Math.RND.pick(from || this.bases.children.entries).spawn();
-  // }
-
-  /**
-   * Método que se ejecuta al coger una estrella. Se pasa la base
-   * sobre la que estaba la estrella cogida para evitar repeticiones
-   * @param {Base} base La base sobre la que estaba la estrella que se ha cogido
-   */
-  starPickt(base) {
-    this.player.point();
-    if (this.player.score == this.stars) {
-      this.scene.start('end');
-    }
-    // else {
-    //   let s = this.bases.children.entries;
-    //   this.spawn(s.filter(o => o !== base));
-
-    // }
-  }
- //si el jugador muere, se para la musica y se llama a la escena de gameOver
   gameOver() {
     this.music.stop();
     this.scene.stop();
