@@ -231,11 +231,32 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
  <img src="images_gdd/13.png">
 
  ## 6. Assets utilizados  <a name="Assets"></a>
+
 (Mencionado también en apartado de estética)
 
-La estética del juego será llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
+La estética del juego es llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
 
-Todos los recursos artísticos visuales que estamos utilizado en el juego han sido creados por nosotros.
+Todos los recursos artísticos visuales que estamos utilizado en el juego han sido creados por nosotros escepto por la imagen de la pantalla de inicio.
+
+ <img src="images_gdd/15.png">
+
+Fuente de la imagen gratuita:
+
+[https://bit-life.itch.io/free-city-parallax-background](https://bit-life.itch.io/free-city-parallax-background)
+
+Otros fondos realizados por nosotros que utilizamos en los distintos finales del juego:
+
+ <img src="images_gdd/16.png">
+Final genocida
+
+ <img src="images_gdd/17.png">
+Final neutral
+
+ <img src="images_gdd/18.png">
+Final pacifista
+
+ <img src="images_gdd/19.png">
+Muerte de la mano
 
 ## Referencias
 * Contra (NES)
