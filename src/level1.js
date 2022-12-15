@@ -94,24 +94,28 @@ export default class Level1 extends Phaser.Scene {
     paintBucket.generateSounds(this.sfxConfig);
     this.obstacles.add(paintBucket);
     
-    
+    this.moralDialValue = 0;
     for(let i=0;i<4;i++){
-      let baby = new Baby(this, 100+i*300, 450, 90);
+      let baby = new Baby(this, 100+i*300, 380, 90);
       baby.setScore(baby.myScore);
+      this.moralDialValue += baby.myScore;
       baby.generateSounds(this.sfxConfig);
       this.allEnemies.add(baby);
     }
     let birb = new Bird(this, 300, 250, 96);
     birb.setScore(birb.myScore);
+    this.moralDialValue += birb.myScore;
     birb.generateSounds(this.sfxConfig);
     this.allEnemies.add(birb);
 
-    let borracho = new Drunk(this, 200, 450, 96);
+    let borracho = new Drunk(this, 200, 380, 96);
     this.allEnemies.add(borracho);
+    borracho.setScore(borracho.myScore);
+    this.moralDialValue += borracho.myScore;
 
     // this.spawn();
 
-    this.scoreDial = new scoreDial(this, 450, 0);
+    this.scoreDial = new scoreDial(this, 450, 0, this.moralDialValue);
 
     this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
     this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
