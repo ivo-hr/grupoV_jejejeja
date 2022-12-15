@@ -1,9 +1,5 @@
-/**
- * Clase para los objetos ball que chocan con el jugador
- * Una estrella aparece sobre una base. Cuando el jugador la recoge, se crea 
- * una nueva estrella en otra posición, si el juego no ha terminado.
- * @extends Phaser.GameObjects.Sprite
- */
+
+
  export default class Enemy extends Phaser.GameObjects.Sprite {
   
     /**
@@ -20,7 +16,7 @@
       this.body.setCollideWorldBounds(true);
       this.scene.physics.add.collider(this, this.scene.layer5);
       this.initialize(tam)
-    
+      this.myScore = 10;
       this.animation();
 
     }
@@ -37,6 +33,10 @@
       //nada en este
     }
 
+    setScore(score){
+      this.myScore = score;
+    }
+
     sizeManag(){
         if(this.size == 0){
             this.setScale(0.25);
@@ -49,7 +49,7 @@
         }
     }
     onDestroy(){
-      this.scene.player.score -= 1;
+      this.scene.player.addScore(this.myScore);
       console.log("Enemy destroyed");
       this.destroy();
     }

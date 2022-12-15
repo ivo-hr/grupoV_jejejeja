@@ -64,11 +64,18 @@ export default class PaintBucket extends Phaser.GameObjects.Sprite {
 
     if(this.scene.physics.collide(this.scene.layer5, this) || this.scene.physics.collide(this.scene.layer3, this)){
       this.onFloorCollision(); 
+      this.fall.play();
     }
     else if (this.scene.physics.overlap(this.scene.player, this)) {
           this.scene.player.minusHealth(1);
           this.scene.player.slowDown(50, 60);
+          this.fall.play();
           this.destroy();
       }
     }
+
+    generateSounds(sfxConfig){
+      this.fall = this.scene.sound.add('bucket', sfxConfig);
+    }
   }
+

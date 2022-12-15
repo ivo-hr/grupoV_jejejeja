@@ -18,6 +18,8 @@ export default class Menu extends Phaser.Scene {
    */
   create() {
 
+    //remove and add game over scene
+
     this.cfgScreen = this.scene.get('Config');
 
     this.canvas = document.getElementById("mainCanvas");
@@ -63,7 +65,14 @@ export default class Menu extends Phaser.Scene {
   startGame() {
 
     this.music.stop();
-    this.scene.start('level1');
+    this.scene.stop();
+    this.registry.destroy();
+    this.events.off();
+
+    let level = this.scene.get('level1');
+
+    level.scene.restart();
+    //this.level.scene.start();
     
   }
 

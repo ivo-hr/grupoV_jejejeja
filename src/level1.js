@@ -34,7 +34,7 @@ export default class Level1 extends Phaser.Scene {
    * Creación de los elementos de la escena principal de juego
    */
   create() {
-    
+    if (this.scene)
     this.cameras.main.setBounds(0, -100, 1650 * 2, 270 * 2);
     //delimita limites del mundo
     this.bounds = this.physics.world.setBounds(0, -100, 1650 * 2, 270 * 2);
@@ -73,6 +73,7 @@ export default class Level1 extends Phaser.Scene {
     // this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
     this.player.generateSounds(this.sfxConfig);
+
     this.allEnemies = this.add.group();
     this.obstacles = this.add.group();
 
@@ -86,16 +87,23 @@ export default class Level1 extends Phaser.Scene {
     // new Platform(this, this.player, this.bases, 700, 500);
     // new Platform(this, this.player, this.bases, 400, 400);
     // new Platform(this, this.player, this.bases, 1000, 450);
-    this.obstacles.add(new Rain(this, 1000, 250, 0.5, 200));
-    this.obstacles.add(new PaintBucket(this, 650, 150, 0.5));
+    let rain = new Rain(this, 1000, 250, 0.5, 200);
+
+    this.obstacles.add(rain);
+    let paintBucket = new PaintBucket(this, 650, 150, 0.5);
+    paintBucket.generateSounds(this.sfxConfig);
+    this.obstacles.add(paintBucket);
     
     
     for(let i=0;i<4;i++){
       let baby = new Baby(this, 100+i*300, 450, 90);
+      baby.setScore(baby.myScore);
+      baby.generateSounds(this.sfxConfig);
       this.allEnemies.add(baby);
     }
     let birb = new Bird(this, 300, 250, 96);
-    birb.sfxConfig = this.soundConfig;
+    birb.setScore(birb.myScore);
+    birb.generateSounds(this.sfxConfig);
     this.allEnemies.add(birb);
 
     let borracho = new Drunk(this, 200, 450, 96);
@@ -103,12 +111,12 @@ export default class Level1 extends Phaser.Scene {
 
     // this.spawn();
 
+    this.scoreDial = new scoreDial(this, 450, 0);
+
     this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
     this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
     this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
 
-    this.scoreDial = new scoreDial(this, 200, 300);
-    this.scoreDial.update(0.5);
 
 
     this.cameras.main.startFollow(this.player);
@@ -171,7 +179,16 @@ export default class Level1 extends Phaser.Scene {
 
       // }
   }
-  gameover(){
-    this.scene.start('Menu');
+
+  gameOver() {
+    this.music.stop();
+    this.scene.stop();
+    this.registry.destroy();
+    this.events.off();
+
+    let GameOver = this.scene.get('gameOver');
+
+    GameOver.scene.restart();
+    //this.GameOver.scene.launch();
   }
 }

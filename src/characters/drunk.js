@@ -20,6 +20,7 @@ import Bottle from "../hazards/bottle.js"
       this.currentMovement = 0;
       this.missilCooldown = 0;
       this.missilFrequency = 5000;
+      this.myScore = 30;
     }
 
     /**
