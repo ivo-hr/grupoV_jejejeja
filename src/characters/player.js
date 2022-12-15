@@ -1,4 +1,3 @@
-import Star from '../star.js';
 import Bullet from '../bullet.js';
 import Laser from '../laser.js';
 import Dashield from "../dashield.js"
@@ -18,7 +17,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
     this.score = 100;
-    this.health = 10;
+    this.maxHealth = 10;
+    this.health = this.maxHealth;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
@@ -151,6 +151,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   minusHealth(num) {
     this.health -= num;
+    if(this.health < 0){
+      this.health = 0;
+    }
+    else if(this.health > this.maxHealth){
+      this.health = this.maxHealth;
+    }
     this.healthBar.update(num);
     if (this.health <= 0) {
       this.death.play();
@@ -160,8 +166,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     else
     this.dmg.play();
 
-
-    console.log(this.healthBar.value);
+    // console.log(this.healthBar.value);
+    // console.log(this.health);
   }
   
   /**
@@ -361,8 +367,8 @@ dashable(){
       if(this.facingRight)
       this.x+=300;
       else
-      this.x+=-300;
-      console.log(this.height);
+        this.x+=-300;
+        // console.log(this.height);
     }
     
     else if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
@@ -475,7 +481,7 @@ dashable(){
     if(this.slowedTime == 0 && this.isSlowed){
       this.restoreSpeed(); 
       this.isSlowed = false;
-      console.log(this.speed);
+      // console.log(this.speed);
     }
     
   }
@@ -483,7 +489,7 @@ dashable(){
   reduceSpeed(percentage){ //Reduce la velocidad del jugador
     let reducedSpeed = this.speed * percentage/100;
     this.speed -= reducedSpeed;
-    console.log(this.speed);
+    // console.log(this.speed);
   }
 
   restoreSpeed(){ //Restaura la velocidad del jugador
