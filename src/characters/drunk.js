@@ -92,6 +92,6 @@ export default class Drunk extends Enemy {
 
   //genera sonidos
   generateSounds(sfxConfig) {
-
+    
   }
 }
