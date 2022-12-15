@@ -17,15 +17,9 @@ export default class BirdShit extends Phaser.GameObjects.Sprite {
     preUpdate() {
       super.preUpdate();
       this.handleCollision();
-
-    
-  
     }
 
     onDestroy(){
-      // this.graphics.clear();
-       //this.destroy(this.line);
-      // this.destroy(this.graphics);
        this.destroy(this);
    }
    
