@@ -95,7 +95,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 			key: 'hyperbeam',
 			frames: scene.anims.generateFrameNumbers('hand', {start:8, end:9}),
 			frameRate: 9,
-			repeat: 0
+			repeat: -1
 		});
 
     this.scene.anims.create({
@@ -179,6 +179,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
    
     if(!this.stand)
     this.stand=true;
+    this.play('movingplayer');
   }
 
   
@@ -231,6 +232,7 @@ setInvincible(){
 mov(){
   this.notmove=false;
   this.body.setGravity(0,this.gforce);
+  this.play('movingplayer');
 }
 
 inmov(){
@@ -316,9 +318,9 @@ dashable(){
       else if(this.state===1){
         this.play('hyperbeam');
         if(this.facingRight)
-        this.bullet = new Laser(this.scene,this.x,this.y,1);
+        this.bullet = new Laser(this.scene,this.x+30,this.y,1);
         else{
-        this.bullet = new Laser(this.scene,this.x,this.y,-1);
+        this.bullet = new Laser(this.scene,this.x-30,this.y,-1);
         this.bullet.setFlip(false,false);
   
         }
@@ -341,6 +343,7 @@ dashable(){
           this.dash();
           this.dashable();
           this.obdash=new Dashield(this.scene,this.x,this.y)
+          this.play('dash');
           }
       
           else{
@@ -350,6 +353,7 @@ dashable(){
           this.dash();
           this.dashable();
           this.obdash=new Dashield(this.scene,this.x,this.y)
+          this.play('dash');
     
           }
 
