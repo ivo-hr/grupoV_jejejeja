@@ -39,7 +39,7 @@ export default class EndingFlag extends Phaser.GameObjects.Sprite {
    onCollisionPlayer(){
     if (this.scene.physics.overlap(this.scene.player, this)) {
 
-        //cambio escena
+        this.scene.gameWin();
   }
    }
  }
