@@ -83,9 +83,12 @@ import Bottle from "../hazards/bottle.js"
       else
         this.body.setVelocity(-this.speed, 0);
 
-      if (this.scene.physics.overlap(this.scene.player, this)) {
+        if (this.scene.physics.overlap(this.scene.player, this)&&!this.scene.player.invincible) {
+          this.scene.player.setInvincible();
           this.scene.player.minusHealth(1);   
-      }
+        }
+      this.checkHP();
+
     }
 
     generateSounds(sfxConfig){

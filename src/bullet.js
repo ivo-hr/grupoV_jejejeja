@@ -69,7 +69,7 @@ export default class Bullet extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
             // hacer algo
             this.scene.player.score--;
-            o1.onDestroy(); 
+            o1.minusHP(1); 
             this.onDestroy();
         });
         if(this.x - this.movement >= this.maxMovement || this.x - this.movement <= -this.maxMovement) {

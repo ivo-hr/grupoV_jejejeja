@@ -118,7 +118,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
             // hacer algo
             
-            o1.onDestroy(); 
+            o1.minusHP(5); 
             this.body.setVelocity(0, 0);
             //this.onDestroy();
         });

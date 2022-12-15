@@ -29,9 +29,12 @@ import BirdShit from "../hazards/birdShit.js";
 
 
       this.myScore = 20;
-      
       this.missilFrequency = 800;
       this.missilCooldown = 0;
+
+      //el pajaro tiene menos vida que el enemigo común
+      this.hp = 1;
+
     }
   
     animation(){
@@ -102,6 +105,8 @@ import BirdShit from "../hazards/birdShit.js";
         this.scene.player.setInvincible();
         this.scene.player.minusHealth(2);
       }
+      this.checkHP();
+
     }
 
    

@@ -72,6 +72,8 @@ import Enemy from "./enemy.js";
         this.scene.player.setInvincible();
           this.scene.player.minusHealth(2)        
       }
+      this.checkHP();
+
     }
 
     generateSounds(sfxConfig){

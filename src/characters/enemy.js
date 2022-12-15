@@ -16,9 +16,10 @@
       this.body.setCollideWorldBounds(true);
       this.scene.physics.add.collider(this, this.scene.layer5);
       this.initialize(tam)
+      this.hp = 2;
+
       this.myScore = 10;
       this.animation();
-
     }
 
     initialize(tam){
@@ -36,6 +37,7 @@
     setScore(score){
       this.myScore = score;
     }
+    
 
     sizeManag(){
         if(this.size == 0){
@@ -54,6 +56,18 @@
       this.destroy();
     }
 
+    
+
+    minusHP(number){
+      this.hp -= number;
+
+    }
+
+    checkHP(){
+      if(this.hp <= 0)
+        this.onDestroy();
+    }
+
     /**
      * Redefinición del preUpdate de Phaser
      * @override
@@ -62,7 +76,6 @@
       // IMPORTANTE: Si no ponemos esta instrucción y el sprite está animado
       // no se podrá ejecutar la animación del sprite. 
       super.preUpdate(t, dt);
-      
       
     }
   }
