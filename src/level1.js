@@ -1,16 +1,16 @@
-import Platform from './platform.js';
 import Player from './characters/player.js';
 import Obstacle from './obstacle.js';
-import Ball from './ball.js';
 import Enemy from './characters/enemy.js';
 import Bird from './characters/bird.js';
 import Baby from './characters/baby.js';
 import Rain from './hazards/rain.js';
 import PaintBucket from './hazards/paintBucket.js';
 import Drunk from './characters/drunk.js';
+import Dog from './characters/dog.js';
 
 import scoreDial from './score.js';
-import PowerUp from './powerUps/PowerUp.js';
+import PowerUp from './powerUps/powerUp.js';
+import PowerHealth from './powerUps/powerHealth.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -29,7 +29,7 @@ export default class Level1 extends Phaser.Scene {
     super({ key: 'level1' });
   }
 
- 
+
   /**
    * Creación de los elementos de la escena principal de juego
    */
@@ -54,13 +54,13 @@ export default class Level1 extends Phaser.Scene {
     this.layer1 = map.createLayer('Collide', tileset, 0, 0);
     this.layer4 = map.createLayer('Bancos', tileset, 0, 0);
     this.layer5 = map.createLayer('Suelo', tileset, 0, 0);
-    this.layer3.setCollisionByProperty({collides: true});
+    this.layer3.setCollisionByProperty({ collides: true });
     this.layer3.forEachTile(tile => {
       if (tile.properties["Atravesable"]) {
         tile.setCollision(false, false, true, false);
       }
     });
-    this.layer4.setCollisionByProperty({collides: true});
+    this.layer4.setCollisionByProperty({ collides: true });
     this.layer4.forEachTile(tile => {
       if (tile.properties["Atravesable"]) {
         tile.setCollision(false, false, true, false);
@@ -69,6 +69,7 @@ export default class Level1 extends Phaser.Scene {
     this.layer1.setCollisionByExclusion([-1], true);
     this.layer5.setCollisionByExclusion([-1], true);
     layer2.setCollisionByExclusion([-1], false);
+    this.floorLevel = 380;
 
     // this.bases = this.add.group();
     this.player = new Player(this, 200, 300);
@@ -95,24 +96,28 @@ export default class Level1 extends Phaser.Scene {
     this.obstacles.add(paintBucket);
     
     this.maxDialVal = 0;
+    // for(let i=0;i<4;i++){
+    //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
+    //   baby.setScore(baby.myScore);
+    //   this.moralDialValue += baby.myScore;
+    //   baby.generateSounds(this.sfxConfig);
+    //   this.allEnemies.add(baby);
+    // }
+    // let birb = new Bird(this, 300, 250, 96);
+    // birb.setScore(birb.myScore);
+    // this.moralDialValue += birb.myScore;
+    // birb.generateSounds(this.sfxConfig);
+    // this.allEnemies.add(birb);
 
-    for(let i=0;i<4;i++){
-      let baby = new Baby(this, 100+i*300, 380, 90);
-      baby.setScore(baby.myScore);
-      this.maxDialVal += baby.myScore;
-      baby.generateSounds(this.sfxConfig);
-      this.allEnemies.add(baby);
-    }
-    let birb = new Bird(this, 300, 250, 96);
-    birb.setScore(birb.myScore);
-    this.maxDialVal += birb.myScore;
-    birb.generateSounds(this.sfxConfig);
-    this.allEnemies.add(birb);
+    // let borracho = new Drunk(this, 200, this.floorLevel, 96);
+    // this.allEnemies.add(borracho);
+    // borracho.setScore(borracho.myScore);
+    // this.moralDialValue += borracho.myScore;
 
-    let borracho = new Drunk(this, 200, 380, 96);
-    this.allEnemies.add(borracho);
-    borracho.setScore(borracho.myScore);
-    this.maxDialVal += borracho.myScore;
+    let dog = new Dog(this, 400, this.floorLevel, 60);
+    dog.setScore(dog.myScore);
+    this.maxDialVal += dog.myScore;
+    this.allEnemies.add(dog);
 
     // this.spawn();
 
@@ -121,13 +126,13 @@ export default class Level1 extends Phaser.Scene {
     this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
     this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
     this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
+    this.obstacles.add(new PowerHealth(this, 600, 300));
 
 
 
     this.cameras.main.startFollow(this.player);
 
     this.cameras.main.followOffset.set(0, 0);
-    
 
 
   
@@ -139,8 +144,8 @@ export default class Level1 extends Phaser.Scene {
 
   }
 
-  addParallaxImages(){
-    
+  addParallaxImages() {
+
     // this.add.image(0,0,'background1').setOrigin(0,0).setScrollFactor(0.1, 0);
     // this.add.image(0,0,'background2').setOrigin(0,0).setScrollFactor(0.2, 0);
     // this.add.image(0,0,'background3').setOrigin(0,0).setScrollFactor(0.3, 0);
@@ -155,10 +160,10 @@ export default class Level1 extends Phaser.Scene {
 
 
   }
-  addParallaxImage(imageKey, count, scrollFactorX, scrollFactorY = 0, offset = 0){
+  addParallaxImage(imageKey, count, scrollFactorX, scrollFactorY = 0, offset = 0) {
 
-    for(let i = 0; i < count;i++){
-      this.add.image(i*500,offset,imageKey).setOrigin(0,0).setScrollFactor(scrollFactorX, scrollFactorY);
+    for (let i = 0; i < count; i++) {
+      this.add.image(i * 500, offset, imageKey).setOrigin(0, 0).setScrollFactor(scrollFactorX, scrollFactorY);
     }
 
   }
@@ -176,16 +181,16 @@ export default class Level1 extends Phaser.Scene {
    * sobre la que estaba la estrella cogida para evitar repeticiones
    * @param {Base} base La base sobre la que estaba la estrella que se ha cogido
    */
-  starPickt (base) {
+  starPickt(base) {
     this.player.point();
-      if (this.player.score == this.stars) {
-        this.scene.start('end');
-      }
-      // else {
-      //   let s = this.bases.children.entries;
-      //   this.spawn(s.filter(o => o !== base));
+    if (this.player.score == this.stars) {
+      this.scene.start('end');
+    }
+    // else {
+    //   let s = this.bases.children.entries;
+    //   this.spawn(s.filter(o => o !== base));
 
-      // }
+    // }
   }
 
   gameOver() {

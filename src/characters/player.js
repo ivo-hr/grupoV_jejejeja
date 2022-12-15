@@ -1,4 +1,3 @@
-import Star from '../star.js';
 import Bullet from '../bullet.js';
 import Laser from '../laser.js';
 import Dashield from "../dashield.js"
@@ -18,7 +17,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
     this.score = 100;
-    this.health = 10;
+    this.maxHealth = 10;
+    this.health = this.maxHealth;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
@@ -46,6 +46,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //para animaciones
     this.quieto=false;
+    this.saltado=false;
+    this.damaged=false;
 
     this.body.setSize(60, 40);
 
@@ -91,7 +93,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       key: 'takeDamagePlayer',
       frames: scene.anims.generateFrameNumbers('hand', { start: 2, end: 3 }),
       frameRate: 8,
-      repeat: 0
+      repeat: -1
 
     })
 
@@ -118,19 +120,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		});
     
    
-    this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
+    /*this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
 			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'
 				this.play('movingplayer'); //ejecutamos la animación 'idle'
 			}
 			
-		})
+		})*/
 
-   this.onAnimationComplete('hyperbeam', 'movingplayer');
-   this.onAnimationComplete('gun', 'movingplayer');
-   this.onAnimationComplete('dash', 'movingplayer');
+    this.onAnimationComplete('hyperbeam', 'idlePlayer');
+    this.onAnimationComplete('gun', 'idlePlayer');
+    this.onAnimationComplete('dash', 'idlePlayer');
 
-    this.play('movingplayer');
+    this.play('idlePlayer');
 
 
   }
@@ -156,6 +158,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   minusHealth(num) {
     this.health -= num;
+    if(this.health < 0){
+      this.health = 0;
+    }
+    else if(this.health > this.maxHealth){
+      this.health = this.maxHealth;
+    }
     this.healthBar.update(num);
     if (this.health <= 0) {
       this.death.play();
@@ -163,10 +171,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.scene.gameOver();
     }
     else
-    this.dmg.play();
+      this.dmg.play();
 
-
-    console.log(this.healthBar.value);
+    // console.log(this.healthBar.value);
+    // console.log(this.health);
   }
   
   /**
@@ -175,7 +183,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   setable(){
     if(!this.available)
-    this.available=true;
+      this.available=true;
 
   
   }
@@ -192,6 +200,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   vulnerable(){
     if(this.invincible){
       this.invincible=false;
+      this.play('idlePlayer');
     }
   }
 
@@ -222,7 +231,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 invincibility(){
     
   let timer=this.scene.time.addEvent({
-    delay: 2000, 
+    delay: 1000, 
     callback: this.vulnerable,
     callbackScope: this,
  });
@@ -231,6 +240,7 @@ invincibility(){
 }
 setInvincible(){
   this.invincible=true;
+  this.playerdmg();
   this.invincibility();
 }
 
@@ -281,8 +291,30 @@ setActiveAnim(){
     else{
       this.play('movingplayer')
     }
+}
 
+setJumpAnim(){
+  this.saltado=true;
+  this.play('jumpPlayer')
+}
 
+isgood(){
+  this.damaged=false;
+  this.play('idlePlayer');
+}
+
+timedmg(){
+  let timer=this.scene.time.addEvent({
+    delay: 300, 
+    callback: this.isgood,
+    callbackScope: this,
+ });
+}
+
+playerdmg(){
+  this.play('takeDamagePlayer');
+  this.damaged=true;
+  this.timedmg();
 }
 
   /**
@@ -297,7 +329,7 @@ setActiveAnim(){
       console.log("colisionWorld");
     }
     if(this.slowedTime > 0 && this.isSlowed){
-        this.slowedTime --;
+      this.slowedTime --;
     }
 
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
@@ -365,7 +397,7 @@ setActiveAnim(){
         this.x+=300;
       else
         this.x+=-300;
-        console.log(this.height);
+        // console.log(this.height);
     }
     
     else if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
@@ -376,30 +408,30 @@ setActiveAnim(){
     }
 
     //Con las teclas WASD variable keys
-    if(!this.notmove){
+    if(!this.notmove&&this.stand){
       if (this.keys.W.isDown && this.body.onFloor()) {
         this.body.setVelocityY(this.jumpSpeed);
 
         this.jump.play();
-        if(this.quieto){
-          this.quieto=false;
-          this.setActiveAnim();
+        if(!this.saltado&&!this.damaged){
+          
+          this.setJumpAnim();
         }
       }
       if (this.keys.S.isDown) {
 
         this.body.setVelocityY(-this.jumpSpeed*3/4);
-        if(this.quieto){
+        /*if(this.quieto&&!this.saltado){
           this.quieto=false;
           this.setActiveAnim();
-        }
+        }*/
       }
       if (this.keys.A.isDown) {
         if(this.stand){
           this.facingRight=false;
    
           this.body.setVelocityX(-this.speed);
-          if(this.quieto){
+          if(this.quieto&&this.body.onFloor()){
             this.quieto=false;
             this.setActiveAnim();
           }
@@ -408,22 +440,30 @@ setActiveAnim(){
       else if (this.keys.D.isDown) {
         if(this.stand){
           this.facingRight=true;
+        }
 
         this.body.setVelocityX(this.speed);
-        if(this.quieto){
+        if(this.quieto&&this.body.onFloor()&&!this.damaged){
           this.quieto=false;
           this.setActiveAnim();
-        }
+          
         }
       }
   
       else {
-        if(this.stand)
-          this.body.setVelocityX(0);
-        if(!this.quieto){
+        
+        this.body.setVelocityX(0);
+        if(!this.quieto&&this.body.onFloor()&!this.damaged){
           this.quieto=true;
-         this.setActiveAnim();
+          this.setActiveAnim();
         }
+      }
+
+      if(this.saltado){
+        this.saltado=false;
+        if(this.body.newVelocity.y===0&&this.body.onFloor()&&!this.damaged){
+          this.play('idlePlayer');
+        } 
       }
 
     }
@@ -441,7 +481,7 @@ setActiveAnim(){
     if(this.slowedTime == 0 && this.isSlowed){
       this.restoreSpeed(); 
       this.isSlowed = false;
-      console.log(this.speed);
+      // console.log(this.speed);
     }
     
   }
@@ -449,7 +489,7 @@ setActiveAnim(){
   reduceSpeed(percentage){ //Reduce la velocidad del jugador
     let reducedSpeed = this.speed * percentage/100;
     this.speed -= reducedSpeed;
-    console.log(this.speed);
+    // console.log(this.speed);
   }
 
   restoreSpeed(){ //Restaura la velocidad del jugador

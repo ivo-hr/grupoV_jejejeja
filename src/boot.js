@@ -19,12 +19,11 @@ export default class Boot extends Phaser.Scene {
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     this.load.setPath('assets/sprites/');
-    this.load.image('platform', 'platform.png');
-    this.load.image('base', 'base.png');
-    this.load.image('star', 'star.png');
     this.load.image('powerHyperbeam', 'powerHyperbeam.png');
     this.load.image('powerShot', 'powerShot.png');
     this.load.image('powerPunch', 'powerPunch.png');
+    this.load.image('powerHealth', 'powerHealth.png');
+
     this.load.spritesheet('player', 'player.png',{frameWidth: 65, frameHeight: 70});
     this.load.spritesheet('laserp', 'pruebalaser.png',{frameWidth: 32, frameHeight:32});
     this.load.spritesheet('hand', 'hand68x60.png', {frameWidth: 68, frameHeight:60});
@@ -33,11 +32,14 @@ export default class Boot extends Phaser.Scene {
     this.load.spritesheet('birdShit', 'birdShit.png', {frameWidth: 16, frameHeight:16});
     this.load.spritesheet('baby', 'baby64x66.png', {frameWidth: 64, frameHeight:66});
     this.load.spritesheet('drunk', 'drunk.png', {frameWidth: 40, frameHeight:64});
+    this.load.spritesheet('dog', 'perro.png' , {frameWidth: 64, frameHeight: 58})
     this.load.image('bottle', 'botella.png');
     this.load.spritesheet('rain', 'rain.png', {frameWidth: 50, frameHeight:50});
     this.load.spritesheet('bullet', 'fireBall.png', {frameWidth: 26, frameHeight:26});
-    this.load.spritesheet('bucket', 'bucket.png', {frameWidth: 50, frameHeight:50});
-    this.load.spritesheet('paint', 'paintStain.png', {frameWidth: 50, frameHeight:26});
+    this.load.image('bucket', 'bucket.png');
+    this.load.image('paint', 'paintStain.png');
+    this.load.spritesheet('flag', 'flag.png', {frameWidth: 128, frameHeight:128});
+    this.load.image('dogshit', 'dogShit.png');
 
     this.load.image('background1', 'background1.png');
     this.load.image('background2', 'background2.png');

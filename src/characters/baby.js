@@ -19,7 +19,7 @@ import Enemy from "./enemy.js";
       this.currentMovement = 0;
       this.body.moves=true;
       this.body.setGravity(0,5000);
-      this.myScore = 50;
+      this.myScore = 40;
 
     }
 
