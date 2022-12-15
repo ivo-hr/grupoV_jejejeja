@@ -1,12 +1,12 @@
 import Enemy from "./enemy.js";
-import BirdShit from "../hazards/birdShit.js";
+import DogShit from "../hazards/dogShit.js";
 /**
  * Clase para los objetos ball que chocan con el jugador
  * Una estrella aparece sobre una base. Cuando el jugador la recoge, se crea 
  * una nueva estrella en otra posición, si el juego no ha terminado.
  * @extends Phaser.GameObjects.Sprite
  */
-export default class Bird extends Enemy {
+export default class Dog extends Enemy {
 
     /**
      * Constructor de Ball
@@ -16,9 +16,9 @@ export default class Bird extends Enemy {
      * @param {number} tam tamaño del sprite
      */
     constructor(scene, x, y, tam) {
-        super(scene, x, y, tam, 'bird');
+        super(scene, x, y, tam, 'dog');
 
-        this.speed = 200;
+        this.speed = 130;
         this.movingRight = true;
         this.setFlip(true, false);
         this.body.onWorldBounds = true;
@@ -26,7 +26,7 @@ export default class Bird extends Enemy {
 
         this.myScore = 20;
         this.missilFrequency = 1500;
-        this.missilCooldown = Phaser.Math.Between(5, this.missilFrequency / 2);
+        this.missilCooldown = Phaser.Math.Between(10, this.missilFrequency / 2);
     }
 
     animation() {
@@ -81,11 +81,12 @@ export default class Bird extends Enemy {
 
         if (this.scene.physics.overlap(this.scene.player, this) && !this.scene.player.invincible) {
             this.scene.player.setInvincible();
-            this.scene.player.minusHealth(2);
+            this.scene.player.minusHealth(1);
         }
-        this.checkHP();
+        //this.checkHP();
     }
 
+    //Darle sonido de perro
     generateSounds(sfxConfig) {
         this.pengu = this.scene.sound.add('pengu', sfxConfig);
 

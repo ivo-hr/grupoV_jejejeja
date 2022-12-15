@@ -6,11 +6,8 @@ export default class DogShit extends Phaser.GameObjects.Sprite {
         this.player = player;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.body.setCollideWorldBounds(); //Collision with the limits of the world
-        
-
-        //Whether the Body's pos and rotation are affected by its velocity, acceleration, drag, and gravity.
-        this.body.moves = true;  
+        this.body.setCollideWorldBounds(); //Collision with the limits of the world 
+        this.shitIsOnFloor = false;
     }
 
     preUpdate() {
@@ -20,13 +17,13 @@ export default class DogShit extends Phaser.GameObjects.Sprite {
     }
 
     falling(){
-        this.body.setGravity(0, 300);
+        if(!shitIsOnFloor) this.body.setGravity(0, 350);
     }
     //Handles the collision with player and floor
 
     handleCollision() {
-        if (this.scene.physics.overlap(this.scene.player, this)) {
-
+        if (this.scene.physics.collide(this.scene.layer5, this)) {
+            this.shitIsOnFloor = true;
         }
     }
 }
