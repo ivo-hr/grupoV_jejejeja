@@ -19,7 +19,7 @@ import Bottle from "../hazards/bottle.js"
       this.maxMovement = 100;
       this.currentMovement = 0;
       this.missilCooldown = 0;
-      this.missilFrequency = 50;
+      this.missilFrequency = 5000;
     }
 
     /**
@@ -40,15 +40,7 @@ import Bottle from "../hazards/bottle.js"
 
     //lanza botella en forma de parabola contra el suelo
     throwbottle(){
-      
-      let aux = Phaser.Math.RandomDataGenerator; //random para settear la forma de parabola del lanzamiento
-      if(this.movingRight){
-        new Bottle(this.scene, this.x, this.y, 15);
-      }
-      else{
-        new Bottle(this.scene, this.x, this.y, 15);
-      }
-
+      new Bottle(this.scene, this.x, this.y, 15);
     }
   
     /**
@@ -71,9 +63,8 @@ import Bottle from "../hazards/bottle.js"
       this.missilCooldown += Math.round(dt);
       if((this.missilCooldown) > this.missilFrequency){
           this.missilCooldown = 0;
-          this.missilFrequency = 500000;
           this.throwbottle();
-          console.log("disparo");
+          console.log("botella");
       }
 
       if(this.currentMovement >= this.maxMovement) {
