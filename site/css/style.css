@@ -1,3 +1,18 @@
+a:link {
+  color: rgb(216, 255, 157);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: rgb(173, 234, 255);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:active {
+  color: rgb(255, 255, 182);
+  background-color: transparent;
+}
+
 h1 {
     color: rgb(255, 255, 255);
     text-align: center;
@@ -64,7 +79,7 @@ body::-webkit-scrollbar {
   border: 1px solid rgb(0, 0, 0);
   background-color: inherit;
   width: 20%;
-  height: 200px;
+  height: 320px;
   
 }
 
@@ -99,7 +114,7 @@ body::-webkit-scrollbar {
   border: 1px solid rgb(0, 0, 0);
   width: 95%;
   border-left: 3px solid rgb(66, 12, 12);
-  height: 200px;
+  height: 320px;
   display: none;
 }
 
