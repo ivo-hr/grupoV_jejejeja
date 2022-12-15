@@ -10,7 +10,8 @@ import PaintBucket from './hazards/paintBucket.js';
 import Drunk from './characters/drunk.js';
 
 import scoreDial from './score.js';
-import PowerUp from './powerUps/PowerUp.js';
+import PowerUp from './powerUps/powerUp.js';
+import PowerHealth from './powerUps/powerHealth.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
@@ -120,6 +121,7 @@ export default class Level1 extends Phaser.Scene {
     this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
     this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
     this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
+    this.obstacles.add(new PowerHealth(this, 600, 300));
 
 
 

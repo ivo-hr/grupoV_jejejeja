@@ -10,6 +10,15 @@ export default class EndingFlag extends Phaser.GameObjects.Sprite {
      this.body.setCollideWorldBounds(); 
      this.scene=scene;
     
+     
+    this.scene.anims.create({
+        key: 'flagMoving',
+        frames: scene.anims.generateFrameNumbers('flag', {start:0, end:1}),
+        frameRate: 4,
+        repeat: -1
+    });
+
+    this.play('flagMoving');
           
    }
    
