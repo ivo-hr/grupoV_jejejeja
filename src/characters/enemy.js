@@ -56,7 +56,6 @@
     //funcion que se ejecuta al morir, se encarga de destruir el objeto y añadir el score al jugador
     onDestroy(){
       this.scene.player.addScore(this.myScore);
-      console.log("Enemy destroyed");
       this.destroy();
     }
 

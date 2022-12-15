@@ -65,7 +65,6 @@ export default class Drunk extends Enemy {
     if ((this.missilCooldown) > this.missilFrequency) {
       this.missilCooldown = 0;
       this.throwbottle();
-      console.log("botella");
     }
 
     if (this.currentMovement >= this.maxMovement) {

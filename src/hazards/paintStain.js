@@ -36,7 +36,6 @@ export default class PaintStain extends Phaser.GameObjects.Sprite {
         super.preUpdate();
         if (this.scene.physics.overlap(this.scene.player, this)) {
             this.scene.player.slowDown(40, 1);
-            console.log("slowdown");
         }
       }
 

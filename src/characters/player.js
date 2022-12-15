@@ -315,9 +315,6 @@ playerdmg(){
   preUpdate(t,dt) {
     super.preUpdate(t,dt);
 
-    if(this.body.checkWorldBounds()){
-      console.log("colisionWorld");
-    }
     if(this.slowedTime > 0 && this.isSlowed){
       this.slowedTime --;
     }
@@ -394,7 +391,6 @@ playerdmg(){
     else if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
       //make a pause menu
       this.scene.scene.launch('pauseMenu');
-      console.log("paused");
       this.scene.scene.pause();
     }
 

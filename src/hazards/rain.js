@@ -48,7 +48,6 @@ export default class Rain extends Phaser.GameObjects.Sprite{
             this.scene.player.minusHealth(1);
             this.hitable = false;
             this.dable();
-            console.log("colision");
         }
     }
     animation(){

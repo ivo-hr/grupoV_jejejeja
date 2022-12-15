@@ -287,12 +287,7 @@ export default class Level1 extends Phaser.Scene {
     this.d = this.damage; //daño recibido en el nivel
     this.t = this.playingTime; //tiempo en pasarse el nivel
     this.e = this.n * this.p;
-    console.log(this.r);
-    console.log(this.d);
-    console.log(this.t);
-    console.log(this.n);
-    console.log(this.p);
-    console.log(this.maxDialVal);
+
     this.gameScore = ((this.e + (this.r - this.d) / (this.d + 1)) / this.t) * 10;
 
     this.music.stop();
@@ -302,7 +297,6 @@ export default class Level1 extends Phaser.Scene {
 
     let GameWin = this.scene.get('gameWin');
 
-    console.log(this.gameScore);
     //configura la moral en la escena de gameWin
     GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, this.gameScore /*aqui va la variable puntuación */);
 

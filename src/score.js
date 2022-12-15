@@ -56,7 +56,6 @@ export default class scoreDial extends Phaser.GameObjects.Container {
         }
 
         this.handle.setRotation(Phaser.Math.DegToRad(-100 - (this.value * 160 / this.maxValue)));
-        console.log("score updated");
     }
 
     //devuelve el valor del dial

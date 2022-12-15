@@ -34,19 +34,15 @@ export default class BirdShit extends Phaser.GameObjects.Sprite {
     }
     else if(this.scene.physics.collide(this.scene.layer1, this)){
       this.onDestroy();
-      console.log("colision con layer1")
     }
     else if(this.scene.physics.collide(this.scene.layer3, this)){
       this.onDestroy();
-      console.log("colision con layer3")
     }
     else if(this.scene.physics.collide(this.scene.layer4, this)){
       this.onDestroy();
-      console.log("colision con layer4")
     }
     else if(this.scene.physics.collide(this.scene.layer5, this)){
       this.onDestroy();
-      console.log("colision con layer5")
     }
   }
 }
