@@ -47,6 +47,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     //para animaciones
     this.quieto=false;
     this.saltado=false;
+    this.damaged=false;
 
     this.body.setSize(60, 40);
 
@@ -92,7 +93,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       key: 'takeDamagePlayer',
       frames: scene.anims.generateFrameNumbers('hand', { start: 2, end: 3 }),
       frameRate: 8,
-      repeat: 0
+      repeat: -1
 
     })
 
@@ -193,6 +194,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   vulnerable(){
     if(this.invincible){
       this.invincible=false;
+      this.play('idlePlayer');
     }
   }
 
@@ -223,7 +225,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 invincibility(){
     
   let timer=this.scene.time.addEvent({
-    delay: 2000, 
+    delay: 1000, 
     callback: this.vulnerable,
     callbackScope: this,
  });
@@ -232,6 +234,7 @@ invincibility(){
 }
 setInvincible(){
   this.invincible=true;
+  this.playerdmg();
   this.invincibility();
 }
 
@@ -287,6 +290,25 @@ setActiveAnim(){
 setJumpAnim(){
   this.saltado=true;
   this.play('jumpPlayer')
+}
+
+isgood(){
+  this.damaged=false;
+  this.play('idlePlayer');
+}
+
+timedmg(){
+  let timer=this.scene.time.addEvent({
+    delay: 300, 
+    callback: this.isgood,
+    callbackScope: this,
+ });
+}
+
+playerdmg(){
+  this.play('takeDamagePlayer');
+  this.damaged=true;
+  this.timedmg();
 }
 
   /**
@@ -385,7 +407,7 @@ setJumpAnim(){
         this.body.setVelocityY(this.jumpSpeed);
 
         this.jump.play();
-        if(!this.saltado){
+        if(!this.saltado&&!this.damaged){
           
           this.setJumpAnim();
         }
@@ -415,7 +437,7 @@ setJumpAnim(){
         }
 
         this.body.setVelocityX(this.speed);
-        if(this.quieto&&this.body.onFloor()){
+        if(this.quieto&&this.body.onFloor()&&!this.damaged){
           this.quieto=false;
           this.setActiveAnim();
           
@@ -425,7 +447,7 @@ setJumpAnim(){
       else {
         
         this.body.setVelocityX(0);
-        if(!this.quieto&&this.body.onFloor()){
+        if(!this.quieto&&this.body.onFloor()&!this.damaged){
           this.quieto=true;
           this.setActiveAnim();
         }
@@ -433,7 +455,7 @@ setJumpAnim(){
 
       if(this.saltado){
         this.saltado=false;
-        if(this.body.newVelocity.y===0&&this.body.onFloor()){
+        if(this.body.newVelocity.y===0&&this.body.onFloor()&&!this.damaged){
           this.play('idlePlayer');
         } 
       }
