@@ -46,6 +46,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     //para animaciones
     this.quieto=false;
+    this.saltado=false;
 
     this.body.setSize(60, 40);
 
@@ -281,8 +282,11 @@ setActiveAnim(){
     else{
       this.play('movingplayer')
     }
+}
 
-
+setJumpAnim(){
+  this.saltado=true;
+  this.play('jumpPlayer')
 }
 
   /**
@@ -381,25 +385,25 @@ setActiveAnim(){
         this.body.setVelocityY(this.jumpSpeed);
 
         this.jump.play();
-        if(this.quieto){
-          this.quieto=false;
-          this.setActiveAnim();
+        if(!this.saltado){
+          
+          this.setJumpAnim();
         }
       }
       if (this.keys.S.isDown) {
 
         this.body.setVelocityY(-this.jumpSpeed*3/4);
-        if(this.quieto){
+        /*if(this.quieto&&!this.saltado){
           this.quieto=false;
           this.setActiveAnim();
-        }
+        }*/
       }
       if (this.keys.A.isDown) {
         if(this.stand){
           this.facingRight=false;
    
           this.body.setVelocityX(-this.speed);
-          if(this.quieto){
+          if(this.quieto&&this.body.onFloor()){
             this.quieto=false;
             this.setActiveAnim();
           }
@@ -411,7 +415,7 @@ setActiveAnim(){
         }
 
         this.body.setVelocityX(this.speed);
-        if(this.quieto){
+        if(this.quieto&&this.body.onFloor()){
           this.quieto=false;
           this.setActiveAnim();
           
@@ -421,10 +425,17 @@ setActiveAnim(){
       else {
         
         this.body.setVelocityX(0);
-        if(!this.quieto){
+        if(!this.quieto&&this.body.onFloor()){
           this.quieto=true;
           this.setActiveAnim();
         }
+      }
+
+      if(this.saltado){
+        this.saltado=false;
+        if(this.body.newVelocity.y===0&&this.body.onFloor()){
+          this.play('idlePlayer');
+        } 
       }
 
     }
