@@ -37,10 +37,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.keys=this.scene.input.keyboard.addKeys('W,S,A,D,SPACE,H,T,L,P');
     this.healthBar = new HealthBar(this.scene, posX, posY, this.health);
     this.healthBar.setScrollFactor(0);
+
+    //para controladores
     this.available=true;
     this.stand=true;
     this.invincible=false;
     this.notmove=false;
+
+    //para animaciones
+    this.quieto=false;
 
     this.body.setSize(60, 40);
 
@@ -178,8 +183,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
   end(){
    
     if(!this.stand)
-    this.stand=true;
-    this.play('movingplayer');
+      this.stand=true;
+    this.play('idlePlayer');
   }
 
   
@@ -232,7 +237,7 @@ setInvincible(){
 mov(){
   this.notmove=false;
   this.body.setGravity(0,this.gforce);
-  this.play('movingplayer');
+  this.play('idlePlayer');
 }
 
 inmov(){
@@ -268,10 +273,21 @@ dashable(){
 
 }
 
+//controlador de animaciones
+setActiveAnim(){
+    if(this.quieto){
+      this.play('idlePlayer')
+    }
+    else{
+      this.play('movingplayer')
+    }
+
+
+}
+
   /**
    * Métodos preUpdate de Phaser. En este caso solo se encarga del movimiento del jugador.
-   * Como se puede ver, no se tratan las colisiones con las estrellas, ya que estas colisiones 
-   * ya son gestionadas por la estrella (no gestionar las colisiones dos veces)
+   * Como se puede ver, las colisiones con player se hacen desde el resto de objetos
    * @override
    */
   preUpdate(t,dt) {
@@ -284,22 +300,6 @@ dashable(){
         this.slowedTime --;
     }
 
-    
-    /*if (this.cursors.up.isDown && this.body.onFloor()) {
-      this.body.setVelocityY(this.jumpSpeed);
-    }
-    if (this.cursors.left.isDown) {
-   
-      this.body.setVelocityX(-this.speed);
-    }
-    else if (this.cursors.right.isDown) {
-      this.body.setVelocityX(this.speed);
-    }
-    else {
-      this.body.setVelocityX(0);
-    }*/
-
-    //if(this.keys.S.isDown&&this.available){
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
       if(this.state===0){
         this.play('gun');
@@ -318,10 +318,10 @@ dashable(){
       else if(this.state===1){
         this.play('hyperbeam');
         if(this.facingRight)
-        this.bullet = new Laser(this.scene,this.x+30,this.y,1);
+          this.bullet = new Laser(this.scene,this.x+30,this.y,1);
         else{
-        this.bullet = new Laser(this.scene,this.x-30,this.y,-1);
-        this.bullet.setFlip(false,false);
+          this.bullet = new Laser(this.scene,this.x-30,this.y,-1);
+          this.bullet.setFlip(false,false);
   
         }
         this.available=false;
@@ -344,9 +344,9 @@ dashable(){
           this.dashable();
           this.obdash=new Dashield(this.scene,this.x,this.y)
           this.play('dash');
-          }
+        }
       
-          else{
+        else{
           this.scene.physics.moveTo(this,this.x-150,this.y,500,200)
           this.stand=false;
           this.available=false;
@@ -354,19 +354,18 @@ dashable(){
           this.dashable();
           this.obdash=new Dashield(this.scene,this.x,this.y)
           this.play('dash');
-    
-          }
+        }
 
-          this.shot.play();
+        this.shot.play();
       }
 
     }
     else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
       if(this.facingRight)
-      this.x+=300;
+        this.x+=300;
       else
-      this.x+=-300;
-      console.log(this.height);
+        this.x+=-300;
+        console.log(this.height);
     }
     
     else if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
@@ -375,96 +374,59 @@ dashable(){
       console.log("paused");
       this.scene.scene.pause();
     }
- /*
-    if (Phaser.Input.Keyboard.JustDown(this.keys.H)) {
-      if(this.facingRight){
-      
-      this.scene.physics.moveTo(this,this.x+300,this.y,300,200)
-      this.stand=false;
-      this.dash();
-      }
-  
-      else{
-      this.scene.physics.moveTo(this,this.x-300,this.y,300,200)
-      this.stand=false;
-      this.dash();
-      }
-    }
-    
-    if(Phaser.Input.Keyboard.JustDown(this.keys.L)&&this.available){
-      this.play('hyperbeam');
-      if(this.facingRight)
-      this.bullet = new Laser(this.scene,this.x,this.y,1);
-      else{
-      this.bullet = new Laser(this.scene,this.x,this.y,-1);
-      this.bullet.setFlip(false,false);
-      }
-      this.available=false;
-      this.able();
-    }
-    /*if(!this.available){
-      let timer=this.scene.time.addEvent({
-        delay: 2000, 
-        callback: this.able,
-        callbackScope: this,
-    });
-    }
-    /*
-    //No funciona
-    this.scene.input.keyboard.on("keydown",function(event){
-     
-    switch(event.keys){
-        case "A":
-          this.body.setVelocityX(-this.speed);
-        break;
-        case "D":
-          this.body.setVelocityX(this.speed);
-        break;
-        case "W":
-          if (this.body.onFloor()) {
-            this.body.setVelocityY(this.jumpSpeed);
-          }
-        break;
-      }
-      event.preventDefault();
-    })*/
 
-    //Con las teclas WASD variable keys //Funciona
+    //Con las teclas WASD variable keys
     if(!this.notmove){
-    if (this.keys.W.isDown && this.body.onFloor()) {
-      this.body.setVelocityY(this.jumpSpeed);
+      if (this.keys.W.isDown && this.body.onFloor()) {
+        this.body.setVelocityY(this.jumpSpeed);
 
-      this.jump.play();
-    }
-    if (this.keys.S.isDown) {
-
-      this.body.setVelocityY(-this.jumpSpeed*3/4);
-    }
-    if (this.keys.A.isDown) {
-      if(this.stand){
-      this.facingRight=false;
-   
-      this.body.setVelocityX(-this.speed);
-    }
-    }
-    else if (this.keys.D.isDown) {
-      if(this.stand){
-
-      this.facingRight=true;
-
-      this.body.setVelocityX(this.speed);
+        this.jump.play();
+        if(this.quieto){
+          this.quieto=false;
+          this.setActiveAnim();
+        }
       }
-    }
-  
+      if (this.keys.S.isDown) {
 
+        this.body.setVelocityY(-this.jumpSpeed*3/4);
+        if(this.quieto){
+          this.quieto=false;
+          this.setActiveAnim();
+        }
+      }
+      if (this.keys.A.isDown) {
+        if(this.stand){
+          this.facingRight=false;
    
-    
-    else {
-      if(this.stand)
-      this.body.setVelocityX(0);
-    }
+          this.body.setVelocityX(-this.speed);
+          if(this.quieto){
+            this.quieto=false;
+            this.setActiveAnim();
+          }
+        }
+      }
+      else if (this.keys.D.isDown) {
+        if(this.stand){
+          this.facingRight=true;
 
-  }
+        this.body.setVelocityX(this.speed);
+        if(this.quieto){
+          this.quieto=false;
+          this.setActiveAnim();
+        }
+        }
+      }
+  
+      else {
+        if(this.stand)
+          this.body.setVelocityX(0);
+        if(!this.quieto){
+          this.quieto=true;
+         this.setActiveAnim();
+        }
+      }
+
+    }
    
     if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
