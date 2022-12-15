@@ -8,13 +8,13 @@ export default class scoreDial extends Phaser.GameObjects.Container {
      * Constructor del dial
      * @param {Phaser.Scene} scene Escena del juego
      */
-    constructor(scene, x, y) {
+    constructor(scene, x, y, maxValue) {
         super(scene, x, y);
 
         this.displayWidth = x;
         this.displayHeight = y;
         this.value = 0;
-        this.maxValue = 500;
+        this.maxValue = maxValue;
         this.scale = 3;
 
         this.bckgrd = this.initBackground(this.scale, x, y);
@@ -54,7 +54,7 @@ export default class scoreDial extends Phaser.GameObjects.Container {
             this.value = this.maxValue;
         }
 
-        this.handle.setRotation(Phaser.Math.DegToRad(-100 - (this.value * 180 / this.maxValue)));
+        this.handle.setRotation(Phaser.Math.DegToRad(-100 - (this.value * 160 / this.maxValue)));
         console.log("score updated");
     }
 
