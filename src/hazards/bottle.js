@@ -79,7 +79,7 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
             this.destroy();
         }
         else if (this.scene.physics.overlap(this.scene.player, this)) {
-            this.scene.player.minusHealth(1);
+            this.scene.player.minusHealth(2);
             this.destroy();
         }
     }

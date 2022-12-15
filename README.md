@@ -117,7 +117,7 @@ El jugador inicia el juego pulsando el botón de "Jugar", el cuál lo llevará a
 - Vida: El jugador tiene una barra que representa la vida de la estatua, y baja cuando recibe daño de los enemigos y obstáculos. Si llega a 0 muere y pierde la partida.
 - Aire: Las mecánicas son iguales tanto si está en el aire como en el suelo (a excepción del salto), y puede llegar a usar esto en su favor.
 - Cooldown: Hay un tiempo entre disparos durante el cual el jugador tendrá mecánicas reducidas, y dependerá del tipo de disparo que use.
-- Tiempo de invulnerabilidad: Si recibe daño, el jugador tendrá un pequeño tiempo de invlunerabilidad durante el cual podrá traspasar enemigos y no podrá recibir 
+- Tiempo de invulnerabilidad: Si recibe daño, el jugador tendrá un pequeño tiempo de invulnerabilidad durante el cual podrá traspasar enemigos y no podrá recibir daño.
 - Movimiento lateral: El jugador puede moverse hacia la izquierda y hacia la derecha siempre y cuando no haya obstáculos en su camino.
 - Salto: El jugador puede saltar hacia arriba si está en el suelo. Cuanto más deje pulsado el botón de salto más saltará, hasta el máximo posible.
 - Bajar plataforma: Si el jugador se encuentra en un toldo puede bajar de este pulsando una tecla, traspasándolo.

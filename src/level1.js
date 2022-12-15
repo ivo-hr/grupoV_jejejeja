@@ -8,6 +8,7 @@ import Baby from './characters/baby.js';
 import Rain from './hazards/rain.js';
 import PaintBucket from './hazards/paintBucket.js';
 import Drunk from './characters/drunk.js';
+import Dog from './characters/dog.js';
 
 import scoreDial from './score.js';
 import PowerUp from './powerUps/PowerUp.js';
@@ -29,13 +30,13 @@ export default class Level1 extends Phaser.Scene {
     super({ key: 'level1' });
   }
 
- 
+
   /**
    * Creación de los elementos de la escena principal de juego
    */
   create() {
     if (this.scene)
-    this.cameras.main.setBounds(0, -100, 1650 * 2, 270 * 2);
+      this.cameras.main.setBounds(0, -100, 1650 * 2, 270 * 2);
     //delimita limites del mundo
     this.bounds = this.physics.world.setBounds(0, -100, 1650 * 2, 270 * 2);
 
@@ -54,13 +55,13 @@ export default class Level1 extends Phaser.Scene {
     this.layer1 = map.createLayer('Collide', tileset, 0, 0);
     this.layer4 = map.createLayer('Bancos', tileset, 0, 0);
     this.layer5 = map.createLayer('Suelo', tileset, 0, 0);
-    this.layer3.setCollisionByProperty({collides: true});
+    this.layer3.setCollisionByProperty({ collides: true });
     this.layer3.forEachTile(tile => {
       if (tile.properties["Atravesable"]) {
         tile.setCollision(false, false, true, false);
       }
     });
-    this.layer4.setCollisionByProperty({collides: true});
+    this.layer4.setCollisionByProperty({ collides: true });
     this.layer4.forEachTile(tile => {
       if (tile.properties["Atravesable"]) {
         tile.setCollision(false, false, true, false);
@@ -113,6 +114,9 @@ export default class Level1 extends Phaser.Scene {
     borracho.setScore(borracho.myScore);
     this.moralDialValue += borracho.myScore;
 
+    let dog = new Dog(this, 250, 450, 60);
+    this.allEnemies.add(dog);
+
     // this.spawn();
 
     this.scoreDial = new scoreDial(this, 450, 0, this.moralDialValue);
@@ -126,17 +130,17 @@ export default class Level1 extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
 
     this.cameras.main.followOffset.set(0, 0);
-    
 
 
-  
+
+
 
     this.music = this.sound.add('game1', this.musicConfig);
     this.music.play();
   }
 
-  addParallaxImages(){
-    
+  addParallaxImages() {
+
     // this.add.image(0,0,'background1').setOrigin(0,0).setScrollFactor(0.1, 0);
     // this.add.image(0,0,'background2').setOrigin(0,0).setScrollFactor(0.2, 0);
     // this.add.image(0,0,'background3').setOrigin(0,0).setScrollFactor(0.3, 0);
@@ -151,10 +155,10 @@ export default class Level1 extends Phaser.Scene {
 
 
   }
-  addParallaxImage(imageKey, count, scrollFactorX, scrollFactorY = 0, offset = 0){
+  addParallaxImage(imageKey, count, scrollFactorX, scrollFactorY = 0, offset = 0) {
 
-    for(let i = 0; i < count;i++){
-      this.add.image(i*500,offset,imageKey).setOrigin(0,0).setScrollFactor(scrollFactorX, scrollFactorY);
+    for (let i = 0; i < count; i++) {
+      this.add.image(i * 500, offset, imageKey).setOrigin(0, 0).setScrollFactor(scrollFactorX, scrollFactorY);
     }
 
   }
@@ -172,16 +176,16 @@ export default class Level1 extends Phaser.Scene {
    * sobre la que estaba la estrella cogida para evitar repeticiones
    * @param {Base} base La base sobre la que estaba la estrella que se ha cogido
    */
-  starPickt (base) {
+  starPickt(base) {
     this.player.point();
-      if (this.player.score == this.stars) {
-        this.scene.start('end');
-      }
-      // else {
-      //   let s = this.bases.children.entries;
-      //   this.spawn(s.filter(o => o !== base));
+    if (this.player.score == this.stars) {
+      this.scene.start('end');
+    }
+    // else {
+    //   let s = this.bases.children.entries;
+    //   this.spawn(s.filter(o => o !== base));
 
-      // }
+    // }
   }
 
   gameOver() {
