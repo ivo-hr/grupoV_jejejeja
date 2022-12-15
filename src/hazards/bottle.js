@@ -13,12 +13,10 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setCollideWorldBounds(); //Collision with the limits of the world
-        this.maxHeight = Phaser.Math.Between(200, 300) + y; //Parametro que dicta la altura max a la que llegara la botella
+        this.maxHeight = Phaser.Math.Between(250, 400); //Parametro que dicta la altura max a la que llegara la botella
         this.reachMaxHeight = false; //Boolean de si ha llegado a la altura tope
-        this.speed = 60; //Velocidad de la botella
-        this.gravitySpeed = 10;
-        this.x = x;
-        this.y = y;
+        this.itsFalling = false; //Boolean que dice si esta cayendo la botella
+        this.speed = Phaser.Math.Between(160, 200); //Velocidad de la botella
     }
   
     initialize(tam){
@@ -39,32 +37,33 @@ export default class Bottle extends Phaser.GameObjects.Sprite {
     preUpdate() {
         super.preUpdate();
         this.movement();
-        this.handleCollision();
-        
+        if(this.itsFalling) this.handleCollision();
     }
     
     movement(){
-        this.body.setVelocityX(this.speed);
-        if(this.y < this.maxHeight && !this.reachMaxHeight){
-            this.body.setVelocityY(this.speed * 3);
+        
+        if(this.y >= this.maxHeight && !this.reachMaxHeight){
+            if(this.speed > 50) this.body.setVelocityX(--this.speed);
+            this.body.setVelocityY(-this.speed);
         }
         else {
             this.reachMaxHeight = true;
-            //this.body.setVelocityY(-this.gravitySpeed);
-            this.gravitySpeed += 10;
+            this.itsFalling = true;
+            if(this.speed < 250) this.body.setVelocityX(++this.speed);
+            this.body.setVelocityY(this.speed);
         }
-        console.log(" y " + this.y);
+
         //Rotate
-        if (this.angle===360) this.angle=0;
-        this.angle += 10;
+        if (this.angle === 360) this.angle = 0;
+        this.angle += Phaser.Math.Between(5, 15);
     }
 
     //Handles the collision with player and floor
     
     handleCollision(){
-        if (this.scene.physics.overlap(this.scene.player, this)) {
-            this.scene.player.minusHealth(1)
+        if(this.scene.physics.collide(this.scene.layer5, this) 
+        || this.scene.physics.collide(this.scene.layer3, this)) {
             this.destroy();
-        }
+          }
     }
 }
