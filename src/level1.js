@@ -34,7 +34,7 @@ export default class Level1 extends Phaser.Scene {
    * Creación de los elementos de la escena principal de juego
    */
   create() {
-    if (this.scene)
+
     this.cameras.main.setBounds(0, -100, 1650 * 2, 270 * 2);
     //delimita limites del mundo
     this.bounds = this.physics.world.setBounds(0, -100, 1650 * 2, 270 * 2);
@@ -126,9 +126,12 @@ export default class Level1 extends Phaser.Scene {
 
 
   
+    if (this.music == null)
+      this.music = this.sound.add('game1', this.musicConfig);
 
-    this.music = this.sound.add('game1', this.musicConfig);
-    this.music.play();
+      this.music.play();
+
+
   }
 
   addParallaxImages(){
@@ -190,5 +193,18 @@ export default class Level1 extends Phaser.Scene {
 
     GameOver.scene.restart();
     //this.GameOver.scene.launch();
+  }
+
+  gameWin() {
+    this.music.stop();
+    this.scene.stop();
+    this.registry.destroy();
+    this.events.off();
+
+    let GameWin = this.scene.get('gameWin');
+
+    GameWin.moralitySet(this.scoreDial.getScore(), this.maxScore);
+
+    GameWin.scene.restart();
   }
 }

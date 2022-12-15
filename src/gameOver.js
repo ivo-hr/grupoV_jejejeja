@@ -43,9 +43,12 @@ export default class GameOver extends Phaser.Scene {
     //play music
     this.musicConfig = this.cfgScreen.grabMusicConfig();
     this.sfxConfig = this.cfgScreen.grabSfxConfig();
-    this.music = this.sound.add('game3', this.musicConfig);
 
-    this.music.play();
+
+    if (this.music == null)
+      this.music = this.sound.add('game3', this.musicConfig);
+      
+      this.music.play();
   }
 
   startGame() {
@@ -55,8 +58,7 @@ export default class GameOver extends Phaser.Scene {
     this.registry.destroy();
     this.events.off();
 
-    let menu = this.scene.get('Menu');
-    menu.scene.restart();
+    this.scene.start('Menu');
     //this.menu.scene.start();
     
   }

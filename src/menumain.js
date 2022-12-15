@@ -57,9 +57,11 @@ export default class Menu extends Phaser.Scene {
 
     this.musicConfig = this.cfgScreen.grabMusicConfig();
     this.sfxConfig = this.cfgScreen.grabSfxConfig();
-    this.music = this.sound.add('mainMenu', this.musicConfig);
 
-    this.music.play();
+    if (this.music == null)
+      this.music = this.sound.add('mainMenu', this.musicConfig);
+      
+      this.music.play();
   }
 
   startGame() {
@@ -70,8 +72,11 @@ export default class Menu extends Phaser.Scene {
     this.events.off();
 
     let level = this.scene.get('level1');
+    if (level.scene.isActive()) {
+      level.scene.resume();
+    }
+    else level.scene.start();
 
-    level.scene.restart();
     //this.level.scene.start();
     
   }

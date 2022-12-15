@@ -76,7 +76,6 @@ export default class Boot extends Phaser.Scene {
     this.load.setPath('assets/sounds/');
     this.load.audio('mainMenu', 'EggyToast_Condemned.mp3');
     this.load.audio('game1', 'EggyToast_DeathValley.mp3');
-    this.load.audio('game2', 'EggyToast_EnemiesofthePeople.mp3');
     this.load.audio('game3', 'EggyToast_YouTried.mp3');
     this.load.audio('dmg', 'dmgtaken.wav');
     this.load.audio('shot', 'shot.wav');
@@ -87,6 +86,11 @@ export default class Boot extends Phaser.Scene {
     this.load.audio('enemyKill', 'killedEnemy.wav');
     this.load.audio('bucket', 'bucket.wav');
     this.load.audio('death', 'death.wav');
+
+    this.load.audio('pacifist', 'undertale_gameOver.mp3');
+    this.load.audio('neutral', 'Deltarune_Lancer.mp3');
+    this.load.audio('genocide', 'EggyToast_EnemiesofthePeople.mp3');
+    
   }
 
   /**
