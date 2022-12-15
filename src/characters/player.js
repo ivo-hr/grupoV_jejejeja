@@ -118,19 +118,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
 		});
     
    
-    this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
+    /*this.on('animationcomplete', end =>{ //evento que se ejecuta cuando una animación ha terminado
 			//console.log(this.anims.currentAnim.key)
 			if(this.anims.currentAnim.key === 'hyperbeam'){ //comprobamos si la animación que ha terminado es 'attack'
 				this.play('movingplayer'); //ejecutamos la animación 'idle'
 			}
 			
-		})
+		})*/
 
-   this.onAnimationComplete('hyperbeam', 'movingplayer');
-   this.onAnimationComplete('gun', 'movingplayer');
-   this.onAnimationComplete('dash', 'movingplayer');
+    this.onAnimationComplete('hyperbeam', 'idlePlayer');
+    this.onAnimationComplete('gun', 'idlePlayer');
+    this.onAnimationComplete('dash', 'idlePlayer');
 
-    this.play('movingplayer');
+    this.play('idlePlayer');
 
 
   }
@@ -163,7 +163,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.scene.gameOver();
     }
     else
-    this.dmg.play();
+      this.dmg.play();
 
 
     console.log(this.healthBar.value);
@@ -175,7 +175,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   setable(){
     if(!this.available)
-    this.available=true;
+      this.available=true;
 
   
   }
@@ -297,7 +297,7 @@ setActiveAnim(){
       console.log("colisionWorld");
     }
     if(this.slowedTime > 0 && this.isSlowed){
-        this.slowedTime --;
+      this.slowedTime --;
     }
 
     if(Phaser.Input.Keyboard.JustDown(this.keys.SPACE)&&this.available){
@@ -376,7 +376,7 @@ setActiveAnim(){
     }
 
     //Con las teclas WASD variable keys
-    if(!this.notmove){
+    if(!this.notmove&&this.stand){
       if (this.keys.W.isDown && this.body.onFloor()) {
         this.body.setVelocityY(this.jumpSpeed);
 
@@ -408,21 +408,22 @@ setActiveAnim(){
       else if (this.keys.D.isDown) {
         if(this.stand){
           this.facingRight=true;
+        }
 
         this.body.setVelocityX(this.speed);
         if(this.quieto){
           this.quieto=false;
           this.setActiveAnim();
-        }
+          
         }
       }
   
       else {
-        if(this.stand)
-          this.body.setVelocityX(0);
+        
+        this.body.setVelocityX(0);
         if(!this.quieto){
           this.quieto=true;
-         this.setActiveAnim();
+          this.setActiveAnim();
         }
       }
 
