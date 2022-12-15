@@ -236,7 +236,7 @@ En principio el juego tendrá cuatro niveles, incrementando la dificultad  de ca
 
 La estética del juego es llevada a cabo con pixel art. Con una paleta de colores más bien vivos y cálidos, que contrasten con el color de la estatua que es más apagado.
 
-Todos los recursos artísticos visuales que estamos utilizado en el juego han sido creados por nosotros escepto por la imagen de la pantalla de inicio.
+Todos los recursos artísticos visuales que estamos utilizado en el juego han sido creados por nosotros excepto por la imagen de la pantalla de inicio.
 
  <img src="images_gdd/15.png">
 
