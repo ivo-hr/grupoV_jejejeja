@@ -11,6 +11,7 @@ import Dog from './characters/dog.js';
 import scoreDial from './score.js';
 import PowerUp from './powerUps/powerUp.js';
 import PowerHealth from './powerUps/powerHealth.js';
+import EndingFlag from './hazards/endingFlag.js';
 
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
