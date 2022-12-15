@@ -98,17 +98,13 @@ export default class Level1 extends Phaser.Scene {
     // this.obstacles.add(paintBucket);
     
     this.maxDialValue = 0;
-    let baby = new Baby(this, 300, this.floorLevel, 90);
-    baby.setScore(baby.myScore);
-    this.moralDialValue += baby.myScore;
-    baby.generateSounds(this.sfxConfig);
-    this.allEnemies.add(baby);
-
-    let baby2 = new Baby(this, 1200, this.floorLevel, 90);
-    baby2.setScore(baby2.myScore);
-    this.moralDialValue += baby2.myScore;
-    baby2.generateSounds(this.sfxConfig);
-    this.allEnemies.add(baby2);
+    this.spawnBabys();
+    this.spawnDrunks();
+    this.spawnDogs();
+    this.spawnBirds();
+    this.spawnBuckets();
+    this.spawnPowerUps();
+    this.spawnRains();
 
     // let birb = new Bird(this, 300, 250, 96);
     // birb.setScore(birb.myScore);
@@ -128,15 +124,9 @@ export default class Level1 extends Phaser.Scene {
 
     //crea el dial de moral
     this.scoreDial = new scoreDial(this, 450, 0, this.maxDialVal);
-    
-    //crea obstaculos
-    this.allPowerUps.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
-    this.allPowerUps.add(new PowerUp(this, 400, 300, 'powerShot', 0));
-    this.allPowerUps.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
-    this.allPowerUps.add(new PowerHealth(this, 600, 300));
 
     //crea la bandera final
-    this.obstacles.add(new EndingFlag(this, 600, 300));
+    this.obstacles.add(new EndingFlag(this, 1700*2, 200));
 
     //crea el texto de tiempo
     this.newtime=0;
@@ -191,7 +181,87 @@ export default class Level1 extends Phaser.Scene {
     this.timeText.setText("Time: " + Math.round(this.gameRuntime));
   }
 
+  spawnBabys(){
+    let baby = new Baby(this, 300, this.floorLevel, 90);
+    baby.setScore(baby.myScore);
+    this.moralDialValue += baby.myScore;
+    baby.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby);
 
+    let baby2 = new Baby(this, 1450, this.floorLevel, 90);
+    baby2.setScore(baby2.myScore);
+    this.moralDialValue += baby2.myScore;
+    baby2.generateSounds(this.sfxConfig);
+    this.allEnemies.add(baby2);
+  }
+  spawnDrunks(){
+    let drunk = new Drunk(this, 950, this.floorLevel, 90);
+    drunk.setScore(drunk.myScore);
+    this.moralDialValue += drunk.myScore;
+    this.allEnemies.add(drunk);
+
+    let drunk2 = new Drunk(this, 2300, this.floorLevel, 90);
+    drunk2.setScore(drunk2.myScore);
+    this.moralDialValue += drunk2.myScore;
+    this.allEnemies.add(drunk2);
+  }
+
+  spawnDogs(){
+    let dog = new Dog(this, 1200, this.floorLevel, 60);
+    dog.setScore(dog.myScore);
+    this.moralDialValue += dog.myScore;
+    this.allEnemies.add(dog);
+
+    let dog2 = new Dog(this, 2600, this.floorLevel, 60);
+    dog2.setScore(dog2.myScore);
+    this.moralDialValue += dog2.myScore;
+    this.allEnemies.add(dog2);
+  }
+
+  spawnBirds(){
+    let bird = new Bird(this, 600, 150, 96);
+    bird.setScore(bird.myScore);
+    this.moralDialValue += bird.myScore;
+    bird.generateSounds(this.sfxConfig);
+    this.allEnemies.add(bird);
+
+    let bird2 = new Bird(this, 2900, 150, 96);
+    bird2.setScore(bird2.myScore);
+    this.moralDialValue += bird2.myScore;
+    bird2.generateSounds(this.sfxConfig);
+    this.allEnemies.add(bird2);
+  }
+
+  spawnBuckets(){
+    let bucket = new PaintBucket(this, 770, 20, 60);
+    this.obstacles.add(bucket);
+
+    let bucket2 = new PaintBucket(this, 1800, 20, 60);
+    this.obstacles.add(bucket2);
+
+    let bucket3 = new PaintBucket(this, 1100, 20, 60);
+    this.obstacles.add(bucket3);
+
+    let bucket4 = new PaintBucket(this, 2600, 20, 60);
+    this.obstacles.add(bucket4);
+  }
+
+  spawnPowerUps(){
+    this.allPowerUps.add(new PowerUp(this, 2070, this.floorLevel-60, 'powerHyperbeam', 1));
+    this.allPowerUps.add(new PowerHealth(this, 1260, this.floorLevel-200));
+    this.allPowerUps.add(new PowerHealth(this, 1850, this.floorLevel-70));
+    this.allPowerUps.add(new PowerHealth(this, 2450, this.floorLevel-100));
+    this.allPowerUps.add(new PowerHealth(this, 3150, this.floorLevel-100));
+    this.allPowerUps.add(new PowerUp(this, 850, this.floorLevel-50, 'powerPunch', 2));
+    this.allPowerUps.add(new PowerUp(this, 2130, this.floorLevel - 180, 'powerPunch', 2));
+    this.allPowerUps.add(new PowerUp(this, 1400, this.floorLevel-240, 'powerShot', 0));
+  }
+
+  spawnRains(){
+    this.obstacles.add(new Rain(this, 1480, 100, 0.5, 630));
+    this.obstacles.add(new Rain(this, 2070, 100, 0.5, 630));
+    this.obstacles.add(new Rain(this, 3020, 100, 0.5, 630));
+  }
 
  //si el jugador muere, se para la musica y se llama a la escena de gameOver
   gameOver() {

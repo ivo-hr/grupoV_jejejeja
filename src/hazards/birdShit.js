@@ -2,7 +2,7 @@ export default class BirdShit extends Phaser.GameObjects.Sprite {
 
   //Constructor
   constructor(scene, x, y) {
-    super(scene, x, y, 'birdshit'); 
+    super(scene, x, y, 'birdShit'); 
 
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
