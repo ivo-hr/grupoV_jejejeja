@@ -56,13 +56,13 @@ export default class Level1 extends Phaser.Scene {
     this.layer5 = map.createLayer('Suelo', tileset, 0, 0);
     this.layer3.setCollisionByProperty({ collides: true });
     this.layer3.forEachTile(tile => {
-      if (tile.properties["Atravesable"]) {
+    if (tile.properties["Atravesable"]) {
         tile.setCollision(false, false, true, false);
       }
     });
     this.layer4.setCollisionByProperty({ collides: true });
     this.layer4.forEachTile(tile => {
-      if (tile.properties["Atravesable"]) {
+    if (tile.properties["Atravesable"]) {
         tile.setCollision(false, false, true, false);
       }
     });
@@ -128,7 +128,12 @@ export default class Level1 extends Phaser.Scene {
     this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
     this.obstacles.add(new PowerHealth(this, 600, 300));
 
-
+    this.newtime=0;
+    this.restarted=true;
+    this.timeText=this.add.text(20,5, "Time: ", 
+    {font: "24px", fill: '#000000', stroke: '#FFF', strokeThickness: 3}); 
+    
+    this.timeText.setScrollFactor(0);
 
     this.cameras.main.startFollow(this.player);
 
@@ -181,17 +186,19 @@ export default class Level1 extends Phaser.Scene {
    * sobre la que estaba la estrella cogida para evitar repeticiones
    * @param {Base} base La base sobre la que estaba la estrella que se ha cogido
    */
-  starPickt(base) {
-    this.player.point();
-    if (this.player.score == this.stars) {
-      this.scene.start('end');
-    }
-    // else {
-    //   let s = this.bases.children.entries;
-    //   this.spawn(s.filter(o => o !== base));
+  
 
-    // }
+  update(time){
+    if(this.restarted){
+      this.newtime=time;
+      this.restarted=false;
+    }
+    let gameRuntime = (time-this.newtime) * 0.001; 
+    this.timeText.setText("Time: " + Math.round(gameRuntime));
   }
+
+
+
  //si el jugador muere, se para la musica y se llama a la escena de gameOver
   gameOver() {
     this.music.stop();
