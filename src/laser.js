@@ -13,6 +13,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setGravity(0,-100);
+        //this.body.setCollideWorldBounds(false,false);
         this.scaleX=1;
         this.dir=scal;
         this.elong=7;
