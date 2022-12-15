@@ -47,6 +47,8 @@ export default class Level1 extends Phaser.Scene {
     this.musicConfig = this.cfgScreen.musicConfig;
     this.sfxConfig = this.cfgScreen.sfxConfig;
 
+
+   
     const map = this.make.tilemap({ key: 'lvlP' });
     const tileset = map.addTilesetImage('tumama', 'tiles');
     const layer2 = map.createLayer('Building', tileset, 0, 0);
@@ -99,9 +101,8 @@ export default class Level1 extends Phaser.Scene {
     this.gameScore = 0;
     this.n = allEnemies.getLength(); //numero de enemigos en el nivel
     this.p = allPowerUps.getLength(); //power-ups del nivel
-    this.r = this.scoreDial.getScore(); //score de enemigos matados - score de enemigos total del nivel
-    this.d = D = this.damage; //daño recibido en el nivel
-    this.t = this.gameRunTime; //tiempo en pasarse el nivel
+    
+    this.damage = 0;
 
     // for(let i=0;i<4;i++){
     //   let baby = new Baby(this, 100+i*300, this.floorLevel, 90);
@@ -228,6 +229,11 @@ export default class Level1 extends Phaser.Scene {
   }
 //si el jugador gana, se para la musica y se llama a la escena de gameWin
   gameWin() {
+    this.r = this.scoreDial.getScore(); //score de enemigos matados - score de enemigos total del nivel
+    this.d = D = this.damage; //daño recibido en el nivel
+    this.t = this.gameRunTime; //tiempo en pasarse el nivel
+    this.gameScore = (this.n ^ this.p + (this.r + this.d) / (this.d + 1)) / this.t;
+
     this.music.stop();
     this.scene.stop();
     this.registry.destroy();
