@@ -12,14 +12,12 @@ export default class Laser extends Phaser.GameObjects.Sprite {
         this.setOrigin(0,0.5)
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.scaleX=scal;
-        //this.toscal=scal*20;
+        this.body.setGravity(0,-100);
+        this.scaleX=1;
+        this.dir=scal;
+        this.elong=7;
+       
 
-        //this.setOrigin(x,y);
-
-        
-        
-        
         //this.graph = this.scene.add.graphics({ lineStyle: { width: 4, color: 0xaa00aa } });
         //this.line = this.scene.add.existing(new Phaser.Geom.Line(this.x, 500, this.x, this.y));
         this.body.setVelocity(0, 0);
@@ -61,7 +59,7 @@ export default class Laser extends Phaser.GameObjects.Sprite {
     }
 
     charging(){
-       
+       if(this.dir===1){
 
         this.charge=this.scene.tweens.add({
             targets: this,
@@ -69,11 +67,31 @@ export default class Laser extends Phaser.GameObjects.Sprite {
             duration: 300,
             ease:'Linear',
             yoyo:false,
-            scaleX: this.scaleX*15
+            scaleX: this.scaleX*this.elong,
+            
             //onUpdate: this.scaleX*=1.3
             
            
         })
+       }
+       else if(this.dir===-1){
+        this.x=this.x-30;
+        this.charge=this.scene.tweens.add({
+            targets: this,
+           
+            duration: 300,
+            ease:'Linear',
+            yoyo:false,
+            scaleX: this.scaleX*this.elong,
+            x: this.x-27.5*this.elong
+            //onUpdate: this.scaleX*=1.3
+            
+        })
+
+
+
+       }
+       
     }
     
     onDestroy(){
@@ -86,38 +104,24 @@ export default class Laser extends Phaser.GameObjects.Sprite {
 
     preUpdate(t, dt){
         super.preUpdate(t, dt);
-        if(this.body.newVelocity.y <= 0){ 
-            //this.line.y2 = this.y;
-            //this.graphics.strokeLineShape(this.line);
-        }
-        else{
+       
 
             let timer=this.scene.time.addEvent({
-                delay: 2000, 
+                delay: 1000, 
                 callback: this.onDestroy,
                 callbackScope: this,
                 
             });
             
-        }
+        
 
         this.scene.physics.add.collider(this.scene.allEnemies, this, (o1, o2) => {
             // hacer algo
-            this.scene.player.point();
+            
             o1.onDestroy(); 
-            this.onDestroy();
+            this.body.setVelocity(0, 0);
+            //this.onDestroy();
         });
 
-        // if(this.scene.physics.overlap(this.scene.allEnemies, this,)){
-        //     this.scene.player.point();
-        //     this.onDestroy();
-        // }
-
-        // if(this.scene.physics.overlap(this.scene.allEnemies, this)){
-        //     this.scene.player.point();
-        //     this.onDestroy();
-        //     //this.scene.allEnemies.onDestroy();
-        // }
-       // game.physics.arcade.overlap(bullets, aliens, collisionHandler, null, this);
     }
 }

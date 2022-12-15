@@ -9,6 +9,9 @@ import Rain from './hazards/rain.js';
 import PaintBucket from './hazards/paintBucket.js';
 import Drunk from './characters/drunk.js';
 
+import scoreDial from './score.js';
+import PowerUp from './powerUps/PowerUp.js';
+
 /**
  * Escena principal del juego. La escena se compone de una serie de plataformas 
  * sobre las que se sitúan las bases en las podrán aparecer las estrellas. 
@@ -99,6 +102,13 @@ export default class Level1 extends Phaser.Scene {
     this.allEnemies.add(borracho);
 
     // this.spawn();
+
+    this.obstacles.add(new PowerUp(this, 300, 300, 'powerPunch', 2));
+    this.obstacles.add(new PowerUp(this, 400, 300, 'powerShot', 0));
+    this.obstacles.add(new PowerUp(this, 500, 300, 'powerHyperbeam', 1));
+
+    this.scoreDial = new scoreDial(this, 200, 300);
+    this.scoreDial.update(0.5);
 
 
     this.cameras.main.startFollow(this.player);

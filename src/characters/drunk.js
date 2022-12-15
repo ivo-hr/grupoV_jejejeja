@@ -16,7 +16,7 @@ import Bottle from "../hazards/bottle.js"
       this.speed = 50;
       this.movingRight = true;
       this.setFlip(true, false);
-      this.maxMovement = 100;
+      this.maxMovement = 150;
       this.currentMovement = 0;
       this.missilCooldown = 0;
       this.missilFrequency = 5000;
@@ -40,7 +40,7 @@ import Bottle from "../hazards/bottle.js"
 
     //lanza botella en forma de parabola contra el suelo
     throwbottle(){
-      new Bottle(this.scene, this.x, this.y, 15);
+      new Bottle(this.scene, this.x, this.y, 15, this.movingRight);
     }
   
     /**
@@ -68,25 +68,23 @@ import Bottle from "../hazards/bottle.js"
       }
 
       if(this.currentMovement >= this.maxMovement) {
-        this.currentMovement = Phaser.Math.Between(this.maxMovement / 2, this.maxMovement);//se resetea la cuenta
-
+        //se resetea la cuenta
+        this.currentMovement = Phaser.Math.Between(this.maxMovement / 5, this.maxMovement);
+        
         if(this.movingRight) this.setFlip(false, false);
         else this.setFlip(true, false);
 
         this.movingRight = !this.movingRight;
       }
 
-      if(this.movingRight){
-        this.body.setVelocity(this.speed, 0);      }
+      if(this.movingRight)
+        this.body.setVelocity(this.speed, 0);
       else
-      this.body.setVelocity(-this.speed, 0);
+        this.body.setVelocity(-this.speed, 0);
 
-      //this.body.setVelocity(100,100).setBounce(1,1);
       if (this.scene.physics.overlap(this.scene.player, this)) {
           this.scene.player.minusHealth(1);   
       }
-      
-      
     }
 
     generateSounds(sfxConfig){

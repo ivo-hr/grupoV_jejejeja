@@ -21,7 +21,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
     // Queremos que el jugador no se salga de los límites del mundo
     this.body.setCollideWorldBounds();
-    this.body.setGravity(0,600);
+    this.gforce=600;
+    this.body.setGravity(0,this.gforce);
     this.originalSpeed = 200;
     this.speed = this.originalSpeed;
     this.slowedTime = 0;
@@ -36,6 +37,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.healthBar.setScrollFactor(0);
     this.available=true;
     this.stand=true;
+    this.invincible=false;
+    this.notmove=false;
 
     this.body.setSize(60, 40);
 
@@ -46,7 +49,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       ElDash: 2
     }
 
-    this.state= 0;
+    this.state= 1;
 
     this.flipped=false;
     this.facingRight=true;
@@ -168,6 +171,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.stand=true;
   }
 
+  
+
+  vulnerable(){
+    if(this.invincible){
+      this.invincible=false;
+    }
+  }
+
 
   able(){
     
@@ -189,6 +200,49 @@ export default class Player extends Phaser.GameObjects.Sprite {
    });
   
   
+}
+
+
+invincibility(){
+    
+  let timer=this.scene.time.addEvent({
+    delay: 2000, 
+    callback: this.vulnerable,
+    callbackScope: this,
+ });
+
+
+}
+setInvincible(){
+  this.invincible=true;
+  this.invincibility();
+}
+
+mov(){
+  this.notmove=false;
+  this.body.setGravity(0,this.gforce);
+}
+
+inmov(){
+    
+  let timer=this.scene.time.addEvent({
+    delay: 1000, 
+    callback: this.mov,
+    callbackScope: this,
+ });
+
+
+}
+
+laserable(){
+  
+  let timer=this.scene.time.addEvent({
+    delay: 3000, 
+    callback: this.setable,
+    callbackScope: this,
+ });
+
+
 }
 
   /**
@@ -248,7 +302,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
   
         }
         this.available=false;
-        this.able();
+        this.notmove=true;
+        this.inmov();
+        this.laserable();
+        this.body.setVelocityX(0);
+        this.body.setVelocityY(0);
+        this.body.setGravity(0,-100);
 
         this.laser.play();
       }
@@ -294,7 +353,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.scene.physics.moveTo(this,this.x-300,this.y,300,200)
       this.stand=false;
       this.dash();
-
       }
     }
     
@@ -305,14 +363,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
       else{
       this.bullet = new Laser(this.scene,this.x,this.y,-1);
       this.bullet.setFlip(false,false);
-
       }
       this.available=false;
-
       this.able();
     }
-
-
     /*if(!this.available){
       let timer=this.scene.time.addEvent({
         delay: 2000, 
@@ -341,6 +395,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     })*/
 
     //Con las teclas WASD variable keys //Funciona
+    if(!this.notmove){
     if (this.keys.W.isDown && this.body.onFloor()) {
       this.body.setVelocityY(this.jumpSpeed);
 
@@ -365,6 +420,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(this.speed);
       }
     }
+  
 
    
     
@@ -372,6 +428,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if(this.stand)
       this.body.setVelocityX(0);
     }
+
+  }
    
     if(!this.facingRight&&!this.flipped){
       this.setFlip(true, false);
@@ -419,8 +477,3 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   //remember this is a function
 }
-    
-    
-  
-  
-
