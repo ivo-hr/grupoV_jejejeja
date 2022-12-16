@@ -59,7 +59,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       ElDash: 2
     }
 
-    this.state= 2;
+    this.state= 0;
 
     this.flipped=false;
     this.facingRight=true;
