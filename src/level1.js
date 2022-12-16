@@ -264,7 +264,7 @@ export default class Level1 extends Phaser.Scene {
 
     let GameOver = this.scene.get('gameOver');
 
-    //GameOver.scene.restart();
+    GameOver.scene.restart();
 
     
     // let GameWin = this.scene.get('gameWin');
@@ -272,7 +272,7 @@ export default class Level1 extends Phaser.Scene {
     // GameWin.moralitySet(this.scoreDial.getScore(), this.maxDialVal, this.gameScore);
 
 
-    GameWin.scene.restart();
+    // GameWin.scene.restart();
     //this.GameOver.scene.launch();
   }
 //si el jugador gana, se para la musica y se llama a la escena de gameWin

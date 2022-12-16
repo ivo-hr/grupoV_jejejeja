@@ -380,13 +380,13 @@ playerdmg(){
       }
 
     }
-    else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
-      if(this.facingRight)
-        this.x+=300;
-      else
-        this.x+=-300;
-        // console.log(this.height);
-    }
+    // else if (Phaser.Input.Keyboard.JustDown(this.keys.T)) {
+    //   if(this.facingRight)
+    //     this.x+=300;
+    //   else
+    //     this.x+=-300;
+    //     // console.log(this.height);
+    // }
     
     else if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
       //make a pause menu
