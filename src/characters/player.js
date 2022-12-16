@@ -177,7 +177,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   end(){
-   
+    this.invincible=false;
     if(!this.stand)
       this.stand=true;
     this.play('idlePlayer');
@@ -360,6 +360,7 @@ playerdmg(){
           this.scene.physics.moveTo(this,this.x+150,this.y,500,200)
           this.stand=false;
           this.available=false;
+          this.invincible=true;
           this.dash();
           this.dashable();
           this.obdash=new Dashield(this.scene,this.x,this.y)
@@ -370,6 +371,7 @@ playerdmg(){
           this.scene.physics.moveTo(this,this.x-150,this.y,500,200)
           this.stand=false;
           this.available=false;
+          this.invincible=true;
           this.dash();
           this.dashable();
           this.obdash=new Dashield(this.scene,this.x,this.y)
